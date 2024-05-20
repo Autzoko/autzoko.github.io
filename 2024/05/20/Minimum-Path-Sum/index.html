@@ -19,27 +19,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"autzoko.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Welcome to my personal blog. I open this blog when I am about to graduate from my university, at the time I extremely want to use something to document my life and things I’ve learned. And now I’m on">
+    <meta name="description" content="Given a m * n grid filled with non-negative numbers, find a path from top left to bottom right, which minizes the sum of all numbers along its path.  Moves can only be taken down or right at any point">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Introduction">
-<meta property="og:url" content="https://autzoko.github.io/2024/05/20/Introduction/index.html">
+<meta property="og:title" content="Minimum Path Sum">
+<meta property="og:url" content="https://autzoko.github.io/2024/05/20/Minimum-Path-Sum/index.html">
 <meta property="og:site_name" content="Blog | Autzoko Lang">
-<meta property="og:description" content="Welcome to my personal blog. I open this blog when I am about to graduate from my university, at the time I extremely want to use something to document my life and things I’ve learned. And now I’m on">
+<meta property="og:description" content="Given a m * n grid filled with non-negative numbers, find a path from top left to bottom right, which minizes the sum of all numbers along its path.  Moves can only be taken down or right at any point">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-05-20T13:35:18.000Z">
-<meta property="article:modified_time" content="2024-05-20T13:49:38.456Z">
+<meta property="article:published_time" content="2024-05-20T14:52:22.000Z">
+<meta property="article:modified_time" content="2024-05-20T15:00:14.777Z">
 <meta property="article:author" content="Autzoko Lang">
+<meta property="article:tag" content="algorithms">
+<meta property="article:tag" content="dynamic programming">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://autzoko.github.io/2024/05/20/Introduction/">
+<link rel="canonical" href="https://autzoko.github.io/2024/05/20/Minimum-Path-Sum/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://autzoko.github.io/2024/05/20/Introduction/","path":"2024/05/20/Introduction/","title":"Introduction"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://autzoko.github.io/2024/05/20/Minimum-Path-Sum/","path":"2024/05/20/Minimum-Path-Sum/","title":"Minimum Path Sum"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Introduction | Blog | Autzoko Lang</title>
+<title>Minimum Path Sum | Blog | Autzoko Lang</title>
   
 
 
@@ -112,7 +114,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#About-This-Blog"><span class="nav-number">1.</span> <span class="nav-text">About This Blog</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-number">1.</span> <span class="nav-text">Solution</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -185,7 +187,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/20/Introduction/">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/20/Minimum-Path-Sum/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -198,12 +200,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Introduction | Blog | Autzoko Lang">
+      <meta itemprop="name" content="Minimum Path Sum | Blog | Autzoko Lang">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Introduction
+          Minimum Path Sum
         </h1>
 
         <div class="post-meta-container">
@@ -215,7 +217,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2024-05-20 21:35:18 / Modified: 21:49:38" itemprop="dateCreated datePublished" datetime="2024-05-20T21:35:18+08:00">2024-05-20</time>
+      <time title="Created: 2024-05-20 22:52:22 / Modified: 23:00:14" itemprop="dateCreated datePublished" datetime="2024-05-20T22:52:22+08:00">2024-05-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -223,7 +225,11 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Others/" itemprop="url" rel="index"><span itemprop="name">Others</span></a>
+          <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithms/Problems/" itemprop="url" rel="index"><span itemprop="name">Problems</span></a>
         </span>
     </span>
 
@@ -236,12 +242,23 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>Welcome to my personal blog. I open this blog when I am about to graduate from my university, at the time I extremely want to use something to document my life and things I’ve learned. And now I’m on my way to the United States to start a brand new experience of studying. I want to keep some memories through this blog, and meanwhile take some notes about the things that might be useful to my future development.</p>
-<h2 id="About-This-Blog"><a href="#About-This-Blog" class="headerlink" title="About This Blog"></a>About This Blog</h2><p>Due to my major is computer science&#x2F;engineering, so most of study notes are related to fields like computer science, computer engineering, software developing, etc., I have to admit that I’m not excel at such subjects, but I am still keen on them and wish to make something big from my own hands. Hope this blog can witness my improvements :)</p>
-<p>This blog does not only focus on such academic matters. For other parts, I will upload some of my daily life records, like photos, music, and maybe some unexpected inspiration and ideas. And I will write each blog article in English as possible as I can, to improve my English writing skills, and maybe it’s benefit to my future experience in the US🙂</p>
-<p><strong>Hope you enjoy my blog, and discover something new!</strong></p>
-<p><em><strong>Crescat Scientia Vita Excolatur</strong></em></p>
-<p><em><strong>益智厚生</strong></em></p>
+    <div class="post-body" itemprop="articleBody"><p>Given a m * n grid filled with non-negative numbers, find a path from top left to bottom right, which minizes the sum of all numbers along its path.</p>
+<ul>
+<li>Moves can only be taken down or right at any point in time.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: grid = [[1, 3, 1], [1, 5, 1], [4, 2, 1]];</span><br><span class="line">Output: 7;</span><br></pre></td></tr></table></figure>
+
+<p>Constraints:</p>
+<ul>
+<li>1 &lt;&#x3D; m, n &lt;&#x3D; 200</li>
+<li>0 &lt;&#x3D; grid[i, j] &lt;&#x3D; 200</li>
+</ul>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MinimumPathSum</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minPathSum</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n_row = grid.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> n_col = grid[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> **dp = <span class="keyword">new</span> <span class="type">int</span>*[n_row];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n_row; i++) &#123;</span><br><span class="line">            dp[i] = <span class="keyword">new</span> <span class="type">int</span>[n_col];</span><br><span class="line">            <span class="built_in">fill_n</span>(dp[i], n_col, INT_MAX);</span><br><span class="line">        &#125;</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = grid[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n_row; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; n_col; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i) &#123;</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j] + grid[i][j] &lt; dp[i][j] ? dp[i - <span class="number">1</span>][j] + grid[i][j] : dp[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(j) &#123;</span><br><span class="line">                    dp[i][j] = dp[i][j - <span class="number">1</span>] + grid[i][j] &lt; dp[i][j] ? dp[i][j - <span class="number">1</span>] + grid[i][j] : dp[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n_row - <span class="number">1</span>][n_col - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Explanation:</strong></p>
+<p>Using a <em>dp</em> array to indicate the current minimum path sum. And this sum can only be the sum of the up <em>dp</em> point and current <em>grid</em> point or the left <em>dp</em> point and current <em>grid</em> point. The <em>dp</em> function can be defined as follow:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i, j] := <span class="built_in">min</span>(dp[i - <span class="number">1</span>, j] + grid[i, j], dp[i, j - <span class="number">1</span>] + grid[i, j])</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -281,16 +298,20 @@
   </div>
 </div>
 
+          <div class="post-tags">
+              <a href="/tags/algorithms/" rel="tag"># algorithms</a>
+              <a href="/tags/dynamic-programming/" rel="tag"># dynamic programming</a>
+          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/2024/05/20/Introduction/" rel="prev" title="Introduction">
+                  <i class="fa fa-angle-left"></i> Introduction
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/05/20/Minimum-Path-Sum/" rel="next" title="Minimum Path Sum">
-                  Minimum Path Sum <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
