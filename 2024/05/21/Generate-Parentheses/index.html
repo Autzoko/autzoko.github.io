@@ -19,29 +19,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"autzoko.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Given a m * n grid filled with non-negative numbers, find a path from top left to bottom right, which minizes the sum of all numbers along its path.  Moves can only be taken down or right at any point">
+    <meta name="description" content="Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses. Example: 12Input: n &#x3D; 3;Output: [&quot;((()))&quot;, &quot;(()())&quot;, &quot;(())()&quot;, &amp;qu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Minimum Path Sum">
-<meta property="og:url" content="https://autzoko.github.io/2024/05/20/Minimum-Path-Sum/index.html">
+<meta property="og:title" content="Generate Parentheses">
+<meta property="og:url" content="https://autzoko.github.io/2024/05/21/Generate-Parentheses/index.html">
 <meta property="og:site_name" content="Blog | Autzoko Lang">
-<meta property="og:description" content="Given a m * n grid filled with non-negative numbers, find a path from top left to bottom right, which minizes the sum of all numbers along its path.  Moves can only be taken down or right at any point">
+<meta property="og:description" content="Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses. Example: 12Input: n &#x3D; 3;Output: [&quot;((()))&quot;, &quot;(()())&quot;, &quot;(())()&quot;, &amp;qu">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-05-20T14:52:22.000Z">
-<meta property="article:modified_time" content="2024-05-20T15:00:14.777Z">
+<meta property="article:published_time" content="2024-05-21T12:46:17.000Z">
+<meta property="article:modified_time" content="2024-05-21T12:52:11.773Z">
 <meta property="article:author" content="Autzoko Lang">
 <meta property="article:tag" content="algorithms">
 <meta property="article:tag" content="dynamic programming">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://autzoko.github.io/2024/05/20/Minimum-Path-Sum/">
+<link rel="canonical" href="https://autzoko.github.io/2024/05/21/Generate-Parentheses/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://autzoko.github.io/2024/05/20/Minimum-Path-Sum/","path":"2024/05/20/Minimum-Path-Sum/","title":"Minimum Path Sum"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://autzoko.github.io/2024/05/21/Generate-Parentheses/","path":"2024/05/21/Generate-Parentheses/","title":"Generate Parentheses"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Minimum Path Sum | Blog | Autzoko Lang</title>
+<title>Generate Parentheses | Blog | Autzoko Lang</title>
   
 
 
@@ -187,7 +187,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/20/Minimum-Path-Sum/">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/21/Generate-Parentheses/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -200,12 +200,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Minimum Path Sum | Blog | Autzoko Lang">
+      <meta itemprop="name" content="Generate Parentheses | Blog | Autzoko Lang">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Minimum Path Sum
+          Generate Parentheses
         </h1>
 
         <div class="post-meta-container">
@@ -217,7 +217,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2024-05-20 22:52:22 / Modified: 23:00:14" itemprop="dateCreated datePublished" datetime="2024-05-20T22:52:22+08:00">2024-05-20</time>
+      <time title="Created: 2024-05-21 20:46:17 / Modified: 20:52:11" itemprop="dateCreated datePublished" datetime="2024-05-21T20:46:17+08:00">2024-05-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -242,23 +242,18 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>Given a m * n grid filled with non-negative numbers, find a path from top left to bottom right, which minizes the sum of all numbers along its path.</p>
-<ul>
-<li>Moves can only be taken down or right at any point in time.</li>
-</ul>
+    <div class="post-body" itemprop="articleBody"><p>Given <em>n</em> pairs of parentheses, write a function to generate all combinations of well-formed parentheses.</p>
 <p><strong>Example:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: grid = [[1, 3, 1], [1, 5, 1], [4, 2, 1]];</span><br><span class="line">Output: 7;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n = 3;</span><br><span class="line">Output: [&quot;((()))&quot;, &quot;(()())&quot;, &quot;(())()&quot;, &quot;()(())&quot;, &quot;()()()&quot;]</span><br></pre></td></tr></table></figure>
 
-<p>Constraints:</p>
+<p><strong>Constraints:</strong></p>
 <ul>
-<li>1 &lt;&#x3D; m, n &lt;&#x3D; 200</li>
-<li>0 &lt;&#x3D; grid[i, j] &lt;&#x3D; 200</li>
+<li>1 &lt;&#x3D; n &lt;&#x3D; 8</li>
 </ul>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MinimumPathSum</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minPathSum</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n_row = grid.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> n_col = grid[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> **dp = <span class="keyword">new</span> <span class="type">int</span>*[n_row];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n_row; i++) &#123;</span><br><span class="line">            dp[i] = <span class="keyword">new</span> <span class="type">int</span>[n_col];</span><br><span class="line">            <span class="built_in">fill_n</span>(dp[i], n_col, INT_MAX);</span><br><span class="line">        &#125;</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = grid[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n_row; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; n_col; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i) &#123;</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j] + grid[i][j] &lt; dp[i][j] ? dp[i - <span class="number">1</span>][j] + grid[i][j] : dp[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(j) &#123;</span><br><span class="line">                    dp[i][j] = dp[i][j - <span class="number">1</span>] + grid[i][j] &lt; dp[i][j] ? dp[i][j - <span class="number">1</span>] + grid[i][j] : dp[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n_row - <span class="number">1</span>][n_col - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">GenerateParentheses</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;string&gt; res;</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">generateParentheses</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n &lt;= <span class="number">0</span>) <span class="keyword">return</span> res;</span><br><span class="line">        <span class="built_in">p</span>(<span class="string">&quot;&quot;</span>, n, n);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">p</span><span class="params">(string str, <span class="type">int</span> left, <span class="type">int</span> right)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(left == <span class="number">0</span> &amp;&amp; right == <span class="number">0</span>) &#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(str);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(left == right) &#123;</span><br><span class="line">            <span class="built_in">p</span>(str + <span class="string">&quot;(&quot;</span>, left - <span class="number">1</span>, right);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(left &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="built_in">p</span>(str + <span class="string">&quot;(&quot;</span>, left - <span class="number">1</span>, right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">p</span>(str + <span class="string">&quot;)&quot;</span>, left, right - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p><strong>Explanation:</strong></p>
-<p>Using a <em>dp</em> array to indicate the current minimum path sum. And this sum can only be the sum of the up <em>dp</em> point and current <em>grid</em> point or the left <em>dp</em> point and current <em>grid</em> point. The <em>dp</em> function can be defined as follow:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i, j] := <span class="built_in">min</span>(dp[i - <span class="number">1</span>, j] + grid[i, j], dp[i, j - <span class="number">1</span>] + grid[i, j])</span><br></pre></td></tr></table></figure>
+<p>The number of remained left parenthese must be less or equal to the number of remained right parenthese. If the number of remained left parenthese equals to the remained right one, the next can only be a left parenthese. If the number of remained left parenthese is less than the right one, the next one can be either a left parenthese or a right parenthese. This problem can be solved by using <strong>recursion</strong> algorithm.</p>
 
     </div>
 
@@ -317,14 +312,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/05/20/Introduction/" rel="prev" title="Introduction">
-                  <i class="fa fa-angle-left"></i> Introduction
+                <a href="/2024/05/20/Minimum-Path-Sum/" rel="prev" title="Minimum Path Sum">
+                  <i class="fa fa-angle-left"></i> Minimum Path Sum
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/05/21/Generate-Parentheses/" rel="next" title="Generate Parentheses">
-                  Generate Parentheses <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
