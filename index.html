@@ -124,18 +124,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -172,6 +172,102 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/21/Paper-Reading-Attention-is-All-You-Need/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Blog | Autzoko Lang">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/05/21/Paper-Reading-Attention-is-All-You-Need/" class="post-title-link" itemprop="url">Paper Reading: Attention is All You Need</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-05-21 21:15:28" itemprop="dateCreated datePublished" datetime="2024-05-21T21:15:28+08:00">2024-05-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-05-29 20:48:38" itemprop="dateModified" datetime="2024-05-29T20:48:38+08:00">2024-05-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Paper-Reading/" itemprop="url" rel="index"><span itemprop="name">Paper Reading</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><strong>Attention is All You Need</strong> is a paper published in 2017 by Google Brain team. In this paper, the prominent <strong>self-attention mechanism</strong> and <strong>multi-headed self-attention mechanism</strong> are proposed to enhance the general capacity of neural networks. Meanwhile, a basic neural network architecture <strong>Transformer</strong> is proposed to adopt such mechanism and its been tested on translation task.</p>
+<h2 id="What-is-Attention"><a href="#What-is-Attention" class="headerlink" title="What is Attention?"></a>What is Attention?</h2><p>The <strong>attention</strong> mentioned in neural network is similar with the one we mentioned about human intelligence: an ability to capture information which seems to be more important (subjectively). The “attention mechanism” in human congnition is prominently manifested across various sensory perceptions. For instance, when using our eyes, certain features such as bright colors, rapid movements, or familiar faces tend to capture our gaze. Similarly, during reading, specific names, events, or elegant phrases can leave a lasting impression. This attention mechanism also extends to other senses like smell, touch, and hearing. Furthermore, the stream of consciousness during thought processes is often influenced by particularly striking information, all of which illustrate the attention mechanism in human cognition.</p>
+<p>In the context of a nerual network, what does the attention mechanism refer to? For example, when we want a neural network to process an image, how does it determine which elements of the image are more important. Consider objects like people, pets, or cars in an image—how does the network decide which one is more noteworthy in the image’s “context”? The attention mechanism addresses this problem. When processing an image, the neural network assigns higher weights, or “attention scores”, to what it deems more important information. During subsequent forwarding process, the high-weight information is emphasized, enabling the network to capture more detailed and deeper features. This, in turn, aids in handling the semantic importance of the image. Besides image processing, the mechanism is applicable to text, audio, graph, and other data types. Since data in neural networks exists as discrete tensors, the fundamental principles of calculating attention scores remain consistent across different data types.</p>
+<h2 id="Self-Attention-Mechanism"><a href="#Self-Attention-Mechanism" class="headerlink" title="Self-Attention Mechanism"></a>Self-Attention Mechanism</h2><p>The so-called self-attention mechanism refers to a process where the attention scores are computed by comparing the elements within the sequence itself. In other words, the reference for calculating attention scores is the sequence as a whole. For a tensor sequence input into a neural network, the self-attention mechanism requires computing the attention scores between each element and every other element in the sequence. The basic process can be represented in pseudocode as follows:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (element_x : input_sequence) &#123;</span><br><span class="line">	for (element_y : input_sequence) &#123;</span><br><span class="line">		attention_score[x][y] = compute_score(element_x, element_y);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>However, for deep learning tasks, using to nested loops to compute values is highly time-consuming, especially when the input sequence length can be in the tens of thousands. Therefore, researchers use vectorized operations to calculate all pairwise attention scores efficiently. By using vectorized multiplication, we can obtain all attention scores with a single dot product operation between the input tensor sequence and its transposed version.</p>
+<p>$$<br>X= \left[ \begin{matrix} x_1, …, x_n \end{matrix} \right]<br>$$</p>
+<p>$$<br>X^T= \left[ \begin{matrix} x_1 \\ \vdots \\ x_n \\ \end{matrix} \right]<br>$$</p>
+<p>$$<br>AttentionScore = X \cdot X^T = \left[ \begin{matrix} x_1 \cdot x_1 &amp; … &amp; x_1 \cdot x_n\\ \vdots &amp; &amp; \vdots \\ x_n \cdot x_1 &amp; … &amp; x_n \cdot x_n\\ \end{matrix} \right]<br>$$</p>
+<p>Through this matrix multiplication operation, combined with parallel computing technology and the parallel processing capabilities of GPU devices, the efficiency of this computation can be greatly enhanced. To ensure that the attention scores are not fixed and be gradually optimized during the training process, we use parameter matrices to adjust the calculation of attention scores. This enable the model to truely capture the information that deserves attention. Thus, the equation for computing attention score can be expressed as follows:<br>$$<br>Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V<br>$$<br>Here, $ Q, K, V $ refer to each element in the input sequence being multiplied by three shared weighted matrices $ W_q, W_k $ and $ W_v $. The data multiplied by $ W_q $ represents the element that will compute attention scores with other elements in the sequence. The data multiplied by $ W_k $ represents the data being compared. After comparing each element with every other element, the resulting sequence is the attention score sequence for that element. This sequence is processed through the softmax function and then multiplied by $ W_v $ to perform a weighted sum. The entire process essentially calculates the correlations between all elements and the performs a weighted sum, with the result being the output of the attention mechanism. Through this process, the information that is considered more important is multiplied by greater weights, as a result their “information” can be magnified in the subsequent processes.</p>
+<h2 id="Transformer-Model"><a href="#Transformer-Model" class="headerlink" title="Transformer Model"></a>Transformer Model</h2><p>The Transformer model adopts an <strong>encoder-decoder</strong> architecture which is a popular architecture in current deep learning field. Two independent models are separatedly used as an encoder and a decoder. For most cases, they are used to process different types of data. For example, in <em>image captioning,</em> encoder is used for process image signal and decoder is for generating captions. In this paper, the Transformer is tested on English-German translation task, so, unprecisely, you can image the encoder is trying to “understand” a sentence in English and then generate some kind of <em>metaphysical</em> or <em>abstract</em> information, these information contains the concepts, subjects and objectives that are “mentioned” in the original language. Then, these information is passed to decoder, and the task of decode is to decrypt these information into German.</p>
+<p>Importantly, the comparison I mentioned above is extremely unprecise, this model cannot translate as human do, in fact it’s still a <strong>prediction</strong> or <strong>simulation</strong>, but not <strong>understanding</strong>.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -246,14 +342,12 @@
 </ul>
 <p><strong>Example:</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: word1 = &quot;horse&quot;, word2 = &quot;ros&quot;;</span><br><span class="line">Output: 3;</span><br></pre></td></tr></table></figure>
-
 <p><strong>Constraints:</strong></p>
 <ul>
-<li>0 &lt;&#x3D; len(word1), len(word2) &lt;&#x3D; 500</li>
+<li>0 &lt;= len(word1), len(word2) &lt;= 500</li>
 <li><strong>word1</strong> and <strong>word2</strong> consist of lower case English letters</li>
 </ul>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">EditDistance</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minDistance</span><span class="params">(string word1, string word2)</span> </span>&#123;</span><br><span class="line">        word1 = <span class="string">&quot; &quot;</span> + word1;</span><br><span class="line">        word2 = <span class="string">&quot; &quot;</span> + word2;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> **matrix = <span class="keyword">new</span> <span class="type">int</span>*[word1.<span class="built_in">size</span>()];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; word1.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            matrix[i] = <span class="keyword">new</span> <span class="type">int</span>[word2.<span class="built_in">size</span>()];</span><br><span class="line">            <span class="built_in">fill_n</span>(matrix[i], word2.<span class="built_in">size</span>(), <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; word1.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; word2.<span class="built_in">size</span>(); j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(_min_(i, j) == <span class="number">0</span>) matrix[i][j] = _max_(i, j);</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span>(word1[i] == word2[j]) &#123;</span><br><span class="line">                        matrix[i][j] = matrix[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        matrix[i][j] = _trimin_(</span><br><span class="line">                            matrix[i - <span class="number">1</span>][j - <span class="number">1</span>],</span><br><span class="line">                            matrix[i][j - <span class="number">1</span>],</span><br><span class="line">                            matrix[i - <span class="number">1</span>][j]</span><br><span class="line">                        ) + <span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> matrix[word1.<span class="built_in">size</span>() - <span class="number">1</span>][word2.<span class="built_in">size</span>() - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> _min_(<span class="type">int</span> i, <span class="type">int</span> j) &#123;</span><br><span class="line">        <span class="keyword">return</span> i &lt; j ? i : j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> _max_(<span class="type">int</span> i, <span class="type">int</span> j) &#123;</span><br><span class="line">        <span class="keyword">return</span> i &gt; j ? i : j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> _trimin_(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> z) &#123;</span><br><span class="line">        <span class="keyword">return</span> _min_(x, y) &lt; _min_(y, z) ? _min_(x, y) : _min_(y, z);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <p><strong>Explanation:</strong></p>
 <p>Use <strong>matrix[i][j]</strong> to represents the edit distance between string <strong>word1[0…i]</strong> and <strong>word2[0…j].</strong> The index of string’s content begins at 1, matrix[0][0] indicates the case that <strong>word1</strong> and <strong>word2</strong> are both vacant, which means their edit distance is 0. So, it is obvious that matrix[0][j] is the case when <strong>word1</strong> is empty and the length of <strong>word2</strong> is <em>j</em>, and their edit distance should be just <em>j</em>. Similarly, matrix[0][i] is the case when the length of <strong>word1</strong> is <em>i</em> and <strong>word2</strong> is empty, their edit distance is <em>i</em>.</p>
 <p>Then we can deduce the equation for the above three operations accordingly:</p>
@@ -347,13 +441,11 @@
           <p>Given <em>n</em> pairs of parentheses, write a function to generate all combinations of well-formed parentheses.</p>
 <p><strong>Example:</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n = 3;</span><br><span class="line">Output: [&quot;((()))&quot;, &quot;(()())&quot;, &quot;(())()&quot;, &quot;()(())&quot;, &quot;()()()&quot;]</span><br></pre></td></tr></table></figure>
-
 <p><strong>Constraints:</strong></p>
 <ul>
-<li>1 &lt;&#x3D; n &lt;&#x3D; 8</li>
+<li>1 &lt;= n &lt;= 8</li>
 </ul>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">GenerateParentheses</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;string&gt; res;</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">generateParentheses</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n &lt;= <span class="number">0</span>) <span class="keyword">return</span> res;</span><br><span class="line">        <span class="built_in">p</span>(<span class="string">&quot;&quot;</span>, n, n);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">p</span><span class="params">(string str, <span class="type">int</span> left, <span class="type">int</span> right)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(left == <span class="number">0</span> &amp;&amp; right == <span class="number">0</span>) &#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(str);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(left == right) &#123;</span><br><span class="line">            <span class="built_in">p</span>(str + <span class="string">&quot;(&quot;</span>, left - <span class="number">1</span>, right);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(left &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="built_in">p</span>(str + <span class="string">&quot;(&quot;</span>, left - <span class="number">1</span>, right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">p</span>(str + <span class="string">&quot;)&quot;</span>, left, right - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <p><strong>Explanation:</strong></p>
 <p>The number of remained left parenthese must be less or equal to the number of remained right parenthese. If the number of remained left parenthese equals to the remained right one, the next can only be a left parenthese. If the number of remained left parenthese is less than the right one, the next one can be either a left parenthese or a right parenthese. This problem can be solved by using <strong>recursion</strong> algorithm.</p>
 
@@ -444,14 +536,12 @@
 </ul>
 <p><strong>Example:</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: grid = [[1, 3, 1], [1, 5, 1], [4, 2, 1]];</span><br><span class="line">Output: 7;</span><br></pre></td></tr></table></figure>
-
 <p>Constraints:</p>
 <ul>
-<li>1 &lt;&#x3D; m, n &lt;&#x3D; 200</li>
-<li>0 &lt;&#x3D; grid[i, j] &lt;&#x3D; 200</li>
+<li>1 &lt;= m, n &lt;= 200</li>
+<li>0 &lt;= grid[i, j] &lt;= 200</li>
 </ul>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MinimumPathSum</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minPathSum</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n_row = grid.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> n_col = grid[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> **dp = <span class="keyword">new</span> <span class="type">int</span>*[n_row];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n_row; i++) &#123;</span><br><span class="line">            dp[i] = <span class="keyword">new</span> <span class="type">int</span>[n_col];</span><br><span class="line">            <span class="built_in">fill_n</span>(dp[i], n_col, INT_MAX);</span><br><span class="line">        &#125;</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = grid[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n_row; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; n_col; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i) &#123;</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j] + grid[i][j] &lt; dp[i][j] ? dp[i - <span class="number">1</span>][j] + grid[i][j] : dp[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(j) &#123;</span><br><span class="line">                    dp[i][j] = dp[i][j - <span class="number">1</span>] + grid[i][j] &lt; dp[i][j] ? dp[i][j - <span class="number">1</span>] + grid[i][j] : dp[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n_row - <span class="number">1</span>][n_col - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <p><strong>Explanation:</strong></p>
 <p>Using a <em>dp</em> array to indicate the current minimum path sum. And this sum can only be the sum of the up <em>dp</em> point and current <em>grid</em> point or the left <em>dp</em> point and current <em>grid</em> point. The <em>dp</em> function can be defined as follow:</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i, j] := <span class="built_in">min</span>(dp[i - <span class="number">1</span>, j] + grid[i, j], dp[i, j - <span class="number">1</span>] + grid[i, j])</span><br></pre></td></tr></table></figure>
@@ -534,11 +624,11 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>Welcome to my personal blog. I open this blog when I am about to graduate from my university, at the time I extremely want to use something to document my life and things I’ve learned. And now I’m on my way to the United States to start a brand new experience of studying. I want to keep some memories through this blog, and meanwhile take some notes about the things that might be useful to my future development.</p>
-<h2 id="About-This-Blog"><a href="#About-This-Blog" class="headerlink" title="About This Blog"></a>About This Blog</h2><p>Due to my major is computer science&#x2F;engineering, so most of study notes are related to fields like computer science, computer engineering, software developing, etc., I have to admit that I’m not excel at such subjects, but I am still keen on them and wish to make something big from my own hands. Hope this blog can witness my improvements :)</p>
+<h2 id="About-This-Blog"><a href="#About-This-Blog" class="headerlink" title="About This Blog"></a>About This Blog</h2><p>Due to my major is computer science/engineering, so most of study notes are related to fields like computer science, computer engineering, software developing, etc., I have to admit that I’m not excel at such subjects, but I am still keen on them and wish to make something big from my own hands. Hope this blog can witness my improvements :)</p>
 <p>This blog does not only focus on such academic matters. For other parts, I will upload some of my daily life records, like photos, music, and maybe some unexpected inspiration and ideas. And I will write each blog article in English as possible as I can, to improve my English writing skills, and maybe it’s benefit to my future experience in the US🙂</p>
 <p><strong>Hope you enjoy my blog, and discover something new!</strong></p>
-<p><em><strong>Crescat Scientia Vita Excolatur</strong></em></p>
-<p><em><strong>益智厚生</strong></em></p>
+<p><strong><em>Crescat Scientia Vita Excolatur</em></strong></p>
+<p><strong><em>益智厚生</em></strong></p>
 
       
     </div>
@@ -609,6 +699,12 @@
   
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 
