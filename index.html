@@ -124,18 +124,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -172,6 +172,252 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/11/Vim-Editor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Blog | Autzoko Lang">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/11/Vim-Editor/" class="post-title-link" itemprop="url">Vim Editor</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-06-11 10:07:02 / Modified: 15:37:07" itemprop="dateCreated datePublished" datetime="2024-06-11T10:07:02+08:00">2024-06-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CS/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><em>This notes is according to MIT’s course: missing-semester: Editors(Vim)</em></p>
+<p>Vim is a popular command line editor and lots of visualized editors support vim emulation (like vs code). It’s designed for programmers by programmers.</p>
+<p><strong>Maybe not as fast as your previous editor, but stick on it for about 20 hours, you can master the vim.</strong></p>
+<h2 id="Modes"><a href="#Modes" class="headerlink" title="Modes"></a>Modes</h2><p>Vim is a modal editor: multiple operating modes. Like writing, reading, etc.</p>
+<p>When start <strong>vim</strong>:</p>
+<ul>
+<li>Normal mode: all different key combinations behave in one way. Navigating.</li>
+<li>Insert mode: Press key <em>I</em> to switch to insert mode from normal mode. By press key <em>Escape</em> to swtich back to normal mode. Type text in insert mode.</li>
+<li>Replace mode: Press <em>r</em> to switch to replace mode. Forward and overwrite text.</li>
+<li>Selection mode:<ul>
+<li>Visual mode: Press <em>v</em> to switch to visual mode.<ul>
+<li>Visual line: Press <em>shift-v</em> to switch to visual line.</li>
+<li>Viusual block: Press <em>ctrl-v</em> to switch to visual block.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Command line mode: Press <em>: (shift-;)</em> to switch to command line mode.</li>
+</ul>
+<p>You can rebind keys for more convenient use, like rebind the <em>esacpe</em> key to <em>caps lock</em> key for back to normal mode.</p>
+<h2 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h2><p>To start vim:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim [filename]</span><br></pre></td></tr></table></figure>
+<p>To quit vim:</p>
+<p>first get into command line mode by pressing <em>:</em>, and type command <code>quit</code> or <code>q</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:quit</span><br><span class="line">:q</span><br></pre></td></tr></table></figure>
+<p>To save changes:</p>
+<p>get into command mode and type <code>w</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:w</span><br></pre></td></tr></table></figure>
+<p>To get help for specific command, use <code>:help :[command]</code> to fetch instructions. For example, use</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:<span class="built_in">help</span> :w</span><br></pre></td></tr></table></figure>
+<p>to get instruction for command <code>:w</code>.</p>
+<h3 id="Navigating"><a href="#Navigating" class="headerlink" title="Navigating"></a>Navigating</h3><p>Normal mode is used for navigate. And be an interfance to switch between other modes.</p>
+<ul>
+<li>To move cursor up and down, left and right, use key <em>hjkl</em>, where <em>j</em> moves down, <em>k</em> moves up, <em>h</em> moves left and <em>l</em> moves right.</li>
+<li>To move cursor by words, use key <em>w</em> and key <em>b</em>, where <em>w</em> moves forward by word and <em>b</em> moves backward by word. Use key <em>e</em> to move to the end of the word.</li>
+<li>To move cursor by line, press <em>0</em> to move to the front of the line, press <em>$</em> to move to the end of the line, press <em>^</em> to move to the first non-empty character of the line.</li>
+<li>To scroll up and down, use <em>ctrl-u</em> to scroll up and <em>ctrl-d</em> to scroll down.</li>
+<li>To move by buffer, press <em>shift-g</em> to move to the front and double press <em>g</em> to move to the very end.</li>
+<li>To find the first specific character in current line, use command <em>f</em> to find that character. For example, find the first ‘c’ in current line use <code>fc</code> and find first ‘[‘ in current line use <code>f[</code>. To find the character before the cursor, use capital F to find.</li>
+<li>To move cursor by given number of lines, add a number before typing the <em>hjkl</em> command: <code>4j</code> means move down 4 lines, <code>6k</code> means move up 6 lines.</li>
+</ul>
+<p>For edit commands:</p>
+<ul>
+<li>Press <em>o</em> to start a new line below the cursor.</li>
+<li>Press <em>u</em> to undo and <em>ctrl-r</em> to redo.</li>
+<li>Use <em>d</em> and combine other command to delete:<ul>
+<li><code>dw</code> to delete a word when the cursor is at the front of a word.</li>
+<li><code>de</code> to delete to the end of the word from cursor position.</li>
+<li>Double click <em>d</em> (<code>dd</code>) to delete the whole line.</li>
+</ul>
+</li>
+<li>Use <em>c</em> and combine other command to change:<ul>
+<li><code>ce</code> change the end of the word and automatically switch to insert mode for rewrite.</li>
+<li>Double click the <em>c</em>  (<code>cc</code>) to change the whole line.</li>
+</ul>
+</li>
+<li>Use <em>x</em> to delete the character at cursor’s position.</li>
+<li>Use <code>r[charactor]</code> to replace the character at cursor by new character <code>[character]</code>.</li>
+</ul>
+<p>For copy and paste:</p>
+<ul>
+<li>Use <em>y</em> to copy ans <em>p</em> to paste.<ul>
+<li><code>yy</code> for copying the whole line.</li>
+<li><code>yw</code> for copying the word.</li>
+</ul>
+</li>
+<li>To copy a block of codes, first press <em>v</em> to get into the visual mode and use <em>hjkl</em> to move the cursor to select codes, and press <em>y</em> to copy them. After immediately copying the code block vim will automatically back to normal mode and then you can use <em>p</em> to paste the codes you’ve just copied.<ul>
+<li>By pressing <em>shift-v</em> entering the visual line mode, each movement will select whole line.</li>
+<li>By pressing <em>ctrl-v</em> entering the visual block mode, each movement will select a rectangular block of codes.</li>
+</ul>
+</li>
+<li>In visual mode, use pattern <code>[number][move command]</code> can select codes by moving cursor. For example: <code>3e</code> means select the following three words in the visual mode, <code>7dw</code> means delete seven words. </li>
+</ul>
+<p>For searching:</p>
+<ul>
+<li>Use <code>/</code> to search (or match) specific tokens. And press <em>n</em> for searching next matching item.</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/29/Microservice-Beginning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Blog | Autzoko Lang">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/05/29/Microservice-Beginning/" class="post-title-link" itemprop="url">Microservice Program - Part I</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-05-29 20:53:17 / Modified: 21:04:17" itemprop="dateCreated datePublished" datetime="2024-05-29T20:53:17+08:00">2024-05-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaWeb/" itemprop="url" rel="index"><span itemprop="name">JavaWeb</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaWeb/Microservice/" itemprop="url" rel="index"><span itemprop="name">Microservice</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="Relation-between-Springboot-and-SpringCloud"><a href="#Relation-between-Springboot-and-SpringCloud" class="headerlink" title="Relation between Springboot and SpringCloud"></a>Relation between Springboot and SpringCloud</h2><ul>
+<li>Springboot is for rapidly construct and develop each microservice. Mainly complete DAO, RESTful API, log components, containers, etc. these basic functions. It’s the <strong>Inner Structure</strong>.</li>
+<li>SpringCloud is mainly for easily complete service registration, load balancing, fusing, downgrade, configuration, etc.</li>
+</ul>
+<p>Springboot is the fundamental of SpringCloud, they cooperate and handle different taskes.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
