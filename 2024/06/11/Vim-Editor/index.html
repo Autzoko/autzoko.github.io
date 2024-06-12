@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"autzoko.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="This notes is according to MIT’s course: missing-semester: Editors(Vim) Vim is a popular command line editor and lots of visualized editors support vim emulation (like vs code). It’s designed for prog">
+    <meta name="description" content="This notes is according to MIT’s course: missing-semester: Editors(Vim) VimVim is a command line based code editor, designed for programmers and designed by programmers. And other visual editors like">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vim Editor">
 <meta property="og:url" content="https://autzoko.github.io/2024/06/11/Vim-Editor/index.html">
 <meta property="og:site_name" content="Blog | Autzoko Lang">
-<meta property="og:description" content="This notes is according to MIT’s course: missing-semester: Editors(Vim) Vim is a popular command line editor and lots of visualized editors support vim emulation (like vs code). It’s designed for prog">
+<meta property="og:description" content="This notes is according to MIT’s course: missing-semester: Editors(Vim) VimVim is a command line based code editor, designed for programmers and designed by programmers. And other visual editors like">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-06-11T02:07:02.000Z">
-<meta property="article:modified_time" content="2024-06-11T07:37:07.502Z">
+<meta property="article:modified_time" content="2024-06-12T02:38:29.637Z">
 <meta property="article:author" content="Autzoko Lang">
 <meta property="article:tag" content="vim">
 <meta name="twitter:card" content="summary">
@@ -113,7 +113,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Modes"><span class="nav-number">1.</span> <span class="nav-text">Modes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Commands"><span class="nav-number">2.</span> <span class="nav-text">Commands</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Navigating"><span class="nav-number">2.1.</span> <span class="nav-text">Navigating</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vim"><span class="nav-number">1.</span> <span class="nav-text">Vim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modes-of-vim"><span class="nav-number">2.</span> <span class="nav-text">Modes of vim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Command-line"><span class="nav-number">3.</span> <span class="nav-text">Command-line</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cursor-movement"><span class="nav-number">4.</span> <span class="nav-text">Cursor movement</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Edits"><span class="nav-number">5.</span> <span class="nav-text">Edits</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Counts"><span class="nav-number">6.</span> <span class="nav-text">Counts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modifiers"><span class="nav-number">7.</span> <span class="nav-text">Modifiers</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -214,9 +214,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2024-06-11 10:07:02 / Modified: 15:37:07" itemprop="dateCreated datePublished" datetime="2024-06-11T10:07:02+08:00">2024-06-11</time>
+      <time title="Created: 2024-06-11 10:07:02" itemprop="dateCreated datePublished" datetime="2024-06-11T10:07:02+08:00">2024-06-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-06-12 10:38:29" itemprop="dateModified" datetime="2024-06-12T10:38:29+08:00">2024-06-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -242,81 +248,73 @@
     
     
     <div class="post-body" itemprop="articleBody"><p><em>This notes is according to MIT’s course: missing-semester: Editors(Vim)</em></p>
-<p>Vim is a popular command line editor and lots of visualized editors support vim emulation (like vs code). It’s designed for programmers by programmers.</p>
-<p><strong>Maybe not as fast as your previous editor, but stick on it for about 20 hours, you can master the vim.</strong></p>
-<h2 id="Modes"><a href="#Modes" class="headerlink" title="Modes"></a>Modes</h2><p>Vim is a modal editor: multiple operating modes. Like writing, reading, etc.</p>
-<p>When start <strong>vim</strong>:</p>
+<h2 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h2><p>Vim is a command line based code editor, designed for programmers and designed by programmers. And other visual editors like VS Code can also integrate <strong>vim</strong> mode for advanced coding experience.</p>
+<p>The core philosophy of <strong>vim</strong> editor is command, all operations are done by typing keys, using without mouse. After being familiar with these key settings, the speed of programming can be extremely improved.</p>
+<h2 id="Modes-of-vim"><a href="#Modes-of-vim" class="headerlink" title="Modes of vim"></a>Modes of vim</h2><p><strong>Vim</strong> contains several operating modes for different using:</p>
 <ul>
-<li>Normal mode: all different key combinations behave in one way. Navigating.</li>
-<li>Insert mode: Press key <em>I</em> to switch to insert mode from normal mode. By press key <em>Escape</em> to swtich back to normal mode. Type text in insert mode.</li>
-<li>Replace mode: Press <em>r</em> to switch to replace mode. Forward and overwrite text.</li>
-<li>Selection mode:<ul>
-<li>Visual mode: Press <em>v</em> to switch to visual mode.<ul>
-<li>Visual line: Press <em>shift-v</em> to switch to visual line.</li>
-<li>Viusual block: Press <em>ctrl-v</em> to switch to visual block.</li>
+<li>Normal: navigating, moving, and simple editing. Press <code>ESC</code> for back to normal mode.</li>
+<li>Insert: inserting text. Press <code>i</code> for switching to <strong>insert</strong> mode.</li>
+<li>Replace: replacing text. Press <code>shift-r</code> for switching to <strong>replace</strong> mode.</li>
+<li>Visual:<ul>
+<li>Visual-plain: selecting text by cursor movement. Press <code>v</code>.</li>
+<li>Visual-line: selecting text by line. Press <code>shift-v</code>.</li>
+<li>Visual-block: selecting text by block. Press <code>ctrl-v</code>.</li>
 </ul>
 </li>
+<li>Command-line: running command. Press <code>shift-;</code>.</li>
 </ul>
-</li>
-<li>Command line mode: Press <em>: (shift-;)</em> to switch to command line mode.</li>
-</ul>
-<p>You can rebind keys for more convenient use, like rebind the <em>esacpe</em> key to <em>caps lock</em> key for back to normal mode.</p>
-<h2 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h2><p>To start vim:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim [filename]</span><br></pre></td></tr></table></figure>
-<p>To quit vim:</p>
-<p>first get into command line mode by pressing <em>:</em>, and type command <code>quit</code> or <code>q</code>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:quit</span><br><span class="line">:q</span><br></pre></td></tr></table></figure>
-<p>To save changes:</p>
-<p>get into command mode and type <code>w</code>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:w</span><br></pre></td></tr></table></figure>
-<p>To get help for specific command, use <code>:help :[command]</code> to fetch instructions. For example, use</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:<span class="built_in">help</span> :w</span><br></pre></td></tr></table></figure>
-<p>to get instruction for command <code>:w</code>.</p>
-<h3 id="Navigating"><a href="#Navigating" class="headerlink" title="Navigating"></a>Navigating</h3><p>Normal mode is used for navigate. And be an interfance to switch between other modes.</p>
+<h2 id="Command-line"><a href="#Command-line" class="headerlink" title="Command-line"></a>Command-line</h2><p>By pressing <code>:</code> to get into command-line mode, where can send command to operating thw vim in a whole.</p>
 <ul>
-<li>To move cursor up and down, left and right, use key <em>hjkl</em>, where <em>j</em> moves down, <em>k</em> moves up, <em>h</em> moves left and <em>l</em> moves right.</li>
-<li>To move cursor by words, use key <em>w</em> and key <em>b</em>, where <em>w</em> moves forward by word and <em>b</em> moves backward by word. Use key <em>e</em> to move to the end of the word.</li>
-<li>To move cursor by line, press <em>0</em> to move to the front of the line, press <em>$</em> to move to the end of the line, press <em>^</em> to move to the first non-empty character of the line.</li>
-<li>To scroll up and down, use <em>ctrl-u</em> to scroll up and <em>ctrl-d</em> to scroll down.</li>
-<li>To move by buffer, press <em>shift-g</em> to move to the front and double press <em>g</em> to move to the very end.</li>
-<li>To find the first specific character in current line, use command <em>f</em> to find that character. For example, find the first ‘c’ in current line use <code>fc</code> and find first ‘[‘ in current line use <code>f[</code>. To find the character before the cursor, use capital F to find.</li>
-<li>To move cursor by given number of lines, add a number before typing the <em>hjkl</em> command: <code>4j</code> means move down 4 lines, <code>6k</code> means move up 6 lines.</li>
+<li><code>:q</code> | quit (or close current window).</li>
+<li><code>:w</code> | write and save.</li>
+<li><code>:wq</code> | save and quit.</li>
+<li><code>:e &#123;filename&#125;</code> | open file and edit.</li>
+<li><code>:ls</code> | show open buffers.</li>
+<li><code>:help &#123;topic&#125;</code> | open help<ul>
+<li><code>:help :w</code> | help info for command <code>:w</code>.</li>
+<li><code>:help w</code> | help info for command <code>w</code>.</li>
 </ul>
-<p>For edit commands:</p>
+</li>
+</ul>
+<h2 id="Cursor-movement"><a href="#Cursor-movement" class="headerlink" title="Cursor movement"></a>Cursor movement</h2><ul>
+<li>Basic movement: <code>hjkl</code> | left, down, up, right.</li>
+<li>Move by word: <code>w, b, e</code> | next word, beginning of word, end of word.</li>
+<li>Move by line: <code>0, ^, $</code> | beginning of line, first non-blank character, end of line.</li>
+<li>Move by screen: <code>H, M, L</code> | top of screen, middle of screen, bottom of screen.</li>
+<li>Scroll: <code>ctrl-u, ctrl-d</code> | scroll up, scroll down.</li>
+<li>Move by file: <code>gg, G</code> | beginning of file, end of file.</li>
+<li>Misc: <code>%</code> | corresponding item.</li>
+<li>Find: <code>f&#123;char&#125;, t&#123;char&#125;, F&#123;char&#125;, T&#123;char&#125;</code> | find\to forward\backward character on the current line.</li>
+<li>Search: <code>/&#123;regex&#125;, n, N</code> | navigating match items.</li>
+</ul>
+<h2 id="Edits"><a href="#Edits" class="headerlink" title="Edits"></a>Edits</h2><ul>
+<li><code>i</code> | enter insert mode.</li>
+<li><code>o, O</code> | insert line below, insert line above.</li>
+<li><code>d&#123;motion&#125;</code> | delete by motion command.<ul>
+<li><code>dw</code> | delete word.</li>
+<li><code>d$</code> | delete to end of line.</li>
+<li><code>d0</code> | delete to beginning of line.</li>
+</ul>
+</li>
+<li><code>c&#123;motion&#125;</code> | change by motion command.</li>
+<li><code>x</code> | delete character.</li>
+<li><code>s</code> | substitute character.</li>
+<li><code>u</code> | undo.</li>
+<li><code>ctrl-r</code> | redo.</li>
+<li><code>y</code> | copy</li>
+<li><code>p</code> | paste.</li>
+</ul>
+<h2 id="Counts"><a href="#Counts" class="headerlink" title="Counts"></a>Counts</h2><p>By using command pattern <code>&#123;number&#125;&#123;command&#125;</code> can do this command by times.</p>
 <ul>
-<li>Press <em>o</em> to start a new line below the cursor.</li>
-<li>Press <em>u</em> to undo and <em>ctrl-r</em> to redo.</li>
-<li>Use <em>d</em> and combine other command to delete:<ul>
-<li><code>dw</code> to delete a word when the cursor is at the front of a word.</li>
-<li><code>de</code> to delete to the end of the word from cursor position.</li>
-<li>Double click <em>d</em> (<code>dd</code>) to delete the whole line.</li>
+<li><code>3w</code> move 3 words forward.</li>
+<li><code>5j</code> move 5 lines down.</li>
+<li><code>7dw</code> delete 7 words.</li>
 </ul>
-</li>
-<li>Use <em>c</em> and combine other command to change:<ul>
-<li><code>ce</code> change the end of the word and automatically switch to insert mode for rewrite.</li>
-<li>Double click the <em>c</em>  (<code>cc</code>) to change the whole line.</li>
-</ul>
-</li>
-<li>Use <em>x</em> to delete the character at cursor’s position.</li>
-<li>Use <code>r[charactor]</code> to replace the character at cursor by new character <code>[character]</code>.</li>
-</ul>
-<p>For copy and paste:</p>
+<h2 id="Modifiers"><a href="#Modifiers" class="headerlink" title="Modifiers"></a>Modifiers</h2><p>While using <em>delete</em> or <em>change</em> command, add <code>i</code> or <code>a</code> can specify the command is done inside or around.</p>
 <ul>
-<li>Use <em>y</em> to copy ans <em>p</em> to paste.<ul>
-<li><code>yy</code> for copying the whole line.</li>
-<li><code>yw</code> for copying the word.</li>
-</ul>
-</li>
-<li>To copy a block of codes, first press <em>v</em> to get into the visual mode and use <em>hjkl</em> to move the cursor to select codes, and press <em>y</em> to copy them. After immediately copying the code block vim will automatically back to normal mode and then you can use <em>p</em> to paste the codes you’ve just copied.<ul>
-<li>By pressing <em>shift-v</em> entering the visual line mode, each movement will select whole line.</li>
-<li>By pressing <em>ctrl-v</em> entering the visual block mode, each movement will select a rectangular block of codes.</li>
-</ul>
-</li>
-<li>In visual mode, use pattern <code>[number][move command]</code> can select codes by moving cursor. For example: <code>3e</code> means select the following three words in the visual mode, <code>7dw</code> means delete seven words. </li>
-</ul>
-<p>For searching:</p>
-<ul>
-<li>Use <code>/</code> to search (or match) specific tokens. And press <em>n</em> for searching next matching item.</li>
+<li><code>ci(</code> | change content inside current pair of parentheses.</li>
+<li><code>ci[</code> | change content inside current pair of square brackets.</li>
+<li><code>da&#39;</code> | delete a single-quoted string, including the surrounding single quotes.</li>
 </ul>
 
     </div>
