@@ -124,18 +124,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -172,6 +172,199 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/17/SHA256-Algorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Blog | Autzoko Lang">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/17/SHA256-Algorithm/" class="post-title-link" itemprop="url">SHA256 Algorithm</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-06-17 20:28:08 / Modified: 22:07:45" itemprop="dateCreated datePublished" datetime="2024-06-17T20:28:08+08:00">2024-06-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithms/Encryptions/" itemprop="url" rel="index"><span itemprop="name">Encryptions</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>SHA-256</strong> encryption algorithm is a division from the <strong>SHA-2</strong> group, a.k.a. Secure Hash Algorithm 2. It can be known from the name that, the <strong>SHA</strong> is a type of hash function. This encryption algorithm encode the input message by hashing to encrypt and compress. The result of <strong>SHA</strong> encryption usually contains random alphanumeric characters.</p>
+<h2 id="Explanations-of-SHA-256-Algorithm"><a href="#Explanations-of-SHA-256-Algorithm" class="headerlink" title="Explanations of SHA-256 Algorithm"></a>Explanations of SHA-256 Algorithm</h2><p>Before explicitly explain the detailed algorithm of <strong>SHA-256</strong>, it is essential to figure out what should be done in advance. Three sections can be extracted: the constants that are used in the algorithm, how to preprocess the data, and the logical operations that are used. After understanding these, the algorithm itself is easy to handle.</p>
+<h3 id="Before-Dive-into-SHA-256"><a href="#Before-Dive-into-SHA-256" class="headerlink" title="Before Dive into SHA-256"></a>Before Dive into SHA-256</h3><h4 id="Constants"><a href="#Constants" class="headerlink" title="Constants"></a>Constants</h4><p>In the <strong>SHA-256</strong> algorithm, 8 hash initial values and 64 hash constants are used. First, the eight initial values are as follow:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint32_t</span> H[<span class="number">8</span>] = &#123;</span><br><span class="line">    <span class="number">0x6a09e667</span>, <span class="number">0xbb67ae85</span>, <span class="number">0x3c6ef372</span>, <span class="number">0xa54ff53a</span>,</span><br><span class="line">    <span class="number">0x510e527f</span>, <span class="number">0x9b05688c</span>, <span class="number">0x1f83d9ab</span>, <span class="number">0x5be0cd19</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>These numbers are selected from the first 32 bits of the decimal part of the square roots of the first eight natural prime numbers.</p>
+<p>And the 64 hash constants are:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="type">uint32_t</span> K[<span class="number">64</span>] = &#123;</span><br><span class="line">    <span class="number">0x428a2f98</span>, <span class="number">0x71374491</span>, <span class="number">0xb5c0fbcf</span>, <span class="number">0xe9b5dba5</span>,</span><br><span class="line">    <span class="number">0x3956c25b</span>, <span class="number">0x59f111f1</span>, <span class="number">0x923f82a4</span>, <span class="number">0xab1c5ed5</span>,</span><br><span class="line">    <span class="number">0xd807aa98</span>, <span class="number">0x12835b01</span>, <span class="number">0x243185be</span>, <span class="number">0x550c7dc3</span>,</span><br><span class="line">    <span class="number">0x72be5d74</span>, <span class="number">0x80deb1fe</span>, <span class="number">0x9bdc06a7</span>, <span class="number">0xc19bf174</span>,</span><br><span class="line">    <span class="number">0xe49b69c1</span>, <span class="number">0xefbe4786</span>, <span class="number">0x0fc19dc6</span>, <span class="number">0x240ca1cc</span>,</span><br><span class="line">    <span class="number">0x2de92c6f</span>, <span class="number">0x4a7484aa</span>, <span class="number">0x5cb0a9dc</span>, <span class="number">0x76f988da</span>,</span><br><span class="line">    <span class="number">0x983e5152</span>, <span class="number">0xa831c66d</span>, <span class="number">0xb00327c8</span>, <span class="number">0xbf597fc7</span>,</span><br><span class="line">    <span class="number">0xc6e00bf3</span>, <span class="number">0xd5a79147</span>, <span class="number">0x06ca6351</span>, <span class="number">0x14292967</span>,</span><br><span class="line">    <span class="number">0x27b70a85</span>, <span class="number">0x2e1b2138</span>, <span class="number">0x4d2c6dfc</span>, <span class="number">0x53380d13</span>,</span><br><span class="line">    <span class="number">0x650a7354</span>, <span class="number">0x766a0abb</span>, <span class="number">0x81c2c92e</span>, <span class="number">0x92722c85</span>,</span><br><span class="line">    <span class="number">0xa2bfe8a1</span>, <span class="number">0xa81a664b</span>, <span class="number">0xc24b8b70</span>, <span class="number">0xc76c51a3</span>,</span><br><span class="line">    <span class="number">0xd192e819</span>, <span class="number">0xd6990624</span>, <span class="number">0xf40e3585</span>, <span class="number">0x106aa070</span>,</span><br><span class="line">    <span class="number">0x19a4c116</span>, <span class="number">0x1e376c08</span>, <span class="number">0x2748774c</span>, <span class="number">0x34b0bcb5</span>,</span><br><span class="line">    <span class="number">0x391c0cb3</span>, <span class="number">0x4ed8aa4a</span>, <span class="number">0x5b9cca4f</span>, <span class="number">0x682e6ff3</span>,</span><br><span class="line">    <span class="number">0x748f82ee</span>, <span class="number">0x78a5636f</span>, <span class="number">0x84c87814</span>, <span class="number">0x8cc70208</span>,</span><br><span class="line">    <span class="number">0x90befffa</span>, <span class="number">0xa4506ceb</span>, <span class="number">0xbef9a3f7</span>, <span class="number">0xc67178f2</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Similar to before, these 64 constants are selected from the first 32 bits of the cube roots of the first 64 natural prime numbers.</p>
+<h3 id="Data-Preprocessing"><a href="#Data-Preprocessing" class="headerlink" title="Data Preprocessing"></a>Data Preprocessing</h3><p>The preprocessing stage of the <strong>SHA-256</strong> algorithm has two steps:</p>
+<ul>
+<li>Append ‘1’ followed by enough ‘0’s at the end of the data so that the length of the message modulo 512 equals 448.</li>
+<li>Then append 64 bits of message length information at the end with big endian.</li>
+</ul>
+<p><em>Notice that: albeit current length modulo 512 equals 448, the append operation is still necessary!</em></p>
+<p>For example, now here’s data:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">01100001</span> <span class="number">01100010</span> <span class="number">01100011</span></span><br></pre></td></tr></table></figure>
+<p>Then we need to append a ‘1’ and 423 ‘0’s:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">01100001</span> <span class="number">01100010</span> <span class="number">01100011</span> <span class="number">1000000</span></span><br><span class="line"><span class="number">00000000</span>       ......      <span class="number">0000000</span></span><br></pre></td></tr></table></figure>
+<p>Finally, the length of the original message should be appended to the end of current data by big endian.</p>
+<h3 id="Logical-Operations"><a href="#Logical-Operations" class="headerlink" title="Logical Operations"></a>Logical Operations</h3><p>All of logical operations that involved with <strong>SHA-256</strong> algorithm are as follow:<br>$$<br>Ch(x,y,z)=(x \land y) \oplus (\urcorner x \land z)<br>$$<br>$$<br>Maj(x,y,z)=(x\land y)\oplus (x \land z) \oplus (y \land z)<br>$$<br>$$<br>\Sigma_0(x) = S_R^2(x) \oplus S_R^{13}(x) \oplus S_R^{22}(x)<br>$$<br>$$<br>\Sigma_1(x) = S_R^6(x) \oplus S_R^{11}(x) \oplus S_R^{25}(x)<br>$$<br>$$<br>\sigma_0(x) = S_R^7(x) \oplus S_R^{18} \oplus R^3(x)<br>$$<br>$$<br>\sigma_1(x) = S_R^{17}(x) \oplus S_R^{19}(x) \oplus R^{10}(x)<br>$$</p>
+<p>Explanations:</p>
+<ul>
+<li>$\land$: and.</li>
+<li>$\urcorner x$: not.</li>
+<li>$\oplus$: xor.</li>
+<li>$S_R^n$: Cycled right shift.</li>
+<li>$R^n$: Right shift.</li>
+</ul>
+<h2 id="Abstraction"><a href="#Abstraction" class="headerlink" title="Abstraction"></a>Abstraction</h2><p>How here comes to ultimately main part of the <strong>SHA-256</strong> algorithm! All the details related to the algorithm will be elaborate here.</p>
+<p>The first things is: <strong>break message into 512-bit chunks.</strong></p>
+<p>Suppose that the message $m$ can be splited into $n$ chunks, so the whole algorithm needs to iterate for $n$ times in order to get a 256-bit hash result. Initially, a 256-bit initial value $H_0$ is given, then operate with data chunk 1 and get $H_1$. Then operate with data chunk 2 and get $H_2$. Repeat above step until all data chunks are operated.</p>
+<p>The pseudo-code are:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data_chunks = divide_by_512_bit(message)</span><br><span class="line">handle = H0</span><br><span class="line">for (chunk in data_chunks):</span><br><span class="line">	handle = operate(handle, chunk)</span><br><span class="line">result = handle</span><br></pre></td></tr></table></figure>
+<p>Among each <em>operation</em>, each data chunk with 512-bit chunk are divided into 16 <strong>words</strong>, each word contains 32 bits.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/12/Metaprogramming/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Blog | Autzoko Lang">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/12/Metaprogramming/" class="post-title-link" itemprop="url">Metaprogramming</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-06-12 11:38:41 / Modified: 22:36:32" itemprop="dateCreated datePublished" datetime="2024-06-12T11:38:41+08:00">2024-06-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="About-metaprogramming"><a href="#About-metaprogramming" class="headerlink" title="About metaprogramming"></a>About metaprogramming</h2><p> <strong>Metaprogramming</strong> is a philosophy that refers to the process of programming, the problem about how to make us programming more efficiently, more scientific, etc. And how the program should be arranged, like its dependencies.</p>
+<p>The first step to understand and implement <em>metaprogramming</em> is to learn <strong>Makefile</strong>.</p>
+<p>Actually lots of tools that designed for making a program has been widely used, like <em>maven</em> for java, <em>rustup</em> for rust, etc.</p>
+<h2 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h2><p><strong>Makefile</strong> is a widely used build tool which can be written in script. By writing a <em>Makefile</em> and this script, the whole project can be compiled, linked and built simultaneously. The <em>makefile</em> specify a set of rules for programmers to follow to simplify the building process, including exception handle functions.</p>
+<p><strong>Currently, most makefile serve for C/C++ programs</strong></p>
+<h3 id="Write-a-Makefile"><a href="#Write-a-Makefile" class="headerlink" title="Write a Makefile"></a>Write a Makefile</h3><p>First, briefly introduce the rules of <em>Makefile</em>:</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">target [target2, ...]: prerequisites [prerequisites2, ...]</span><br><span class="line">	command</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>The <code>target</code> file can be either a <strong>Object File</strong> or a <strong>Execusive File</strong>, even can be a semantic label with no according object (pseudo-target). The <code>prerequisite</code> stands for the necessary files or components that the <code>target</code> file requires, like source files,</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
