@@ -19,28 +19,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"autzoko.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="This notes is according to MIT’s course: missing-semester: Editors(Vim) VimVim is a command line based code editor, designed for programmers and designed by programmers. And other visual editors like">
+    <meta name="description" content="Given an integer array coins representing coins of different denominations and integer amount representing a total amount of money. Return the fewest number of coins that you need to make up that amou">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vim Editor">
-<meta property="og:url" content="https://autzoko.github.io/2024/06/11/Vim-Editor/index.html">
+<meta property="og:title" content="Coin Change">
+<meta property="og:url" content="https://autzoko.github.io/2024/06/25/Coin-Change/index.html">
 <meta property="og:site_name" content="Blog | Autzoko Lang">
-<meta property="og:description" content="This notes is according to MIT’s course: missing-semester: Editors(Vim) VimVim is a command line based code editor, designed for programmers and designed by programmers. And other visual editors like">
+<meta property="og:description" content="Given an integer array coins representing coins of different denominations and integer amount representing a total amount of money. Return the fewest number of coins that you need to make up that amou">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-06-11T02:07:02.000Z">
-<meta property="article:modified_time" content="2024-06-12T02:38:29.637Z">
+<meta property="article:published_time" content="2024-06-25T08:01:04.000Z">
+<meta property="article:modified_time" content="2024-06-25T08:18:46.678Z">
 <meta property="article:author" content="Autzoko Lang">
-<meta property="article:tag" content="vim">
+<meta property="article:tag" content="algorithms">
+<meta property="article:tag" content="dynamic programming">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://autzoko.github.io/2024/06/11/Vim-Editor/">
+<link rel="canonical" href="https://autzoko.github.io/2024/06/25/Coin-Change/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://autzoko.github.io/2024/06/11/Vim-Editor/","path":"2024/06/11/Vim-Editor/","title":"Vim Editor"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://autzoko.github.io/2024/06/25/Coin-Change/","path":"2024/06/25/Coin-Change/","title":"Coin Change"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Vim Editor | Blog | Autzoko Lang</title>
+<title>Coin Change | Blog | Autzoko Lang</title>
   
 
 
@@ -113,7 +114,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vim"><span class="nav-number">1.</span> <span class="nav-text">Vim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modes-of-vim"><span class="nav-number">2.</span> <span class="nav-text">Modes of vim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Command-line"><span class="nav-number">3.</span> <span class="nav-text">Command-line</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cursor-movement"><span class="nav-number">4.</span> <span class="nav-text">Cursor movement</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Edits"><span class="nav-number">5.</span> <span class="nav-text">Edits</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Counts"><span class="nav-number">6.</span> <span class="nav-text">Counts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modifiers"><span class="nav-number">7.</span> <span class="nav-text">Modifiers</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-number">1.</span> <span class="nav-text">Solution</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -186,7 +187,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/11/Vim-Editor/">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/25/Coin-Change/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -199,12 +200,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Vim Editor | Blog | Autzoko Lang">
+      <meta itemprop="name" content="Coin Change | Blog | Autzoko Lang">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Vim Editor
+          Coin Change
         </h1>
 
         <div class="post-meta-container">
@@ -214,15 +215,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2024-06-11 10:07:02" itemprop="dateCreated datePublished" datetime="2024-06-11T10:07:02+08:00">2024-06-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-06-12 10:38:29" itemprop="dateModified" datetime="2024-06-12T10:38:29+08:00">2024-06-12</time>
+      <time title="Created: 2024-06-25 16:01:04 / Modified: 16:18:46" itemprop="dateCreated datePublished" datetime="2024-06-25T16:01:04+08:00">2024-06-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -230,11 +225,11 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
+          <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
         </span>
           , 
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/CS/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
+          <a href="/categories/Algorithms/Problems/" itemprop="url" rel="index"><span itemprop="name">Problems</span></a>
         </span>
     </span>
 
@@ -247,75 +242,19 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p><em>This notes is according to MIT’s course: missing-semester: Editors(Vim)</em></p>
-<h2 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h2><p>Vim is a command line based code editor, designed for programmers and designed by programmers. And other visual editors like VS Code can also integrate <strong>vim</strong> mode for advanced coding experience.</p>
-<p>The core philosophy of <strong>vim</strong> editor is command, all operations are done by typing keys, using without mouse. After being familiar with these key settings, the speed of programming can be extremely improved.</p>
-<h2 id="Modes-of-vim"><a href="#Modes-of-vim" class="headerlink" title="Modes of vim"></a>Modes of vim</h2><p><strong>Vim</strong> contains several operating modes for different using:</p>
+    <div class="post-body" itemprop="articleBody"><p>Given an integer array <em>coins</em> representing coins of different denominations and integer <em>amount</em> representing a total amount of money.</p>
+<p>Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of coins, return $-1$.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: coins = [1, 2, 5], amount = 11;</span><br><span class="line">Output: 3;</span><br><span class="line">Input: coins = [2], amount = 3;</span><br><span class="line">Output: -1;</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
 <ul>
-<li>Normal: navigating, moving, and simple editing. Press <code>ESC</code> for back to normal mode.</li>
-<li>Insert: inserting text. Press <code>i</code> for switching to <strong>insert</strong> mode.</li>
-<li>Replace: replacing text. Press <code>shift-r</code> for switching to <strong>replace</strong> mode.</li>
-<li>Visual:<ul>
-<li>Visual-plain: selecting text by cursor movement. Press <code>v</code>.</li>
-<li>Visual-line: selecting text by line. Press <code>shift-v</code>.</li>
-<li>Visual-block: selecting text by block. Press <code>ctrl-v</code>.</li>
+<li>$1 \le l_{coins} \le 12$</li>
+<li>$1 \le coins_i \le 2^{31}-1$</li>
+<li>$0 \le amount \le 10^4$</li>
 </ul>
-</li>
-<li>Command-line: running command. Press <code>shift-;</code>.</li>
-</ul>
-<h2 id="Command-line"><a href="#Command-line" class="headerlink" title="Command-line"></a>Command-line</h2><p>By pressing <code>:</code> to get into command-line mode, where can send command to operating thw vim in a whole.</p>
-<ul>
-<li><code>:q</code> | quit (or close current window).</li>
-<li><code>:w</code> | write and save.</li>
-<li><code>:wq</code> | save and quit.</li>
-<li><code>:e &#123;filename&#125;</code> | open file and edit.</li>
-<li><code>:ls</code> | show open buffers.</li>
-<li><code>:help &#123;topic&#125;</code> | open help<ul>
-<li><code>:help :w</code> | help info for command <code>:w</code>.</li>
-<li><code>:help w</code> | help info for command <code>w</code>.</li>
-</ul>
-</li>
-</ul>
-<h2 id="Cursor-movement"><a href="#Cursor-movement" class="headerlink" title="Cursor movement"></a>Cursor movement</h2><ul>
-<li>Basic movement: <code>hjkl</code> | left, down, up, right.</li>
-<li>Move by word: <code>w, b, e</code> | next word, beginning of word, end of word.</li>
-<li>Move by line: <code>0, ^, $</code> | beginning of line, first non-blank character, end of line.</li>
-<li>Move by screen: <code>H, M, L</code> | top of screen, middle of screen, bottom of screen.</li>
-<li>Scroll: <code>ctrl-u, ctrl-d</code> | scroll up, scroll down.</li>
-<li>Move by file: <code>gg, G</code> | beginning of file, end of file.</li>
-<li>Misc: <code>%</code> | corresponding item.</li>
-<li>Find: <code>f&#123;char&#125;, t&#123;char&#125;, F&#123;char&#125;, T&#123;char&#125;</code> | find\to forward\backward character on the current line.</li>
-<li>Search: <code>/&#123;regex&#125;, n, N</code> | navigating match items.</li>
-</ul>
-<h2 id="Edits"><a href="#Edits" class="headerlink" title="Edits"></a>Edits</h2><ul>
-<li><code>i</code> | enter insert mode.</li>
-<li><code>o, O</code> | insert line below, insert line above.</li>
-<li><code>d&#123;motion&#125;</code> | delete by motion command.<ul>
-<li><code>dw</code> | delete word.</li>
-<li><code>d$</code> | delete to end of line.</li>
-<li><code>d0</code> | delete to beginning of line.</li>
-</ul>
-</li>
-<li><code>c&#123;motion&#125;</code> | change by motion command.</li>
-<li><code>x</code> | delete character.</li>
-<li><code>s</code> | substitute character.</li>
-<li><code>u</code> | undo.</li>
-<li><code>ctrl-r</code> | redo.</li>
-<li><code>y</code> | copy</li>
-<li><code>p</code> | paste.</li>
-</ul>
-<h2 id="Counts"><a href="#Counts" class="headerlink" title="Counts"></a>Counts</h2><p>By using command pattern <code>&#123;number&#125;&#123;command&#125;</code> can do this command by times.</p>
-<ul>
-<li><code>3w</code> move 3 words forward.</li>
-<li><code>5j</code> move 5 lines down.</li>
-<li><code>7dw</code> delete 7 words.</li>
-</ul>
-<h2 id="Modifiers"><a href="#Modifiers" class="headerlink" title="Modifiers"></a>Modifiers</h2><p>While using <em>delete</em> or <em>change</em> command, add <code>i</code> or <code>a</code> can specify the command is done inside or around.</p>
-<ul>
-<li><code>ci(</code> | change content inside current pair of parentheses.</li>
-<li><code>ci[</code> | change content inside current pair of square brackets.</li>
-<li><code>da&#39;</code> | delete a single-quoted string, including the surrounding single quotes.</li>
-</ul>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CoinChange</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">coinChange</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; coins, <span class="type">int</span> amount)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> *dp = <span class="keyword">new</span> <span class="type">int</span>[amount + <span class="number">1</span>];</span><br><span class="line">    	<span class="built_in">fill_n</span>(dp, amount + <span class="number">1</span>, amount + <span class="number">1</span>);</span><br><span class="line">	dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= amount; i++) &#123;</span><br><span class="line">	    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; coins.<span class="built_in">size</span>(); j++) &#123;</span><br><span class="line">	        <span class="keyword">if</span> (coins[j] &lt;= i)</span><br><span class="line">		    dp[i] = dp[i - coins[j]] + <span class="number">1</span> &lt; dp[i] ? dp[i - coins[j]] + <span class="number">1</span> : dp[i];</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> dp[amount] &gt; amount ? <span class="number">-1</span> : dp[amount];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation</strong>:</p>
+<p>$dp_i$ represents the minimum number of coins that makes up the amount $i$. Assume that the values from $dp_0$ to $dp_{i-1}$ are already known, thus the transition equation of $dp_i$ can be deduced as<br>$$<br>dp_i = min_{j=0}^{l_{coins}-1}dp_{i-coins_j}+1<br>$$<br>which means the value of $dp_i$ is determined by $dp_{i-coins_j}$. If $dp_i$ can transfer from $dp_{i-coins_j}$ via $coins_j$, the number of coins that used should add $1$.</p>
 
     </div>
 
@@ -366,20 +305,21 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/vim/" rel="tag"># vim</a>
+              <a href="/tags/algorithms/" rel="tag"># algorithms</a>
+              <a href="/tags/dynamic-programming/" rel="tag"># dynamic programming</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/05/21/Paper-Reading-Attention-is-All-You-Need/" rel="prev" title="Paper Reading: Attention is All You Need">
-                  <i class="fa fa-angle-left"></i> Paper Reading: Attention is All You Need
+                <a href="/2024/06/21/Cloudfare%E4%B8%8ETelegraph-image%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/" rel="prev" title="Cloudfare与Telegraph-image搭建个人图床">
+                  <i class="fa fa-angle-left"></i> Cloudfare与Telegraph-image搭建个人图床
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/06/17/SHA256-Algorithm/" rel="next" title="SHA256 Algorithm">
-                  SHA256 Algorithm <i class="fa fa-angle-right"></i>
+                <a href="/2024/06/25/Count-Word-with-Given-Prefix/" rel="next" title="Count Word with Given Prefix">
+                  Count Word with Given Prefix <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
