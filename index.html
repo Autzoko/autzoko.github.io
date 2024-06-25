@@ -124,7 +124,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -135,7 +135,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -172,6 +172,113 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/21/Cloudfare%E4%B8%8ETelegraph-image%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Blog | Autzoko Lang">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/21/Cloudfare%E4%B8%8ETelegraph-image%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/" class="post-title-link" itemprop="url">Cloudfare与Telegraph-image搭建个人图床</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-06-21 20:32:22" itemprop="dateCreated datePublished" datetime="2024-06-21T20:32:22+08:00">2024-06-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-06-25 15:10:59" itemprop="dateModified" datetime="2024-06-25T15:10:59+08:00">2024-06-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Others/" itemprop="url" rel="index"><span itemprop="name">Others</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="什么是个人图床"><a href="#什么是个人图床" class="headerlink" title="什么是个人图床"></a>什么是个人图床</h2><p>简单举例，当在使用markdown或者HTML等文本框架时，插入图片（或其他媒体资源）通常使用两种插入方式：</p>
+<ul>
+<li>通过本地路径获取；一般通过指定图片在本机或服务器上的路径（一般是绝对路径或者相对路径）来获取图片，图片信息保存在个人媒介上。</li>
+<li>通过网络URL获取；一般通过指定图片在其他云服务提供商上的URL路径来实时加载图片资源。这个用来保存图片的云服务一般被称为<strong>图床</strong>。</li>
+</ul>
+<p>而在写个人博客时，通常希望博文中可以插入一些图片来方便撰写。除了直接在markdown中插入本机图片，使用<strong>个人图床</strong>也是一个较好的选择，尤其适合我这种<strong>访问量低</strong>也不会上传大量图片资源的博主。</p>
+<h2 id="Telegraph-image"><a href="#Telegraph-image" class="headerlink" title="Telegraph-image"></a>Telegraph-image</h2><p><em>Telegraph-image</em>相当于一个<em>Flickr/imgur</em>的平替，通过在Cloudfare Pages中部署该Function可以起到图片上传和引用等寄存服务。</p>
+<p>Telegraph-image的github仓库：<a target="_blank" rel="noopener" href="https://github.com/cf-pages/Telegraph-Image">Telegraph-Image</a></p>
+<p>该仓库的README中也介绍了如何部署该服务，这里只是简单的重复一下。</p>
+<h3 id="注册Cloudfare"><a href="#注册Cloudfare" class="headerlink" title="注册Cloudfare"></a>注册Cloudfare</h3><p>前往<a target="_blank" rel="noopener" href="https://www.cloudflare-cn.com/">Cloudflare</a>（这里使用的国区代理）注册即可。（建议）直接使用个人邮箱注册即可，注册成功后邮箱会收到一封验证邮件，点击验证邮件即可。</p>
+<h3 id="Fork仓库"><a href="#Fork仓库" class="headerlink" title="Fork仓库"></a>Fork仓库</h3><p>将Telegraph-image的仓库Fork到自己属下。Fork都是用默认配置，只Fork main分支即可。另一种方法是将该仓库clone到本地再部署，这样比较麻烦故不推荐。</p>
+<h3 id="部署Telegraph-image"><a href="#部署Telegraph-image" class="headerlink" title="部署Telegraph-image"></a>部署Telegraph-image</h3><p>点击Cloudfare侧边栏的Works &amp; Pages栏</p>
+<p><img src="https://telegraph-image-939.pages.dev/file/d90065769142c1717af70.png" alt="Cloudfare部署：前往Pages"></p>
+<p>前往Pages界面然后点击”连接到Git“：</p>
+<p><img src="https://telegraph-image-939.pages.dev/file/30902cf144842a45b51db.png" alt="链接Git"></p>
+<p>之后点击添加Github账户，添加自己的Github账户。添加成功后选择Fork过来的Telegraph-Image仓库来部署：</p>
+<p><img src="https://telegraph-image-939.pages.dev/file/8b9e5b6c8d8690e64b911.png" alt="选择Github仓库开始部署"></p>
+<p>然后点击右下方的<strong>开始设置</strong>按钮。进入下一个页面后可以更改<strong>项目名称</strong>，项目分支仍然是<strong>main</strong>分支，其余配置无需改动（都是空即可）。这一页的内容完成后点击<strong>保存并部署</strong>即可开始部署。</p>
+<p>此时网页内会有仿命令行窗口来提示部署进度，最后直至完成。</p>
+<p><img src="https://telegraph-image-939.pages.dev/file/bab680b450758f45de1ed.png" alt="点击访问站点"></p>
+<p>代理生成之后会出现访问站点的链接，点击该链接即可前往个人图床网站。在图床网站可以选择文件上传或者直接ctrl-v粘贴，拖拽上传图片。上传图片成功之后会在下方自动生成一个图片链接，复制该链接至需要用到的地方即可（如Markdown，本博客的图片均来自个人图床的链接）。</p>
+<p><img src="https://telegraph-image-939.pages.dev/file/6cefed96e0d38386abc4f.png" alt="个人图床界面"></p>
+<p><strong>到这里一个简单的个人图床就大功告成啦。后续添加图像上传验证Token之类也会慢慢更新，尝试发掘出更多的拓展功能。</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
