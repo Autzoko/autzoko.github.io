@@ -124,7 +124,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -181,6 +181,101 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/10/08/Maximum-Average-Subarray-I/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Blog | Autzoko Lang">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/10/08/Maximum-Average-Subarray-I/" class="post-title-link" itemprop="url">Maximum Average Subarray I</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-10-08 15:40:31 / Modified: 17:12:50" itemprop="dateCreated datePublished" datetime="2024-10-08T15:40:31-04:00">2024-10-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithms/Problems/" itemprop="url" rel="index"><span itemprop="name">Problems</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>You are given an integer array <strong>nums</strong> consisting of $ n$ elements, and an integer $ k$. Find a contiguous subarray whose length is equal to $ k$ that has the maximum average value and return this value. Any answer with a calculation error less than $10^{-5}$ will be accepted.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [1, 12, -5, -6, 50, 3], k = 4;</span><br><span class="line">Output: 12.75000;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [5], k = 1;</span><br><span class="line">Output: 5.00000;</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>$ n = len(nums) $</li>
+<li>$ 1 \le k \le n \le 1-^5 $</li>
+<li>$ -10^4 \le nums_i \le 10^4 $</li>
+</ul>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> LL = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">findMaxAverage</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        LL sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; k; i++) &#123;</span><br><span class="line">            sum += nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        LL maxSum = sum;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>, j = k; j &lt; nums.<span class="built_in">size</span>(); i++, j++) &#123;</span><br><span class="line">            sum = sum - nums[i] + nums[j];</span><br><span class="line">            maxSum = <span class="built_in">max</span>(maxSum, sum);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (<span class="type">double</span>)maxSum / (<span class="type">double</span>)k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation:</strong></p>
+<p>This problem uses the <strong>Sliding Window</strong> technique. To reduce the calculation when sliding, first we do not compute the average each time, we can only calculate the sum of the window and divide it at last when return. Since the length of the window is fixed, so each step it move we just need to subtract the left margin value and add the value next to the right margin then the new sum of the window is get. Slide it step by step and update the <em>maxSum</em> to find the maximum value of the array.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/10/01/Container-with-Most-Water/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -217,7 +312,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-10-08 13:15:32" itemprop="dateModified" datetime="2024-10-08T13:15:32-04:00">2024-10-08</time>
+      <time title="Modified: 2024-10-08 16:33:56" itemprop="dateModified" datetime="2024-10-08T16:33:56-04:00">2024-10-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -256,10 +351,9 @@
 <li>$ 2 \le n \le 10^5 $</li>
 <li>$ 0 \le height_i \le 10^4 $</li>
 </ul>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> LL = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxArea</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        LL left = <span class="number">0</span>, right = height.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        LL maxA = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            LL currentArea = <span class="built_in">min</span>(height[left], height[right]) * (right - left);</span><br><span class="line">            maxA = <span class="built_in">max</span>(maxA, currentArea);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (height[left] &lt; height[right]) left++;</span><br><span class="line">            <span class="keyword">else</span> right--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> maxA;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> LL = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxArea</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        LL left = <span class="number">0</span>, right = height.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        LL maxA = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            LL currentArea = <span class="built_in">min</span>(height[left], height[right]) * (right - left);</span><br><span class="line">            maxA = <span class="built_in">max</span>(maxA, currentArea);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (height[left] &lt; height[right]) left++;</span><br><span class="line">            <span class="keyword">else</span> right--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> maxA;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>Explanation:</strong></p>
-<p>To solve this problem the <strong>two pointers</strong> technique is adopted. The<br><em>left</em> pointer starting at the index 0 and the <em>right</em> pointer starts at the<br>end of the vector. Use <em>maxA</em> to keep track of the maximum area found.</p>
-<p>Then calculate the current area of the container and update it to the <em>maxA</em>.<br>And we need to move the two pointers inwards to find the global maximum area.<br>The method for moving inwards the pointers is to always move the smaller one (low one)<br>the seeking a greater value that may increase the area.</p>
+<p>To solve this problem the <strong>two pointers</strong> technique is adopted. The <em>left</em> pointer starting at the index 0 and the <em>right</em> pointer starts at the end of the vector. Use <em>maxA</em> to keep track of the maximum area found. Then calculate the current area of the container and update it to the <em>maxA</em>. And we need to move the two pointers inwards to find the global maximum area. The method for moving inwards the pointers is to always move the smaller one (low one) the seeking a greater value that may increase the area.</p>
 
       
     </div>
@@ -1098,94 +1192,6 @@ G(n)=\sum_{i=1}^n f(i)</script><p>And when $i$ is the root node, the number of n
 f(i)=G(i-1)\times G(n-i)</script><p>Fusing above two equations, the <strong><em>Catalan Number Equation</em></strong> is deduced:</p>
 <script type="math/tex; mode=display">
 G(n)=\sum_{i=0}^n G(i)\times G(n-1-i)</script>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/28/%E6%97%85%E8%A8%98-%E9%9B%B2%E4%B8%AD%E6%95%85%E9%83%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Autzoko Lang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog | Autzoko Lang">
-      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Blog | Autzoko Lang">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/06/28/%E6%97%85%E8%A8%98-%E9%9B%B2%E4%B8%AD%E6%95%85%E9%83%A1/" class="post-title-link" itemprop="url">旅記|雲中故郡</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2024-06-28 14:53:55 / Modified: 08:27:04" itemprop="dateCreated datePublished" datetime="2024-06-28T14:53:55-04:00">2024-06-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Photography/" itemprop="url" rel="index"><span itemprop="name">Photography</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Photography/Travels/" itemprop="url" rel="index"><span itemprop="name">Travels</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://telegraph-image-939.pages.dev/file/7ae6f89265fd2ae7b00ad.jpg" alt="北京北站-出發"></p>
-<p>從京城的西直門出發，沿著曾經詹天佑修建的京張鐵路，經過張家口，便徹底離開了偌大的華北平原，進入了山與高原交錯的地界了。</p>
-<h2 id="大同府"><a href="#大同府" class="headerlink" title="大同府"></a>大同府</h2><p>大同府坐落在三晉大地的大同盆地之中，雁門関北，自古屬雲州轄，是為山外所植。大同府自古是溝通中原與北方游牧諸族的要會，北魏於此建都平城，於此開啓鮮卑漢化的歷史進程。宋代這裏也屬北宋未曾接管的燕雲十六州。與此毗鄰的代、朔、應、忻等地向來是邊境前綫所在。</p>
-<p>大同在現今山西省的北端，往北走去便是内蒙古草原地帶，往南有太岳、呂梁、太行三山橫亙，擋住了前往中原的通路，只有幾條山中狹徑供軍民使用。</p>
-<p><img src="https://telegraph-image-939.pages.dev/file/f7871e67e1633ebc6524a.png" alt="三晉邊關"></p>
-<p>在群山懷抱之中，大同得天獨厚的地理條件是的南下的游牧民族政權都會優先選擇這裏作爲一個重要的城市，無論是鮮卑之平成，還是契丹之西京，這裏是游牧民族南下的第一步，是漢地十八省的北部前哨。所以大同府的歷史也是一個充滿軍事鐵血與戰爭血淚的歷史。</p>
-
       
     </div>
 
