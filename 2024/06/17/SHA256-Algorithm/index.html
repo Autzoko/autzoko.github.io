@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"autzoko.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="IntroductionSHA-256 encryption algorithm is a division from the SHA-2 group, a.k.a. Secure Hash Algorithm 2. It can be known from the name that, the SHA is a type of hash function. This encryption alg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SHA256 Algorithm">
+<meta property="og:url" content="https://autzoko.github.io/2024/06/17/SHA256-Algorithm/index.html">
+<meta property="og:site_name" content="Blog | Autzoko Lang">
+<meta property="og:description" content="IntroductionSHA-256 encryption algorithm is a division from the SHA-2 group, a.k.a. Secure Hash Algorithm 2. It can be known from the name that, the SHA is a type of hash function. This encryption alg">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-06-18T00:28:08.000Z">
+<meta property="article:modified_time" content="2024-06-19T05:42:00.747Z">
+<meta property="article:author" content="Autzoko Lang">
+<meta property="article:tag" content="encryption">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://autzoko.github.io/2024/06/17/SHA256-Algorithm/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://autzoko.github.io/2024/06/17/SHA256-Algorithm/","path":"2024/06/17/SHA256-Algorithm/","title":"SHA256 Algorithm"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SHA256 Algorithm | Blog | Autzoko Lang</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog | Autzoko Lang</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">THIS IS MY KINGDOM COME</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Explanations-of-SHA-256-Algorithm"><span class="nav-number">2.</span> <span class="nav-text">Explanations of SHA-256 Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Before-Dive-into-SHA-256"><span class="nav-number">2.1.</span> <span class="nav-text">Before Dive into SHA-256</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Constants"><span class="nav-number">2.1.1.</span> <span class="nav-text">Constants</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Preprocessing"><span class="nav-number">2.2.</span> <span class="nav-text">Data Preprocessing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Logical-Operations"><span class="nav-number">2.3.</span> <span class="nav-text">Logical Operations</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstraction"><span class="nav-number">3.</span> <span class="nav-text">Abstraction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Code-Implementation"><span class="nav-number">4.</span> <span class="nav-text">Code Implementation</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Autzoko Lang"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Autzoko Lang</p>
+  <div class="site-description" itemprop="description">Crescat Scientia Vita Excolatur</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Autzoko" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Autzoko" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:autzokoLang@outlook.com" title="E-Mail → mailto:autzokoLang@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Autzokos" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Autzokos" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/autzoko" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;autzoko" rel="noopener me" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/autzoko" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;autzoko" rel="noopener me" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/langtian-lang-161995302" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;langtian-lang-161995302" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/17/SHA256-Algorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="SHA256 Algorithm | Blog | Autzoko Lang">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SHA256 Algorithm
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-06-17 20:28:08" itemprop="dateCreated datePublished" datetime="2024-06-17T20:28:08-04:00">2024-06-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-06-19 01:42:00" itemprop="dateModified" datetime="2024-06-19T01:42:00-04:00">2024-06-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithms/Encryptions/" itemprop="url" rel="index"><span itemprop="name">Encryptions</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>SHA-256</strong> encryption algorithm is a division from the <strong>SHA-2</strong> group, a.k.a. Secure Hash Algorithm 2. It can be known from the name that, the <strong>SHA</strong> is a type of hash function. This encryption algorithm encode the input message by hashing to encrypt and compress. The result of <strong>SHA</strong> encryption usually contains random alphanumeric characters.</p>
+<h2 id="Explanations-of-SHA-256-Algorithm"><a href="#Explanations-of-SHA-256-Algorithm" class="headerlink" title="Explanations of SHA-256 Algorithm"></a>Explanations of SHA-256 Algorithm</h2><p>Before explicitly explain the detailed algorithm of <strong>SHA-256</strong>, it is essential to figure out what should be done in advance. Three sections can be extracted: the constants that are used in the algorithm, how to preprocess the data, and the logical operations that are used. After understanding these, the algorithm itself is easy to handle.</p>
+<h3 id="Before-Dive-into-SHA-256"><a href="#Before-Dive-into-SHA-256" class="headerlink" title="Before Dive into SHA-256"></a>Before Dive into SHA-256</h3><h4 id="Constants"><a href="#Constants" class="headerlink" title="Constants"></a>Constants</h4><p>In the <strong>SHA-256</strong> algorithm, 8 hash initial values and 64 hash constants are used. First, the eight initial values are as follow:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint32_t</span> H[<span class="number">8</span>] = &#123;</span><br><span class="line">    <span class="number">0x6a09e667</span>, <span class="number">0xbb67ae85</span>, <span class="number">0x3c6ef372</span>, <span class="number">0xa54ff53a</span>,</span><br><span class="line">    <span class="number">0x510e527f</span>, <span class="number">0x9b05688c</span>, <span class="number">0x1f83d9ab</span>, <span class="number">0x5be0cd19</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>These numbers are selected from the first 32 bits of the decimal part of the square roots of the first eight natural prime numbers.</p>
+<p>And the 64 hash constants are:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="type">uint32_t</span> K[<span class="number">64</span>] = &#123;</span><br><span class="line">    <span class="number">0x428a2f98</span>, <span class="number">0x71374491</span>, <span class="number">0xb5c0fbcf</span>, <span class="number">0xe9b5dba5</span>,</span><br><span class="line">    <span class="number">0x3956c25b</span>, <span class="number">0x59f111f1</span>, <span class="number">0x923f82a4</span>, <span class="number">0xab1c5ed5</span>,</span><br><span class="line">    <span class="number">0xd807aa98</span>, <span class="number">0x12835b01</span>, <span class="number">0x243185be</span>, <span class="number">0x550c7dc3</span>,</span><br><span class="line">    <span class="number">0x72be5d74</span>, <span class="number">0x80deb1fe</span>, <span class="number">0x9bdc06a7</span>, <span class="number">0xc19bf174</span>,</span><br><span class="line">    <span class="number">0xe49b69c1</span>, <span class="number">0xefbe4786</span>, <span class="number">0x0fc19dc6</span>, <span class="number">0x240ca1cc</span>,</span><br><span class="line">    <span class="number">0x2de92c6f</span>, <span class="number">0x4a7484aa</span>, <span class="number">0x5cb0a9dc</span>, <span class="number">0x76f988da</span>,</span><br><span class="line">    <span class="number">0x983e5152</span>, <span class="number">0xa831c66d</span>, <span class="number">0xb00327c8</span>, <span class="number">0xbf597fc7</span>,</span><br><span class="line">    <span class="number">0xc6e00bf3</span>, <span class="number">0xd5a79147</span>, <span class="number">0x06ca6351</span>, <span class="number">0x14292967</span>,</span><br><span class="line">    <span class="number">0x27b70a85</span>, <span class="number">0x2e1b2138</span>, <span class="number">0x4d2c6dfc</span>, <span class="number">0x53380d13</span>,</span><br><span class="line">    <span class="number">0x650a7354</span>, <span class="number">0x766a0abb</span>, <span class="number">0x81c2c92e</span>, <span class="number">0x92722c85</span>,</span><br><span class="line">    <span class="number">0xa2bfe8a1</span>, <span class="number">0xa81a664b</span>, <span class="number">0xc24b8b70</span>, <span class="number">0xc76c51a3</span>,</span><br><span class="line">    <span class="number">0xd192e819</span>, <span class="number">0xd6990624</span>, <span class="number">0xf40e3585</span>, <span class="number">0x106aa070</span>,</span><br><span class="line">    <span class="number">0x19a4c116</span>, <span class="number">0x1e376c08</span>, <span class="number">0x2748774c</span>, <span class="number">0x34b0bcb5</span>,</span><br><span class="line">    <span class="number">0x391c0cb3</span>, <span class="number">0x4ed8aa4a</span>, <span class="number">0x5b9cca4f</span>, <span class="number">0x682e6ff3</span>,</span><br><span class="line">    <span class="number">0x748f82ee</span>, <span class="number">0x78a5636f</span>, <span class="number">0x84c87814</span>, <span class="number">0x8cc70208</span>,</span><br><span class="line">    <span class="number">0x90befffa</span>, <span class="number">0xa4506ceb</span>, <span class="number">0xbef9a3f7</span>, <span class="number">0xc67178f2</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Similar to before, these 64 constants are selected from the first 32 bits of the cube roots of the first 64 natural prime numbers.</p>
+<h3 id="Data-Preprocessing"><a href="#Data-Preprocessing" class="headerlink" title="Data Preprocessing"></a>Data Preprocessing</h3><p>The preprocessing stage of the <strong>SHA-256</strong> algorithm has two steps:</p>
+<ul>
+<li>Append ‘1’ followed by enough ‘0’s at the end of the data so that the length of the message modulo 512 equals 448.</li>
+<li>Then append 64 bits of message length information at the end with big endian.</li>
+</ul>
+<p><em>Notice that: albeit current length modulo 512 equals 448, the append operation is still necessary!</em></p>
+<p>For example, now here’s data:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">01100001</span> <span class="number">01100010</span> <span class="number">01100011</span></span><br></pre></td></tr></table></figure>
+<p>Then we need to append a ‘1’ and 423 ‘0’s:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">01100001</span> <span class="number">01100010</span> <span class="number">01100011</span> <span class="number">1000000</span></span><br><span class="line"><span class="number">00000000</span>       ......      <span class="number">0000000</span></span><br></pre></td></tr></table></figure>
+<p>Finally, the length of the original message should be appended to the end of current data by big endian.</p>
+<h3 id="Logical-Operations"><a href="#Logical-Operations" class="headerlink" title="Logical Operations"></a>Logical Operations</h3><p>All of logical operations that involved with <strong>SHA-256</strong> algorithm are as follow:<br>$$<br>Ch(x,y,z)=(x \land y) \oplus (\urcorner x \land z)<br>$$<br>$$<br>Maj(x,y,z)=(x\land y)\oplus (x \land z) \oplus (y \land z)<br>$$<br>$$<br>\Sigma_0(x) = S_R^2(x) \oplus S_R^{13}(x) \oplus S_R^{22}(x)<br>$$<br>$$<br>\Sigma_1(x) = S_R^6(x) \oplus S_R^{11}(x) \oplus S_R^{25}(x)<br>$$<br>$$<br>\sigma_0(x) = S_R^7(x) \oplus S_R^{18} \oplus R^3(x)<br>$$<br>$$<br>\sigma_1(x) = S_R^{17}(x) \oplus S_R^{19}(x) \oplus R^{10}(x)<br>$$</p>
+<p>Explanations:</p>
+<ul>
+<li>$\land$: and.</li>
+<li>$\urcorner x$: not.</li>
+<li>$\oplus$: xor.</li>
+<li>$S_R^n$: Cycled right shift.</li>
+<li>$R^n$: Right shift.</li>
+</ul>
+<h2 id="Abstraction"><a href="#Abstraction" class="headerlink" title="Abstraction"></a>Abstraction</h2><p>How here comes to ultimately main part of the <strong>SHA-256</strong> algorithm! All the details related to the algorithm will be elaborate here.</p>
+<p>The first things is: <strong>break message into 512-bit chunks.</strong></p>
+<p>Suppose that the message $m$ can be splited into $n$ chunks, so the whole algorithm needs to iterate for $n$ times in order to get a 256-bit hash result. Initially, a 256-bit initial value $H_0$ is given, then operate with data chunk 1 and get $H_1$. Then operate with data chunk 2 and get $H_2$. Repeat above step until all data chunks are operated.</p>
+<p>The pseudo-code are:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data_chunks = divide_by_512_bit(message)</span><br><span class="line">handle = H0</span><br><span class="line">for (chunk in data_chunks):</span><br><span class="line">	handle = operate(handle, chunk)</span><br><span class="line">result = handle</span><br></pre></td></tr></table></figure>
+<p>Among each <em>operation</em>, each data chunk with 512-bit chunk are divided into 16 <strong>words</strong>, each word contains 32 bits and encoded with big endian, as $W_0,…,W_{15}$. Which means the first sixteen words can be directly derived from the $i^{th}$ chunk data. The rest words are derived through following equation:</p>
+<p>$$<br>W_t=\sigma_1(W_{t-2})+W_{t-7}+\sigma_0(W_{t-15})+W_{t-16}<br>$$</p>
+<p>Then, iterate by 8 words for 64 times follow these rules:</p>
+<p>$$<br>A=H+\Sigma_1(E)+Ch(E,F,G)+K_i+W_i+Maj(A,B,C)+\Sigma_0(A)<br>$$<br>$$<br>B=A<br>$$<br>$$<br>C=B<br>$$<br>$$<br>D=C<br>$$<br>$$<br>E=D+H+\Sigma_1(E)+Ch(E,F,G)+W_i+K_i<br>$$<br>$$<br>F=E<br>$$<br>$$<br>G=F<br>$$<br>$$<br>H=G<br>$$<br><em>Notice that: the initial value of word A-H is $H_0$-$H_7$. And $K_i$ is the $i^{th}$ value of the initial hash value.</em></p>
+<h2 id="Code-Implementation"><a href="#Code-Implementation" class="headerlink" title="Code Implementation"></a>Code Implementation</h2><ul>
+<li>C: <a target="_blank" rel="noopener" href="https://github.com/Autzoko/Encryptions/blob/main/C/src/sha-256.c">Encryptions/C/src/sha-256.c at main · Autzoko/Encryptions (github.com)</a></li>
+<li>Rust: <a target="_blank" rel="noopener" href="https://github.com/Autzoko/Encryptions/blob/main/rust/src/encryptions/sha_256.rs">Encryptions/rust/src/encryptions/sha_256.rs at main · Autzoko/Encryptions (github.com)</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/reward_wechat.jpg" alt="Autzoko Lang WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Autzokos">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://www.xiaohongshu.com/user/profile/5f7837680000000001002a8c?xhsshare=CopyLink&appuid=5f7837680000000001002a8c&apptime=1716218308">
+            <span class="icon">
+              <i class="fas fa-hashtag"></i>
+            </span>
+
+            <span class="label">Red Book</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/encryption/" rel="tag"># encryption</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/06/11/Vim-Editor/" rel="prev" title="Vim Editor">
+                  <i class="fa fa-angle-left"></i> Vim Editor
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/06/21/Cloudfare%E4%B8%8ETelegraph-image%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/" rel="next" title="Cloudfare与Telegraph-image搭建个人图床">
+                  Cloudfare与Telegraph-image搭建个人图床 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Autzoko Lang</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
