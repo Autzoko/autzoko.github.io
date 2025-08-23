@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"autzoko.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Attention is All You Need is a paper published in 2017 by Google Brain team. In this paper, the prominent self-attention mechanism and multi-headed self-attention mechanism are proposed to enhance the">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Paper Reading: Attention is All You Need">
+<meta property="og:url" content="https://autzoko.github.io/2024/05/21/Paper-Reading-Attention-is-All-You-Need/index.html">
+<meta property="og:site_name" content="Blog | Autzoko Lang">
+<meta property="og:description" content="Attention is All You Need is a paper published in 2017 by Google Brain team. In this paper, the prominent self-attention mechanism and multi-headed self-attention mechanism are proposed to enhance the">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-05-21T13:15:28.000Z">
+<meta property="article:modified_time" content="2025-08-22T17:11:07.257Z">
+<meta property="article:author" content="Autzoko Lang">
+<meta property="article:tag" content="deep learning">
+<meta property="article:tag" content="papers">
+<meta property="article:tag" content="attention mechanism">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://autzoko.github.io/2024/05/21/Paper-Reading-Attention-is-All-You-Need/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Paper Reading: Attention is All You Need | Blog | Autzoko Lang</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Blog | Autzoko Lang</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">THIS IS MY KINGDOM COME</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/21/Paper-Reading-Attention-is-All-You-Need/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Paper Reading: Attention is All You Need
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-05-21 21:15:28" itemprop="dateCreated datePublished" datetime="2024-05-21T21:15:28+08:00">2024-05-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-08-23 01:11:07" itemprop="dateModified" datetime="2025-08-23T01:11:07+08:00">2025-08-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper-Reading/" itemprop="url" rel="index"><span itemprop="name">Paper Reading</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>Attention is All You Need</strong> is a paper published in
+2017 by Google Brain team. In this paper, the prominent
+<strong>self-attention mechanism</strong> and <strong>multi-headed
+self-attention mechanism</strong> are proposed to enhance the general
+capacity of neural networks. Meanwhile, a basic neural network
+architecture <strong>Transformer</strong> is proposed to adopt such
+mechanism and its been tested on translation task.</p>
+<h2 id="what-is-attention">What is Attention?</h2>
+<p>The <strong>attention</strong> mentioned in neural network is similar
+with the one we mentioned about human intelligence: an ability to
+capture information which seems to be more important (subjectively). The
+“attention mechanism” in human congnition is prominently manifested
+across various sensory perceptions. For instance, when using our eyes,
+certain features such as bright colors, rapid movements, or familiar
+faces tend to capture our gaze. Similarly, during reading, specific
+names, events, or elegant phrases can leave a lasting impression. This
+attention mechanism also extends to other senses like smell, touch, and
+hearing. Furthermore, the stream of consciousness during thought
+processes is often influenced by particularly striking information, all
+of which illustrate the attention mechanism in human cognition.</p>
+<p>In the context of a nerual network, what does the attention mechanism
+refer to? For example, when we want a neural network to process an
+image, how does it determine which elements of the image are more
+important. Consider objects like people, pets, or cars in an image–how
+does the network decide which one is more noteworthy in the image’s
+“context”? The attention mechanism addresses this problem. When
+processing an image, the neural network assigns higher weights, or
+“attention scores”, to what it deems more important information. During
+subsequent forwarding process, the high-weight information is
+emphasized, enabling the network to capture more detailed and deeper
+features. This, in turn, aids in handling the semantic importance of the
+image. Besides image processing, the mechanism is applicable to text,
+audio, graph, and other data types. Since data in neural networks exists
+as discrete tensors, the fundamental principles of calculating attention
+scores remain consistent across different data types.</p>
+<h2 id="self-attention-mechanism">Self-Attention Mechanism</h2>
+<p>The so-called self-attention mechanism refers to a process where the
+attention scores are computed by comparing the elements within the
+sequence itself. In other words, the reference for calculating attention
+scores is the sequence as a whole. For a tensor sequence input into a
+neural network, the self-attention mechanism requires computing the
+attention scores between each element and every other element in the
+sequence. The basic process can be represented in pseudocode as
+follows:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (element_x : input_sequence) &#123;</span><br><span class="line">	for (element_y : input_sequence) &#123;</span><br><span class="line">		attention_score[x][y] = compute_score(element_x, element_y);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>However, for deep learning tasks, using to nested loops to compute
+values is highly time-consuming, especially when the input sequence
+length can be in the tens of thousands. Therefore, researchers use
+vectorized operations to calculate all pairwise attention scores
+efficiently. By using vectorized multiplication, we can obtain all
+attention scores with a single dot product operation between the input
+tensor sequence and its transposed version.</p>
+<p><span class="math display">$$
+X= \left[ \begin{matrix} x_1, ..., x_n \end{matrix} \right]
+$$</span></p>
+<p><span class="math display">$$
+X^T= \left[ \begin{matrix} x_1 \\ \vdots \\ x_n \\ \end{matrix} \right]
+$$</span></p>
+<p><span class="math display">$$
+AttentionScore = X \cdot X^T = \left[ \begin{matrix} x_1 \cdot x_1 &amp;
+... &amp; x_1 \cdot x_n\\ \vdots &amp; &amp; \vdots \\ x_n \cdot x_1
+&amp; ... &amp; x_n \cdot x_n\\ \end{matrix} \right]
+$$</span></p>
+<p>Through this matrix multiplication operation, combined with parallel
+computing technology and the parallel processing capabilities of GPU
+devices, the efficiency of this computation can be greatly enhanced. To
+ensure that the attention scores are not fixed and be gradually
+optimized during the training process, we use parameter matrices to
+adjust the calculation of attention scores. This enable the model to
+truely capture the information that deserves attention. Thus, the
+equation for computing attention score can be expressed as follows:
+<span class="math display">$$
+Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V
+$$</span> Here, $ Q, K, V $ refer to each element in the input sequence
+being multiplied by three shared weighted matrices $ W_q, W_k $ and $
+W_v $. The data multiplied by $ W_q $ represents the element that will
+compute attention scores with other elements in the sequence. The data
+multiplied by $ W_k $ represents the data being compared. After
+comparing each element with every other element, the resulting sequence
+is the attention score sequence for that element. This sequence is
+processed through the softmax function and then multiplied by $ W_v $ to
+perform a weighted sum. The entire process essentially calculates the
+correlations between all elements and the performs a weighted sum, with
+the result being the output of the attention mechanism. Through this
+process, the information that is considered more important is multiplied
+by greater weights, as a result their “information” can be magnified in
+the subsequent processes.</p>
+<h2 id="transformer-model">Transformer Model</h2>
+<p>The Transformer model adopts an <strong>encoder-decoder</strong>
+architecture which is a popular architecture in current deep learning
+field. Two independent models are separatedly used as an encoder and a
+decoder. For most cases, they are used to process different types of
+data. For example, in <em>image captioning,</em> encoder is used for
+process image signal and decoder is for generating captions. In this
+paper, the Transformer is tested on English-German translation task, so,
+unprecisely, you can image the encoder is trying to “understand” a
+sentence in English and then generate some kind of <em>metaphysical</em>
+or <em>abstract</em> information, these information contains the
+concepts, subjects and objectives that are “mentioned” in the original
+language. Then, these information is passed to decoder, and the task of
+decode is to decrypt these information into German.</p>
+<p>Importantly, the comparison I mentioned above is extremely unprecise,
+this model cannot translate as human do, in fact it’s still a
+<strong>prediction</strong> or <strong>simulation</strong>, but not
+<strong>understanding</strong>.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
+              <a href="/tags/papers/" rel="tag"># papers</a>
+              <a href="/tags/attention-mechanism/" rel="tag"># attention mechanism</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/05/21/Edit-Distance/" rel="prev" title="Edit Distance">
+      <i class="fa fa-chevron-left"></i> Edit Distance
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/06/11/Vim-Editor/" rel="next" title="Vim Editor">
+      Vim Editor <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-attention"><span class="nav-number">1.</span> <span class="nav-text">What is Attention?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#self-attention-mechanism"><span class="nav-number">2.</span> <span class="nav-text">Self-Attention Mechanism</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transformer-model"><span class="nav-number">3.</span> <span class="nav-text">Transformer Model</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Autzoko Lang"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Autzoko Lang</p>
+  <div class="site-description" itemprop="description">Crescat Scientia Vita Excolatur</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Autzoko" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Autzoko" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/langtian0725@gmail.com" title="E-Mail → langtian0725@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/autzoko" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;autzoko" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://linkedin.com/in/langtian-lang" title="LinkedIn → https:&#x2F;&#x2F;linkedin.com&#x2F;in&#x2F;langtian-lang" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Autzoko Lang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
