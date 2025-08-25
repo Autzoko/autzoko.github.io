@@ -158,6 +158,138 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/25/Count-Word-with-Given-Prefix/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/25/Count-Word-with-Given-Prefix/" class="post-title-link" itemprop="url">Count Word with Given Prefix</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-25 16:53:41" itemprop="dateCreated datePublished" datetime="2024-06-25T16:53:41+08:00">2024-06-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-08-23 01:10:58" itemprop="dateModified" datetime="2025-08-23T01:10:58+08:00">2025-08-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/Problems/" itemprop="url" rel="index"><span itemprop="name">Problems</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Given an lexicographical order array <span
+class="math inline"><em>w</em><em>o</em><em>r</em><em>d</em><em>s</em></span>
+with size of <span class="math inline"><em>n</em></span>, the strings
+among <span
+class="math inline"><em>w</em><em>o</em><em>r</em><em>d</em><em>s</em></span>
+are all writen in lower case letters. And given a specific string <span
+class="math inline"><em>p</em><em>r</em><em>e</em><em>f</em><em>i</em><em>x</em></span>
+with a length of <span class="math inline"><em>m</em></span>, count the
+number of strings in <span
+class="math inline"><em>w</em><em>o</em><em>r</em><em>d</em><em>s</em></span>
+that have a prefix of <span
+class="math inline"><em>p</em><em>r</em><em>e</em><em>f</em><em>i</em><em>x</em></span>.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [&quot;aaa&quot;, &quot;ba&quot;, &quot;bac&quot;, &quot;bat&quot;, &quot;batbat&quot;, &quot;batq&quot;, &quot;bta&quot;, &quot;c&quot;];</span><br><span class="line">Output: 3;</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>The <em>time complexity</em> should be <span
+class="math inline"><em>O</em>(<em>m</em>log <em>n</em>)</span></li>
+</ul>
+<h2 id="solution">Solution</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CountPrefix</span>&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    string prefix;</span><br><span class="line">    vector&lt;string&gt; words;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">hasPrefix</span><span class="params">(string&amp; word, string&amp; pref)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (word.<span class="built_in">size</span>() &lt; pref.<span class="built_in">size</span>()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; pref.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (word[i] != pref[i])</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findFirst</span><span class="params">(<span class="type">int</span> left, <span class="type">int</span> right)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> low = left, high = right, label = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">            <span class="type">int</span> mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">hasPrefix</span>(words[mid], prefix)) &#123;</span><br><span class="line">                label = mid, high = mid - <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (prefix[<span class="number">0</span>] &lt; words[mid][<span class="number">0</span>]) &#123;</span><br><span class="line">                high = mid - <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                low = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> label;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findLast</span><span class="params">(<span class="type">int</span> left, <span class="type">int</span> right)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> low = left, high = right, label = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">            <span class="type">int</span> mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">hasPrefix</span>(words[mid], prefix)) &#123;</span><br><span class="line">                label = mid, low = mid + <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (prefix[<span class="number">0</span>] &lt; words[mid][<span class="number">0</span>]) &#123;</span><br><span class="line">                high = mid - <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                low = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> label;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">CountPrefix</span>(vector&lt;string&gt; words, string prefix) : <span class="built_in">words</span>(words), <span class="built_in">prefix</span>(prefix) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">count</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> from = <span class="built_in">findFirst</span>(<span class="number">0</span>, words.<span class="built_in">size</span>() - <span class="number">1</span>);</span><br><span class="line">        <span class="type">int</span> to = <span class="built_in">findLast</span>(<span class="number">0</span>, words.<span class="built_in">size</span>() - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (from &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> to - from + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation:</strong></p>
+<p>The main idea of this algorithm is using <em>binary search</em> to
+find the boundary of words which contain the specific prefix. The
+function <span
+class="math inline"><em>f</em><em>i</em><em>n</em><em>d</em><em>F</em><em>i</em><em>r</em><em>s</em><em>t</em></span>
+denotes the position where first word has the prefix and function <span
+class="math inline"><em>f</em><em>i</em><em>n</em><em>d</em><em>L</em><em>a</em><em>s</em><em>t</em></span>
+denotes the last one. The only difference between <span
+class="math inline"><em>f</em><em>i</em><em>n</em><em>d</em><em>F</em><em>i</em><em>r</em><em>s</em><em>t</em></span>
+and <span
+class="math inline"><em>f</em><em>i</em><em>n</em><em>d</em><em>L</em><em>a</em><em>s</em><em>t</em></span>
+is that when hit a proper case, <span
+class="math inline"><em>f</em><em>i</em><em>n</em><em>d</em><em>F</em><em>i</em><em>r</em><em>s</em><em>t</em></span>
+continues to search the section before but the <span
+class="math inline"><em>f</em><em>i</em><em>n</em><em>d</em><em>L</em><em>a</em><em>s</em><em>t</em></span>
+search the section behind. By doing this in repetition, the first one
+and the last one will be found.</p>
+<p>About the <em>time complexity</em>, the time complexity of function
+<span
+class="math inline"><em>h</em><em>a</em><em>s</em><em>P</em><em>r</em><em>e</em><em>f</em><em>i</em><em>x</em></span>
+is <span class="math inline"><em>O</em>(<em>m</em>)</span>. Suppose the
+time complexity of function <span
+class="math inline"><em>f</em><em>i</em><em>n</em><em>d</em><em>F</em><em>i</em><em>r</em><em>s</em><em>t</em></span>
+and <span
+class="math inline"><em>f</em><em>i</em><em>n</em><em>d</em><em>L</em><em>a</em><em>s</em><em>t</em></span>
+is <span class="math inline"><em>T</em>(<em>n</em>)</span>, then <span
+class="math display">$$
+T(n)=T(\frac{n}{2}) + O(m), T(1) \in O(m),
+$$</span> which means <span
+class="math inline"><em>T</em>(<em>n</em>) ∈ <em>O</em>(<em>m</em>log <em>n</em>)</span>.
+Thus the time complexity of <span
+class="math inline"><em>c</em><em>o</em><em>u</em><em>n</em><em>t</em><em>P</em><em>r</em><em>e</em><em>f</em><em>i</em><em>x</em></span>
+is <span
+class="math inline"><em>O</em>(<em>m</em>log <em>n</em>)</span>.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/25/Coin-Change/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1439,7 +1571,7 @@ new!</strong></p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
