@@ -158,6 +158,125 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/25/Coin-Change/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/25/Coin-Change/" class="post-title-link" itemprop="url">Coin Change</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-25 16:01:04" itemprop="dateCreated datePublished" datetime="2024-06-25T16:01:04+08:00">2024-06-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-08-23 01:10:57" itemprop="dateModified" datetime="2025-08-23T01:10:57+08:00">2025-08-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/Problems/" itemprop="url" rel="index"><span itemprop="name">Problems</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Given an integer array <em>coins</em> representing coins of different
+denominations and integer <em>amount</em> representing a total amount of
+money.</p>
+<p>Return the fewest number of coins that you need to make up that
+amount. If that amount of money cannot be made up by any combination of
+coins, return <span class="math inline">−1</span>.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: coins = [1, 2, 5], amount = 11;</span><br><span class="line">Output: 3;</span><br><span class="line">Input: coins = [2], amount = 3;</span><br><span class="line">Output: -1;</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><span
+class="math inline">1 ≤ <em>l</em><sub><em>c</em><em>o</em><em>i</em><em>n</em><em>s</em></sub> ≤ 12</span></li>
+<li><span
+class="math inline">1 ≤ <em>c</em><em>o</em><em>i</em><em>n</em><em>s</em><sub><em>i</em></sub> ≤ 2<sup>31</sup> − 1</span></li>
+<li><span
+class="math inline">0 ≤ <em>a</em><em>m</em><em>o</em><em>u</em><em>n</em><em>t</em> ≤ 10<sup>4</sup></span></li>
+</ul>
+<h2 id="solution">Solution</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CoinChange</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">coinChange</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; coins, <span class="type">int</span> amount)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> *dp = <span class="keyword">new</span> <span class="type">int</span>[amount + <span class="number">1</span>];</span><br><span class="line">    	<span class="built_in">fill_n</span>(dp, amount + <span class="number">1</span>, amount + <span class="number">1</span>);</span><br><span class="line">	dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= amount; i++) &#123;</span><br><span class="line">	    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; coins.<span class="built_in">size</span>(); j++) &#123;</span><br><span class="line">	        <span class="keyword">if</span> (coins[j] &lt;= i)</span><br><span class="line">		    dp[i] = dp[i - coins[j]] + <span class="number">1</span> &lt; dp[i] ? dp[i - coins[j]] + <span class="number">1</span> : dp[i];</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> dp[amount] &gt; amount ? <span class="number">-1</span> : dp[amount];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation</strong>:</p>
+<p><span
+class="math inline"><em>d</em><em>p</em><sub><em>i</em></sub></span>
+represents the minimum number of coins that makes up the amount <span
+class="math inline"><em>i</em></span>. Assume that the values from <span
+class="math inline"><em>d</em><em>p</em><sub>0</sub></span> to <span
+class="math inline"><em>d</em><em>p</em><sub><em>i</em> − 1</sub></span>
+are already known, thus the transition equation of <span
+class="math inline"><em>d</em><em>p</em><sub><em>i</em></sub></span> can
+be deduced as <span
+class="math display"><em>d</em><em>p</em><sub><em>i</em></sub> = <em>m</em><em>i</em><em>n</em><sub><em>j</em> = 0</sub><sup><em>l</em><sub><em>c</em><em>o</em><em>i</em><em>n</em><em>s</em></sub> − 1</sup><em>d</em><em>p</em><sub><em>i</em> − <em>c</em><em>o</em><em>i</em><em>n</em><em>s</em><sub><em>j</em></sub></sub> + 1</span>
+which means the value of <span
+class="math inline"><em>d</em><em>p</em><sub><em>i</em></sub></span> is
+determined by <span
+class="math inline"><em>d</em><em>p</em><sub><em>i</em> − <em>c</em><em>o</em><em>i</em><em>n</em><em>s</em><sub><em>j</em></sub></sub></span>.
+If <span
+class="math inline"><em>d</em><em>p</em><sub><em>i</em></sub></span> can
+transfer from <span
+class="math inline"><em>d</em><em>p</em><sub><em>i</em> − <em>c</em><em>o</em><em>i</em><em>n</em><em>s</em><sub><em>j</em></sub></sub></span>
+via <span
+class="math inline"><em>c</em><em>o</em><em>i</em><em>n</em><em>s</em><sub><em>j</em></sub></span>,
+the number of coins that used should add <span
+class="math inline">1</span>.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/21/Cloudfare%E4%B8%8ETelegraph-image%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1320,7 +1439,7 @@ new!</strong></p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
