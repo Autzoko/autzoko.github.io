@@ -158,6 +158,105 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/20/Minimum-Path-Sum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/05/20/Minimum-Path-Sum/" class="post-title-link" itemprop="url">Minimum Path Sum</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-05-20 22:52:22" itemprop="dateCreated datePublished" datetime="2024-05-20T22:52:22+08:00">2024-05-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/Problems/" itemprop="url" rel="index"><span itemprop="name">Problems</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Given a m * n grid filled with non-negative numbers, find a path from
+top left to bottom right, which minizes the sum of all numbers along its
+path.</p>
+<ul>
+<li>Moves can only be taken down or right at any point in time.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: grid = [[1, 3, 1], [1, 5, 1], [4, 2, 1]];</span><br><span class="line">Output: 7;</span><br></pre></td></tr></table></figure>
+<p>Constraints:</p>
+<ul>
+<li>1 &lt;= m, n &lt;= 200</li>
+<li>0 &lt;= grid[i, j] &lt;= 200</li>
+</ul>
+<h2 id="solution">Solution</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MinimumPathSum</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minPathSum</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n_row = grid.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> n_col = grid[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> **dp = <span class="keyword">new</span> <span class="type">int</span>*[n_row];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n_row; i++) &#123;</span><br><span class="line">            dp[i] = <span class="keyword">new</span> <span class="type">int</span>[n_col];</span><br><span class="line">            <span class="built_in">fill_n</span>(dp[i], n_col, INT_MAX);</span><br><span class="line">        &#125;</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = grid[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n_row; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; n_col; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(i) &#123;</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j] + grid[i][j] &lt; dp[i][j] ? dp[i - <span class="number">1</span>][j] + grid[i][j] : dp[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(j) &#123;</span><br><span class="line">                    dp[i][j] = dp[i][j - <span class="number">1</span>] + grid[i][j] &lt; dp[i][j] ? dp[i][j - <span class="number">1</span>] + grid[i][j] : dp[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n_row - <span class="number">1</span>][n_col - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation:</strong></p>
+<p>Using a <em>dp</em> array to indicate the current minimum path sum.
+And this sum can only be the sum of the up <em>dp</em> point and current
+<em>grid</em> point or the left <em>dp</em> point and current
+<em>grid</em> point. The <em>dp</em> function can be defined as
+follow:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i, j] := <span class="built_in">min</span>(dp[i - <span class="number">1</span>, j] + grid[i, j], dp[i, j - <span class="number">1</span>] + grid[i, j])</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/20/Introduction/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -321,7 +420,7 @@ new!</strong></p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

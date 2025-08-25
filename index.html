@@ -158,6 +158,162 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2025/08/25/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%EF%BC%88%E5%85%B6%E4%BB%96%E9%83%A8%E5%88%86%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/08/25/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%EF%BC%88%E5%85%B6%E4%BB%96%E9%83%A8%E5%88%86%EF%BC%89/" class="post-title-link" itemprop="url">前端八股（其他部分）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2025-08-25 13:22:49 / Modified: 13:51:22" itemprop="dateCreated datePublished" datetime="2025-08-25T13:22:49+08:00">2025-08-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">实习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1/" itemprop="url" rel="index"><span itemprop="name">前端八股</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol type="1">
+<li>Echarts
+<ul>
+<li>是一个基于 JavaScript
+的开源数据可视化工具库，用来绘制交互式、可定制的图表。</li>
+<li>常用的组件：
+<ul>
+<li>title标题组件：show，text，link等属性。</li>
+<li>toolbox工具栏组件：导出图片、数据视图、切换、缩放</li>
+<li>tooltip组件：trigger组件</li>
+<li>markPoint标注点</li>
+<li>markLine图标标线 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> chart = echarts.<span class="title function_">init</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;main&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 配置项</span></span><br><span class="line"><span class="keyword">var</span> option = &#123;</span><br><span class="line"><span class="attr">title</span>: &#123; <span class="attr">text</span>: <span class="string">&#x27;ECharts 示例&#x27;</span> &#125;,</span><br><span class="line"><span class="attr">tooltip</span>: &#123;&#125;,</span><br><span class="line"><span class="attr">legend</span>: &#123; <span class="attr">data</span>:[<span class="string">&#x27;销量&#x27;</span>] &#125;,</span><br><span class="line"><span class="attr">xAxis</span>: &#123; <span class="attr">data</span>: [<span class="string">&quot;衬衫&quot;</span>,<span class="string">&quot;羊毛衫&quot;</span>,<span class="string">&quot;雪纺衫&quot;</span>,<span class="string">&quot;裤子&quot;</span>,<span class="string">&quot;高跟鞋&quot;</span>,<span class="string">&quot;袜子&quot;</span>] &#125;,</span><br><span class="line"><span class="attr">yAxis</span>: &#123;&#125;,</span><br><span class="line"><span class="attr">series</span>: [&#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;销量&#x27;</span>,</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;bar&#x27;</span>,   <span class="comment">// 柱状图</span></span><br><span class="line">    <span class="attr">data</span>: [<span class="number">5</span>, <span class="number">20</span>, <span class="number">36</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">20</span>]</span><br><span class="line">&#125;]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 使用配置项生成图表</span></span><br><span class="line">chart.<span class="title function_">setOption</span>(option);</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+</ul></li>
+<li>Webpack
+<ul>
+<li>webpack 是一个 前端资源打包工具 (module
+bundler)，本质作用就是：把你写的各种资源（JS、CSS、图片、字体等），当作模块来处理，经过编译打包生成浏览器可用的优化文件。</li>
+<li>在前端项目中如果用到ES6+、Vue/React组件化、TypeScript、各种资源（图片、字体等）需要用到webpack把它们转换成浏览器能认识的纯JS/CSS/HTML文件</li>
+<li>打包过程：
+<ul>
+<li>从入口文件开始，构建依赖关系图。</li>
+<li>遇到 import 或 require，就递归分析依赖。</li>
+<li>通过 Loader 转换代码。</li>
+<li>把所有模块打包成一个或多个 bundle。</li>
+<li>插件做额外优化（压缩、抽离 CSS、生成 HTML）。</li>
+</ul></li>
+<li>Module、Chunk与Bundle的关系：
+<ul>
+<li>Module：项目中所有的源码文件都叫模块。可以是
+JS、CSS、图片、字体等，webpack把它们都视作“模块”。</li>
+<li>Chunk：webpack在打包过程中，按照依赖关系，把多个module合并成一个“代码块”。</li>
+<li>Bundle：chunk经过webpack处理、loader转换、插件优化后，最终生成的实际输出文件。</li>
+</ul></li>
+<li>Bibel转译器
+<ul>
+<li>将高版本语言（ES6+等）转译成兼容性更好的旧版本JS，是一个JS编译器。</li>
+<li>原理：
+<ul>
+<li>解析（Parsing）：源代码转译为抽象语法树。</li>
+<li>转换（Transform）：遍历AST，调用各种插件修改节点。</li>
+<li>生成（Generating）：把修改后的 AST 再转成代码字符串。</li>
+</ul></li>
+</ul></li>
+<li>Webpack打包和不打包区别：
+<ul>
+<li>运行效率：若不打包，写的代码较多需要发送多次http请求，不易维护。</li>
+<li>对技术的支持：对于高版本语法可以通过webpack的bable来转化，使得低版本浏览器可以运行。</li>
+</ul></li>
+</ul></li>
+<li>HTTP协议版本对比
+<ul>
+<li>HTTP/1.0：每次请求都新建连接，效率最低。</li>
+<li>HTTP/1.1：支持长连接，但有队头阻塞。</li>
+<li>HTTP/2：二进制、多路复用、头部压缩，但仍受 TCP 队头阻塞限制。</li>
+<li>HTTP/3：基于
+QUIC(UDP)，真正解决队头阻塞，握手更快，更适合移动互联网。</li>
+<li><figure>
+<img src="/images/HTTPversions.png" title="HTTP各个版本对比"
+alt="HTTP Versions" />
+<figcaption aria-hidden="true">HTTP Versions</figcaption>
+</figure></li>
+</ul></li>
+<li>HTTP与HTTPS
+<ul>
+<li>HTTPS (HTTP Secure) = HTTP + SSL/TLS。有身份验证。</li>
+<li>对比：
+<ul>
+<li>端口：HTTP用80，HTTPS用443.</li>
+<li>安全性：HTTP明文传输，HTTPS加密传输。</li>
+<li>速度：HTTP相对较快。</li>
+<li>成本：HTTPS需要SSL/TLS证书。</li>
+</ul></li>
+</ul></li>
+<li>OSI七层网络模型
+<ol type="1">
+<li>应用层：面向用户，有HTTP，FTP，SMTP，DNS等协议。</li>
+<li>表示层：负责数据加密、压缩、表示等，把应用层数据转换为标准格式。如SSL/TLS，JPEG/MP3等。</li>
+<li>会话层：负责建立、终止和管理会话。</li>
+<li>传输层：提供端到端数据传输，保证数据可靠性。使用TCP/UDP。</li>
+<li>网络层：负责路由寻址（IP），使用IP/ICMP/BGP等算法和协议。</li>
+<li>链路层：在同一局域网内传输数据帧，解决错误检测，错误重传等。通过Ethernet，MAC地址等寻址。在交换机层面沟通。</li>
+<li>物理层：比特流传输。</li>
+</ol></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2025/08/25/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%EF%BC%88%E9%AB%98%E9%A2%91%E6%89%8B%E6%92%95%E4%BB%A3%E7%A0%81%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -183,7 +339,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-08-25 12:53:52 / Modified: 13:21:53" itemprop="dateCreated datePublished" datetime="2025-08-25T12:53:52+08:00">2025-08-25</time>
+              <time title="Created: 2025-08-25 12:53:52 / Modified: 13:58:48" itemprop="dateCreated datePublished" datetime="2025-08-25T12:53:52+08:00">2025-08-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -235,7 +391,8 @@
 </ul></li>
 </ul>
 <ol start="3" type="1">
-<li>手撕new函数 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">myNew</span>(<span class="params">Constructor, ...args</span>) &#123;</span><br><span class="line"> <span class="comment">// create null obj, let its __proto__ pointed to constructor&#x27;s prototype</span></span><br><span class="line"> <span class="keyword">const</span> obj = <span class="title class_">Object</span>.<span class="title function_">create</span>(<span class="title class_">Constructor</span>.<span class="property"><span class="keyword">prototype</span></span>);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// execute constructor, bind this to obj</span></span><br><span class="line"> <span class="keyword">const</span> result = <span class="title class_">Constructor</span>.<span class="title function_">apply</span>(obj, args);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">return</span> (result !== <span class="literal">null</span> &amp;&amp; (<span class="keyword">typeof</span> result === <span class="string">&#x27;object&#x27;</span> || <span class="keyword">typeof</span> result === <span class="string">&#x27;function&#x27;</span>))</span><br><span class="line">     ? result</span><br><span class="line">     : obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line"> <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line"> <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="title function_">sayHi</span>() = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hi, I&#x27;m &quot;</span> + <span class="variable language_">this</span>.<span class="property">name</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p1 = <span class="title function_">myNew</span>(<span class="title class_">Person</span>, <span class="string">&#x27;Alice&#x27;</span>, <span class="number">30</span>);</span><br><span class="line">p1.<span class="title function_">sayHi</span>();</span><br></pre></td></tr></table></figure></li>
+<li><p>手撕new函数 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">myNew</span>(<span class="params">Constructor, ...args</span>) &#123;</span><br><span class="line"> <span class="comment">// create null obj, let its __proto__ pointed to constructor&#x27;s prototype</span></span><br><span class="line"> <span class="keyword">const</span> obj = <span class="title class_">Object</span>.<span class="title function_">create</span>(<span class="title class_">Constructor</span>.<span class="property"><span class="keyword">prototype</span></span>);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// execute constructor, bind this to obj</span></span><br><span class="line"> <span class="keyword">const</span> result = <span class="title class_">Constructor</span>.<span class="title function_">apply</span>(obj, args);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">return</span> (result !== <span class="literal">null</span> &amp;&amp; (<span class="keyword">typeof</span> result === <span class="string">&#x27;object&#x27;</span> || <span class="keyword">typeof</span> result === <span class="string">&#x27;function&#x27;</span>))</span><br><span class="line">     ? result</span><br><span class="line">     : obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line"> <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line"> <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="title function_">sayHi</span>() = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hi, I&#x27;m &quot;</span> + <span class="variable language_">this</span>.<span class="property">name</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p1 = <span class="title function_">myNew</span>(<span class="title class_">Person</span>, <span class="string">&#x27;Alice&#x27;</span>, <span class="number">30</span>);</span><br><span class="line">p1.<span class="title function_">sayHi</span>();</span><br></pre></td></tr></table></figure></p></li>
+<li><p>手撕LRU，时间复杂度O(1) <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LRUCache</span> &#123;</span><br><span class="line"> <span class="title function_">constructor</span>(<span class="params">capacity</span>) &#123;</span><br><span class="line">     <span class="variable language_">this</span>.<span class="property">capacity</span> = capacity;</span><br><span class="line">     <span class="variable language_">this</span>.<span class="property">map</span> = <span class="keyword">new</span> <span class="title class_">Map</span>(); <span class="comment">//有序表</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="title function_">get</span>(<span class="params">key</span>) &#123;</span><br><span class="line">     <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">map</span>.<span class="title function_">has</span>(key)) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">     <span class="keyword">const</span> value = <span class="variable language_">this</span>.<span class="property">map</span>.<span class="title function_">get</span>(key);</span><br><span class="line">     <span class="variable language_">this</span>.<span class="property">map</span>.<span class="title function_">delete</span>(key);</span><br><span class="line">     <span class="variable language_">this</span>.<span class="property">map</span>.<span class="title function_">set</span>(key, value);<span class="comment">//放到队尾</span></span><br><span class="line">     <span class="keyword">return</span> value;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="title function_">put</span>(<span class="params">key, value</span>) &#123;</span><br><span class="line">     <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">map</span>.<span class="title function_">has</span>(key)) &#123;</span><br><span class="line">         <span class="variable language_">this</span>.<span class="property">map</span>.<span class="title function_">delete</span>(key);</span><br><span class="line">     &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">map</span>.<span class="property">size</span> &gt;= <span class="variable language_">this</span>.<span class="property">capacity</span>) &#123;</span><br><span class="line">         <span class="keyword">const</span> firstKey = <span class="variable language_">this</span>.<span class="property">map</span>.<span class="title function_">keys</span>().<span class="title function_">next</span>().<span class="property">value</span>;</span><br><span class="line">         <span class="variable language_">this</span>.<span class="property">map</span>.<span class="title function_">delete</span>(firsetKey);<span class="comment">//找到并删除队首</span></span><br><span class="line">     &#125;</span><br><span class="line">     <span class="variable language_">this</span>.<span class="property">map</span>.<span class="title function_">set</span>(key, value);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p></li>
 </ol>
 
       
@@ -383,7 +540,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-25 11:36:41" itemprop="dateModified" datetime="2025-08-25T11:36:41+08:00">2025-08-25</time>
+                <time title="Modified: 2025-08-25 14:05:31" itemprop="dateModified" datetime="2025-08-25T14:05:31+08:00">2025-08-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -809,6 +966,31 @@ manager，node的包管理和分发工具，已经成为分发node的标准。�
 <ul>
 <li>服务端返回从哪里开始/浏览器自己处理。</li>
 </ul></li>
+</ul></li>
+<li><code>var</code>，<code>let</code>与<code>const</code>的区别
+<ul>
+<li>作用域：
+<ul>
+<li>var在函数内声明则只作用于函数内部，其他情况都是全局作用域。</li>
+<li>let/const是在花括号内有效。</li>
+</ul></li>
+<li>变量提升：
+<ul>
+<li>var声明会被提升（hoist），初始化为undefined。声明之前访问为undefined。</li>
+<li>let/const也会被提升，但是会有TDZ（Temporary Dead
+Zone），在声明之前访问会报错。</li>
+</ul></li>
+<li>重复声明：
+<ul>
+<li>var可以重复声明同名变量。</li>
+<li>let/const在同一作用域内不允许重复声明。</li>
+</ul></li>
+<li>是否可以重新赋值：
+<ul>
+<li>var/let：可以重新赋值。</li>
+<li>const：声明后必须立刻赋初值，且不能重复赋值。</li>
+</ul></li>
+<li>对象/数据的const特殊性：const只是保证变量绑定（引用）不可辨，但对象/数组的内容可以被改变。</li>
 </ul></li>
 </ol>
 
@@ -1358,81 +1540,6 @@ title="浏览器渲染机制" alt="浏览器渲染机制" /></li>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/11/14/%E8%8F%A9%E8%96%A9%E8%A0%BB%C2%B7%E9%A2%A8%E6%AE%98%E8%93%AC%E6%9F%B3%E6%96%9C%E6%B3%A2%E7%A2%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Autzoko Lang">
-      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog | Autzoko Lang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/11/14/%E8%8F%A9%E8%96%A9%E8%A0%BB%C2%B7%E9%A2%A8%E6%AE%98%E8%93%AC%E6%9F%B3%E6%96%9C%E6%B3%A2%E7%A2%A7/" class="post-title-link" itemprop="url">菩薩蠻·風殘蓬柳斜波碧</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-11-14 00:01:39" itemprop="dateCreated datePublished" datetime="2024-11-14T00:01:39+08:00">2024-11-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%A2%85%E5%BA%AD%E9%9B%9C%E6%A1%88/" itemprop="url" rel="index"><span itemprop="name">梅庭雜案</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>風殘蓬柳斜波碧，餘暉催月移星洛。 懷客凴西堤，西霞映相依。
-湖光朱燈染，浮華隱河漢。 此夜棲君夢，醉與君相擁。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1504,7 +1611,7 @@ title="浏览器渲染机制" alt="浏览器渲染机制" /></li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
