@@ -158,6 +158,104 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2025/08/25/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%EF%BC%88%E9%AB%98%E9%A2%91%E6%89%8B%E6%92%95%E4%BB%A3%E7%A0%81%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/08/25/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%EF%BC%88%E9%AB%98%E9%A2%91%E6%89%8B%E6%92%95%E4%BB%A3%E7%A0%81%EF%BC%89/" class="post-title-link" itemprop="url">前端八股（高频手撕代码）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2025-08-25 12:53:52 / Modified: 13:21:53" itemprop="dateCreated datePublished" datetime="2025-08-25T12:53:52+08:00">2025-08-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">实习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1/" itemprop="url" rel="index"><span itemprop="name">前端八股</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="高频手撕代码考察">高频手撕代码考察</h2>
+<ol type="1">
+<li><p>手写Promise.all() <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//接受一个数据（或可迭代对象）</span></span><br><span class="line"><span class="comment">//等所有 Promise 成功，返回一个新 Promise，结果是 按顺序 的结果数组。</span></span><br><span class="line"><span class="comment">//如果其中有一个失败（reject），立即返回 reject。</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">promiseAll</span>(<span class="params">promises</span>) &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">     <span class="keyword">if</span> (!<span class="title class_">Array</span>.<span class="title function_">isArray</span>(promises)) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="title function_">reject</span>(<span class="keyword">new</span> <span class="title class_">TypeError</span>(<span class="string">&quot;args not an array&quot;</span>));</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">let</span> results = [];</span><br><span class="line">     <span class="keyword">let</span> completed = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">     promises.<span class="title function_">forEach</span>(<span class="function">(<span class="params">p, index</span>) =&gt;</span> &#123;</span><br><span class="line">         <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(p).<span class="title function_">then</span>(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">             results[index] = value;</span><br><span class="line">             completed++;</span><br><span class="line">             <span class="keyword">if</span> (completed === promises.<span class="property">length</span>) &#123;</span><br><span class="line">                 <span class="title function_">resolve</span>(results);</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;) <span class="keyword">catch</span> (<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">             <span class="title function_">reject</span>(error);</span><br><span class="line">         &#125;);</span><br><span class="line">     &#125;);</span><br><span class="line"></span><br><span class="line">     <span class="keyword">if</span> (promises.<span class="property">length</span> === <span class="number">0</span>) &#123;</span><br><span class="line">         <span class="title function_">resolve</span>([]);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p1 = <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> p2 = <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function"><span class="params">res</span> =&gt;</span> <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="title function_">res</span>(<span class="number">2</span>), <span class="number">1000</span>));</span><br><span class="line"><span class="keyword">const</span> p3 = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_">promiseAll</span>([p1, p2, p3])</span><br><span class="line"> .<span class="title function_">then</span>(<span class="function"><span class="params">results</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;success:&quot;</span>, results))</span><br><span class="line"> .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;failed:&quot;</span>, error));</span><br></pre></td></tr></table></figure></p></li>
+<li><p>手撕防抖 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">debounce</span>(<span class="params">fn, delay</span>) &#123;</span><br><span class="line"> <span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">...args</span>) &#123;</span><br><span class="line">     <span class="keyword">const</span> context = <span class="variable language_">this</span>;</span><br><span class="line">     <span class="keyword">if</span>(timer) &#123;</span><br><span class="line">         <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">         fn.<span class="title function_">apply</span>(context, args);</span><br><span class="line">     &#125;, delay);</span><br><span class="line"> &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">onResize</span>(<span class="params"></span>) &#123;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;resize 事件触发:&quot;</span>, <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">toLocaleTimeString</span>());</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 500ms 防抖</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;resize&quot;</span>, <span class="title function_">debounce</span>(onResize, <span class="number">500</span>));</span><br></pre></td></tr></table></figure></p></li>
+</ol>
+<ul>
+<li>在防抖函数里：
+<ul>
+<li>context = this; 保存了外部调用时的 this（比如某个按钮 DOM
+对象）。</li>
+<li>args = arguments（用扩展语法 …args
+收集）保存了调用时传进来的参数。</li>
+</ul></li>
+<li>当定时器触发时，如果直接写 fn()：
+<ul>
+<li>this 会丢失（定时器里的 this 默认是 window 或 undefined）。</li>
+<li>参数也没法自动带过去。</li>
+</ul></li>
+<li>所以要用 fn.apply(context, args)：
+<ul>
+<li>保证 this 正确 → 就是调用 debounce 包裹函数时的 this。</li>
+<li>保证参数不丢失 → args 是数组，apply 会把它展开传给 fn。</li>
+</ul></li>
+</ul>
+<ol start="3" type="1">
+<li>手撕new函数 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">myNew</span>(<span class="params">Constructor, ...args</span>) &#123;</span><br><span class="line"> <span class="comment">// create null obj, let its __proto__ pointed to constructor&#x27;s prototype</span></span><br><span class="line"> <span class="keyword">const</span> obj = <span class="title class_">Object</span>.<span class="title function_">create</span>(<span class="title class_">Constructor</span>.<span class="property"><span class="keyword">prototype</span></span>);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// execute constructor, bind this to obj</span></span><br><span class="line"> <span class="keyword">const</span> result = <span class="title class_">Constructor</span>.<span class="title function_">apply</span>(obj, args);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">return</span> (result !== <span class="literal">null</span> &amp;&amp; (<span class="keyword">typeof</span> result === <span class="string">&#x27;object&#x27;</span> || <span class="keyword">typeof</span> result === <span class="string">&#x27;function&#x27;</span>))</span><br><span class="line">     ? result</span><br><span class="line">     : obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line"> <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line"> <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="title function_">sayHi</span>() = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hi, I&#x27;m &quot;</span> + <span class="variable language_">this</span>.<span class="property">name</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p1 = <span class="title function_">myNew</span>(<span class="title class_">Person</span>, <span class="string">&#x27;Alice&#x27;</span>, <span class="number">30</span>);</span><br><span class="line">p1.<span class="title function_">sayHi</span>();</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2025/08/25/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%EF%BC%88HTML5-CSS3%E9%83%A8%E5%88%86%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1335,84 +1433,10 @@ title="浏览器渲染机制" alt="浏览器渲染机制" /></li>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/11/13/%E7%84%A1%E9%A1%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Autzoko Lang">
-      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog | Autzoko Lang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/11/13/%E7%84%A1%E9%A1%8C/" class="post-title-link" itemprop="url">無題</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-11-13 23:57:39" itemprop="dateCreated datePublished" datetime="2024-11-13T23:57:39+08:00">2024-11-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%A2%85%E5%BA%AD%E9%9B%9C%E6%A1%88/" itemprop="url" rel="index"><span itemprop="name">梅庭雜案</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>巷下新春卻回避，靜雪猶嘯北風欺。 京城死地無涯処，青首難吟摩詰詩。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1480,7 +1504,7 @@ title="浏览器渲染机制" alt="浏览器渲染机制" /></li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

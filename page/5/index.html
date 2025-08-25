@@ -20,33 +20,30 @@
     var CONFIG = {"hostname":"autzoko.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="What is P-Problem and NP-Problem Before introducing the concept of P-problem and NP-problem, we need to know something about time complexity. Some types of time complexity of a program are proper to c">
-<meta property="og:type" content="article">
-<meta property="og:title" content="P&amp;NP Problem">
-<meta property="og:url" content="https://autzoko.github.io/2024/06/25/P-NP-Problem/index.html">
+  <meta name="description" content="Crescat Scientia Vita Excolatur">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blog | Autzoko Lang">
+<meta property="og:url" content="https://autzoko.github.io/page/5/index.html">
 <meta property="og:site_name" content="Blog | Autzoko Lang">
-<meta property="og:description" content="What is P-Problem and NP-Problem Before introducing the concept of P-problem and NP-problem, we need to know something about time complexity. Some types of time complexity of a program are proper to c">
+<meta property="og:description" content="Crescat Scientia Vita Excolatur">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-06-25T12:08:32.000Z">
-<meta property="article:modified_time" content="2025-08-22T17:11:06.390Z">
 <meta property="article:author" content="Autzoko Lang">
-<meta property="article:tag" content="algorithms">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://autzoko.github.io/2024/06/25/P-NP-Problem/">
+<link rel="canonical" href="https://autzoko.github.io/page/5/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
-    isPost : true,
+    isHome : true,
+    isPost : false,
     lang   : 'en'
   };
 </script>
 
-  <title>P&NP Problem | Blog | Autzoko Lang</title>
+  <title>Blog | Autzoko Lang</title>
   
 
 
@@ -155,14 +152,13 @@
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content index posts-expand">
             
-
-    
+      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/25/P-NP-Problem/">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/20/Introduction/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -174,9 +170,10 @@
       <meta itemprop="name" content="Blog | Autzoko Lang">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          P&NP Problem
-        </h1>
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/05/20/Introduction/" class="post-title-link" itemprop="url">Introduction</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -185,14 +182,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-06-25 20:08:32" itemprop="dateCreated datePublished" datetime="2024-06-25T20:08:32+08:00">2024-06-25</time>
+              <time title="Created: 2024-05-20 21:35:18" itemprop="dateCreated datePublished" datetime="2024-05-20T21:35:18+08:00">2024-05-20</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 01:11:06" itemprop="dateModified" datetime="2025-08-23T01:11:06+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -200,11 +197,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/Concepts/" itemprop="url" rel="index"><span itemprop="name">Concepts</span></a>
+                  <a href="/categories/Others/" itemprop="url" rel="index"><span itemprop="name">Others</span></a>
                 </span>
             </span>
 
@@ -219,128 +212,49 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="what-is-p-problem-and-np-problem">What is P-Problem and
-NP-Problem</h2>
-<p>Before introducing the concept of P-problem and NP-problem, we need
-to know something about time complexity.</p>
-<p>Some types of time complexity of a program are proper to computer,
-which means the time usage is affordable, or worthy. And some others
-types are not that time-saving! So, to categorize those algorithms,
-computer scientists discover that some specific pattern of time
-complexity are time-saving, and others are not. Those time-efficient
-time complexity are <strong>polynomial</strong>, which is letter
-<em>P</em> in <em>P-problem</em> stands for, and others that can not
-determine whether this problem can be solved in polynomial time, then
-they are <strong>nondeterministic polynomial</strong>, which is the
-so-called <em>NP</em>. Problems in <strong>P</strong> are considered
-efficiently solvable.</p>
-<ul>
-<li>Time complexity like <span class="math inline">$O(1), O(n), O(\\log
-n), O(n^c)$</span> are called <strong>polynomial</strong>.</li>
-<li>Time complexity like <span
-class="math inline"><em>O</em>(<em>c</em><sup><em>n</em></sup>), <em>O</em>(<em>n</em>!)</span>
-are called <strong>non-polynomial</strong>.</li>
-</ul>
-<p>So after understanding the term <em>polynomial</em> means in computer
-algorithm efficiency, we can go on to known the defination of
-<strong>P-Problem</strong> and <strong>NP-Problem</strong>.</p>
-<p><strong><em>These conceptions actually are discussing the sovlability
-of a problem.</em></strong></p>
-<h3 id="p-problem">P Problem</h3>
-<p><strong>If a problem can be solved in polynomial time, this problem
-can be deemed as a <em>P Problem</em></strong>,</p>
-<h3 id="np-problem">NP Problem</h3>
-<p><strong>Given a problem, if any of its proposed solution can be
-varified within polynomial time, this problem can be defined as a
-nondeterministic polynomial problem.</strong></p>
-<p>And it is important that many problems in <strong>NP</strong> have no
-known polynomial-time solutions.</p>
-<h3 id="relationship-between-p-problem-and-np-problem">Relationship
-between P-Problem and NP-Problem</h3>
-<p>First, it is obvious that all of <strong>P-Problem</strong> are
-<strong>NP-Problem</strong>. However, does it still is a true statement
-when reversed? This is hard to say, so this question becomes the famous
-<span class="math inline"><em>P</em> = <em>N</em><em>P</em>?</span>
-problem.</p>
-<h2 id="npc-problem">NPC Problem</h2>
-<p>The NP-Complete problem is a subset of of NP problems that are as
-hard as any problem in NP. If any NP-complete problem can be solved in
-polynomial time, then every problem in NP can be solved in polynomial
-time.</p>
-<p><strong>In short, the NP-Complete problems are the hardest NP
-problems!</strong></p>
-<p>Suppose here is an NP problem, all of NP problem can be reduced to
-it. Then if only find the polynomial time solution of this problem,
-every NP problem can find a polynomial time solution by reducing to that
-NP problem.</p>
-<p>And how to prove a problem is NP-Complete?</p>
-<h3 id="steps-to-prove-a-problem-is-np-complete">Steps to Prove a
-Problem is NP-Complete</h3>
-<ol type="1">
-<li>Show the Problem is in NP Verification in polynomial time:
-demonstrate that given a candidate solution, you can verify its
-correctness in polynomial time.</li>
-<li>Select a Known NP-Complete Problem Source problem: choose a problem
-already known to be NP-Complete for the reduction.</li>
-<li>Construct a Polynomial Time Reduction Transform: develop a
-polynomial time algorithm that converts instances of the chosen
-NP-Complete problem to instances of the problem you are proving
-NP-Complete
-<ol type="1">
-<li>Input transformation: map any instance of the known NP-Complete
-problem to an instance of your problem.</li>
-<li>Solution transformation: ensure that a solution to the transformed
-instance of your problem corresponds to a solution to the original
-NP-Complete problem.</li>
-</ol></li>
-</ol>
-<p>In summary, only two steps needs to be done:</p>
-<ul>
-<li>first show you can verify solutions in polynomial time.</li>
-<li>then transform a known NP-Complete problem to your problem in
-polynomial time.</li>
-</ul>
-<p><strong>Common NP-Complete Problems for Reductions:</strong></p>
-<ul>
-<li>Satisfiability (SAT)</li>
-<li>3-SAT</li>
-<li>Clique</li>
-<li>Vertex Cover</li>
-<li>Hamiltonian Path (Cycle)</li>
-<li>Traveling Salesman Problem (TSP)</li>
-</ul>
+          <p>Welcome to my personal blog. I open this blog when I am about to
+graduate from my university, at the time I extremely want to use
+something to document my life and things I’ve learned. And now I’m on my
+way to the United States to start a brand new experience of studying. I
+want to keep some memories through this blog, and meanwhile take some
+notes about the things that might be useful to my future
+development.</p>
+<h2 id="about-this-blog">About This Blog</h2>
+<p>Due to my major is computer science/engineering, so most of study
+notes are related to fields like computer science, computer engineering,
+software developing, etc., I have to admit that I’m not excel at such
+subjects, but I am still keen on them and wish to make something big
+from my own hands. Hope this blog can witness my improvements :)</p>
+<p>This blog does not only focus on such academic matters. For other
+parts, I will upload some of my daily life records, like photos, music,
+and maybe some unexpected inspiration and ideas. And I will write each
+blog article in English as possible as I can, to improve my English
+writing skills, and maybe it’s benefit to my future experience in the
+US🙂</p>
+<p><strong>Hope you enjoy my blog, and discover something
+new!</strong></p>
+<p><strong><em>Crescat Scientia Vita Excolatur</em></strong></p>
+<p><strong><em>益智厚生</em></strong></p>
 
+      
     </div>
 
     
     
     
-
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/algorithms/" rel="tag"># algorithms</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2024/06/25/Count-Word-with-Given-Prefix/" rel="prev" title="Count Word with Given Prefix">
-      <i class="fa fa-chevron-left"></i> Count Word with Given Prefix
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2024/06/27/Knapsack-Problem/" rel="next" title="Knapsack Problem">
-      Knapsack Problem <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
+        <div class="post-eof"></div>
       </footer>
-    
   </article>
   
   
   
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+  </nav>
 
 
 
@@ -392,10 +306,6 @@ polynomial time.</li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-p-problem-and-np-problem"><span class="nav-number">1.</span> <span class="nav-text">What is P-Problem and
-NP-Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#p-problem"><span class="nav-number">1.1.</span> <span class="nav-text">P Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#np-problem"><span class="nav-number">1.2.</span> <span class="nav-text">NP Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#relationship-between-p-problem-and-np-problem"><span class="nav-number">1.3.</span> <span class="nav-text">Relationship
-between P-Problem and NP-Problem</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npc-problem"><span class="nav-number">2.</span> <span class="nav-text">NPC Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#steps-to-prove-a-problem-is-np-complete"><span class="nav-number">2.1.</span> <span class="nav-text">Steps to Prove a
-Problem is NP-Complete</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

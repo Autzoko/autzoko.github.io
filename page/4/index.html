@@ -158,6 +158,173 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/25/P-NP-Problem/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/25/P-NP-Problem/" class="post-title-link" itemprop="url">P&NP Problem</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-25 20:08:32" itemprop="dateCreated datePublished" datetime="2024-06-25T20:08:32+08:00">2024-06-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-08-23 01:11:06" itemprop="dateModified" datetime="2025-08-23T01:11:06+08:00">2025-08-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/Concepts/" itemprop="url" rel="index"><span itemprop="name">Concepts</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="what-is-p-problem-and-np-problem">What is P-Problem and
+NP-Problem</h2>
+<p>Before introducing the concept of P-problem and NP-problem, we need
+to know something about time complexity.</p>
+<p>Some types of time complexity of a program are proper to computer,
+which means the time usage is affordable, or worthy. And some others
+types are not that time-saving! So, to categorize those algorithms,
+computer scientists discover that some specific pattern of time
+complexity are time-saving, and others are not. Those time-efficient
+time complexity are <strong>polynomial</strong>, which is letter
+<em>P</em> in <em>P-problem</em> stands for, and others that can not
+determine whether this problem can be solved in polynomial time, then
+they are <strong>nondeterministic polynomial</strong>, which is the
+so-called <em>NP</em>. Problems in <strong>P</strong> are considered
+efficiently solvable.</p>
+<ul>
+<li>Time complexity like <span class="math inline">$O(1), O(n), O(\\log
+n), O(n^c)$</span> are called <strong>polynomial</strong>.</li>
+<li>Time complexity like <span
+class="math inline"><em>O</em>(<em>c</em><sup><em>n</em></sup>), <em>O</em>(<em>n</em>!)</span>
+are called <strong>non-polynomial</strong>.</li>
+</ul>
+<p>So after understanding the term <em>polynomial</em> means in computer
+algorithm efficiency, we can go on to known the defination of
+<strong>P-Problem</strong> and <strong>NP-Problem</strong>.</p>
+<p><strong><em>These conceptions actually are discussing the sovlability
+of a problem.</em></strong></p>
+<h3 id="p-problem">P Problem</h3>
+<p><strong>If a problem can be solved in polynomial time, this problem
+can be deemed as a <em>P Problem</em></strong>,</p>
+<h3 id="np-problem">NP Problem</h3>
+<p><strong>Given a problem, if any of its proposed solution can be
+varified within polynomial time, this problem can be defined as a
+nondeterministic polynomial problem.</strong></p>
+<p>And it is important that many problems in <strong>NP</strong> have no
+known polynomial-time solutions.</p>
+<h3 id="relationship-between-p-problem-and-np-problem">Relationship
+between P-Problem and NP-Problem</h3>
+<p>First, it is obvious that all of <strong>P-Problem</strong> are
+<strong>NP-Problem</strong>. However, does it still is a true statement
+when reversed? This is hard to say, so this question becomes the famous
+<span class="math inline"><em>P</em> = <em>N</em><em>P</em>?</span>
+problem.</p>
+<h2 id="npc-problem">NPC Problem</h2>
+<p>The NP-Complete problem is a subset of of NP problems that are as
+hard as any problem in NP. If any NP-complete problem can be solved in
+polynomial time, then every problem in NP can be solved in polynomial
+time.</p>
+<p><strong>In short, the NP-Complete problems are the hardest NP
+problems!</strong></p>
+<p>Suppose here is an NP problem, all of NP problem can be reduced to
+it. Then if only find the polynomial time solution of this problem,
+every NP problem can find a polynomial time solution by reducing to that
+NP problem.</p>
+<p>And how to prove a problem is NP-Complete?</p>
+<h3 id="steps-to-prove-a-problem-is-np-complete">Steps to Prove a
+Problem is NP-Complete</h3>
+<ol type="1">
+<li>Show the Problem is in NP Verification in polynomial time:
+demonstrate that given a candidate solution, you can verify its
+correctness in polynomial time.</li>
+<li>Select a Known NP-Complete Problem Source problem: choose a problem
+already known to be NP-Complete for the reduction.</li>
+<li>Construct a Polynomial Time Reduction Transform: develop a
+polynomial time algorithm that converts instances of the chosen
+NP-Complete problem to instances of the problem you are proving
+NP-Complete
+<ol type="1">
+<li>Input transformation: map any instance of the known NP-Complete
+problem to an instance of your problem.</li>
+<li>Solution transformation: ensure that a solution to the transformed
+instance of your problem corresponds to a solution to the original
+NP-Complete problem.</li>
+</ol></li>
+</ol>
+<p>In summary, only two steps needs to be done:</p>
+<ul>
+<li>first show you can verify solutions in polynomial time.</li>
+<li>then transform a known NP-Complete problem to your problem in
+polynomial time.</li>
+</ul>
+<p><strong>Common NP-Complete Problems for Reductions:</strong></p>
+<ul>
+<li>Satisfiability (SAT)</li>
+<li>3-SAT</li>
+<li>Clique</li>
+<li>Vertex Cover</li>
+<li>Hamiltonian Path (Cycle)</li>
+<li>Traveling Salesman Problem (TSP)</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/25/Count-Word-with-Given-Prefix/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1404,106 +1571,10 @@ follow:</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/20/Introduction/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Autzoko Lang">
-      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog | Autzoko Lang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/20/Introduction/" class="post-title-link" itemprop="url">Introduction</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-05-20 21:35:18" itemprop="dateCreated datePublished" datetime="2024-05-20T21:35:18+08:00">2024-05-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Others/" itemprop="url" rel="index"><span itemprop="name">Others</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to my personal blog. I open this blog when I am about to
-graduate from my university, at the time I extremely want to use
-something to document my life and things I’ve learned. And now I’m on my
-way to the United States to start a brand new experience of studying. I
-want to keep some memories through this blog, and meanwhile take some
-notes about the things that might be useful to my future
-development.</p>
-<h2 id="about-this-blog">About This Blog</h2>
-<p>Due to my major is computer science/engineering, so most of study
-notes are related to fields like computer science, computer engineering,
-software developing, etc., I have to admit that I’m not excel at such
-subjects, but I am still keen on them and wish to make something big
-from my own hands. Hope this blog can witness my improvements :)</p>
-<p>This blog does not only focus on such academic matters. For other
-parts, I will upload some of my daily life records, like photos, music,
-and maybe some unexpected inspiration and ideas. And I will write each
-blog article in English as possible as I can, to improve my English
-writing skills, and maybe it’s benefit to my future experience in the
-US🙂</p>
-<p><strong>Hope you enjoy my blog, and discover something
-new!</strong></p>
-<p><strong><em>Crescat Scientia Vita Excolatur</em></strong></p>
-<p><strong><em>益智厚生</em></strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1571,7 +1642,7 @@ new!</strong></p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

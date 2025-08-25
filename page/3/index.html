@@ -158,6 +158,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/09/18/Move-Zeroes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/18/Move-Zeroes/" class="post-title-link" itemprop="url">Move Zeroes</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-09-18 17:51:36" itemprop="dateCreated datePublished" datetime="2024-09-18T17:51:36+08:00">2024-09-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-08-23 01:14:20" itemprop="dateModified" datetime="2025-08-23T01:14:20+08:00">2025-08-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/Problems/" itemprop="url" rel="index"><span itemprop="name">Problems</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Given an integer array <strong>nums</strong>, move all <span
+class="math inline">0</span>’s to the end of it while maintaining the
+relative order of the non-zero elements.</p>
+<p>Note that it must be done in-place without making a copy of the
+array.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [0, 1, 0, 3, 12];</span><br><span class="line">Output: [1, 3, 12, 0, 0];</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [0];</span><br><span class="line">Output: [0];</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><span
+class="math inline">1 ≤ <em>l</em><em>e</em><em>n</em><sub><em>n</em><em>u</em><em>m</em><em>s</em></sub> ≤ 10<sup>4</sup></span></li>
+<li><span
+class="math inline">−2<sup>31</sup> ≤ <em>n</em><em>u</em><em>m</em><em>s</em><sub><em>i</em></sub> ≤ 2<sup>32</sup> − 1</span></li>
+</ul>
+<h2 id="solution">Solution</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">moveZeroes</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> right = <span class="number">0</span>; right &lt; nums.<span class="built_in">size</span>(); right++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[right] != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="built_in">swap</span>(nums[right], nums[left]);</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation:</strong> The solution use two pointers to
+separatly point to a non-zero value and a zero value. Initialy, these
+two point both point to the index 0. And if the right pointer is not 0,
+two pointers will be moved to their next index simultaneously. When the
+left point meets a zero value, it will stay on it, and swap the value
+with the right pointer. In other words, the zeroes with move to the tail
+of the vector like bulbles (imagine the bulble sort algorithm).</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/09/10/String-Compression/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1273,177 +1374,10 @@ items based on their value-to-weight ratio until knapsack is full.</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/25/P-NP-Problem/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Autzoko Lang">
-      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog | Autzoko Lang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/25/P-NP-Problem/" class="post-title-link" itemprop="url">P&NP Problem</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-06-25 20:08:32" itemprop="dateCreated datePublished" datetime="2024-06-25T20:08:32+08:00">2024-06-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 01:11:06" itemprop="dateModified" datetime="2025-08-23T01:11:06+08:00">2025-08-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/Concepts/" itemprop="url" rel="index"><span itemprop="name">Concepts</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="what-is-p-problem-and-np-problem">What is P-Problem and
-NP-Problem</h2>
-<p>Before introducing the concept of P-problem and NP-problem, we need
-to know something about time complexity.</p>
-<p>Some types of time complexity of a program are proper to computer,
-which means the time usage is affordable, or worthy. And some others
-types are not that time-saving! So, to categorize those algorithms,
-computer scientists discover that some specific pattern of time
-complexity are time-saving, and others are not. Those time-efficient
-time complexity are <strong>polynomial</strong>, which is letter
-<em>P</em> in <em>P-problem</em> stands for, and others that can not
-determine whether this problem can be solved in polynomial time, then
-they are <strong>nondeterministic polynomial</strong>, which is the
-so-called <em>NP</em>. Problems in <strong>P</strong> are considered
-efficiently solvable.</p>
-<ul>
-<li>Time complexity like <span class="math inline">$O(1), O(n), O(\\log
-n), O(n^c)$</span> are called <strong>polynomial</strong>.</li>
-<li>Time complexity like <span
-class="math inline"><em>O</em>(<em>c</em><sup><em>n</em></sup>), <em>O</em>(<em>n</em>!)</span>
-are called <strong>non-polynomial</strong>.</li>
-</ul>
-<p>So after understanding the term <em>polynomial</em> means in computer
-algorithm efficiency, we can go on to known the defination of
-<strong>P-Problem</strong> and <strong>NP-Problem</strong>.</p>
-<p><strong><em>These conceptions actually are discussing the sovlability
-of a problem.</em></strong></p>
-<h3 id="p-problem">P Problem</h3>
-<p><strong>If a problem can be solved in polynomial time, this problem
-can be deemed as a <em>P Problem</em></strong>,</p>
-<h3 id="np-problem">NP Problem</h3>
-<p><strong>Given a problem, if any of its proposed solution can be
-varified within polynomial time, this problem can be defined as a
-nondeterministic polynomial problem.</strong></p>
-<p>And it is important that many problems in <strong>NP</strong> have no
-known polynomial-time solutions.</p>
-<h3 id="relationship-between-p-problem-and-np-problem">Relationship
-between P-Problem and NP-Problem</h3>
-<p>First, it is obvious that all of <strong>P-Problem</strong> are
-<strong>NP-Problem</strong>. However, does it still is a true statement
-when reversed? This is hard to say, so this question becomes the famous
-<span class="math inline"><em>P</em> = <em>N</em><em>P</em>?</span>
-problem.</p>
-<h2 id="npc-problem">NPC Problem</h2>
-<p>The NP-Complete problem is a subset of of NP problems that are as
-hard as any problem in NP. If any NP-complete problem can be solved in
-polynomial time, then every problem in NP can be solved in polynomial
-time.</p>
-<p><strong>In short, the NP-Complete problems are the hardest NP
-problems!</strong></p>
-<p>Suppose here is an NP problem, all of NP problem can be reduced to
-it. Then if only find the polynomial time solution of this problem,
-every NP problem can find a polynomial time solution by reducing to that
-NP problem.</p>
-<p>And how to prove a problem is NP-Complete?</p>
-<h3 id="steps-to-prove-a-problem-is-np-complete">Steps to Prove a
-Problem is NP-Complete</h3>
-<ol type="1">
-<li>Show the Problem is in NP Verification in polynomial time:
-demonstrate that given a candidate solution, you can verify its
-correctness in polynomial time.</li>
-<li>Select a Known NP-Complete Problem Source problem: choose a problem
-already known to be NP-Complete for the reduction.</li>
-<li>Construct a Polynomial Time Reduction Transform: develop a
-polynomial time algorithm that converts instances of the chosen
-NP-Complete problem to instances of the problem you are proving
-NP-Complete
-<ol type="1">
-<li>Input transformation: map any instance of the known NP-Complete
-problem to an instance of your problem.</li>
-<li>Solution transformation: ensure that a solution to the transformed
-instance of your problem corresponds to a solution to the original
-NP-Complete problem.</li>
-</ol></li>
-</ol>
-<p>In summary, only two steps needs to be done:</p>
-<ul>
-<li>first show you can verify solutions in polynomial time.</li>
-<li>then transform a known NP-Complete problem to your problem in
-polynomial time.</li>
-</ul>
-<p><strong>Common NP-Complete Problems for Reductions:</strong></p>
-<ul>
-<li>Satisfiability (SAT)</li>
-<li>3-SAT</li>
-<li>Clique</li>
-<li>Vertex Cover</li>
-<li>Hamiltonian Path (Cycle)</li>
-<li>Traveling Salesman Problem (TSP)</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1511,7 +1445,7 @@ polynomial time.</li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
