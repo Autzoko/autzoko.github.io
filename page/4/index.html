@@ -158,6 +158,261 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/27/Cheese-Way/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/27/Cheese-Way/" class="post-title-link" itemprop="url">Cheese Way</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-27 17:57:49" itemprop="dateCreated datePublished" datetime="2024-06-27T17:57:49+08:00">2024-06-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-08-23 01:10:57" itemprop="dateModified" datetime="2025-08-23T01:10:57+08:00">2025-08-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/Problems/" itemprop="url" rel="index"><span itemprop="name">Problems</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>There is a large block of cheese with a height of <span
+class="math inline"><em>h</em></span>. We can assume its length and
+width are infinitely large. Inside this cheese, there are many spherical
+holes of the same radius. We can establish a spatial coordinate system
+within this cheese, where the bottom surface of the cheese is at <span
+class="math inline"><em>z</em> = 0</span> and the top surface of the
+cheese is at <span
+class="math inline"><em>z</em> = <em>h</em></span>.</p>
+<p>Currently, there is a little mouse named <em>Jerry</em> on the bottom
+surface of the cheese. Jerry knows the coordinates of the centers of all
+the holes in the cheese. If two holes are tangent or intersect, Jerry
+can move from one hole to another. Specially, if a hole is tangent to or
+intersects the bottom surface, Jerry can enter the hole from the bottom
+surface of the cheese; if a hole is tangent to or intersects the top
+surface, Jerry can exit from the hole to the top surface of the
+cheese.</p>
+<p>Jerry, located on the bottom surface of the cheese, wants to know if
+he can utilize the existing holes to reach the top surface of the cheese
+without damaging the cheese.</p>
+<p>Each input stream contains varies of data.</p>
+<p>In the first line, it includes an integer <span
+class="math inline"><em>T</em></span> which indicates the total number
+of input data lines. Then it followed by <span
+class="math inline"><em>T</em></span> lines of data, each line is
+formatted as <span
+class="math inline"><em>n</em>, <em>h</em>, <em>r</em></span>, separated
+by <code>space</code>, representing number of holes, height of cheese,
+and the radius of holes. The following <span
+class="math inline"><em>n</em></span> lines contains three integers
+<span class="math inline"><em>x</em>, <em>y</em>, <em>z</em></span>,
+separated by <code>space</code>, representing the coordinate of each
+hole.</p>
+<h2 id="solution">Solution</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Cheese</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; rank;</span><br><span class="line">    vector&lt;Long64&gt; X;</span><br><span class="line">    vector&lt;Long64&gt; Y;</span><br><span class="line">    vector&lt;Long64&gt; Z;</span><br><span class="line">    Long64 radius;</span><br><span class="line">    Long64 height;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isConnect</span><span class="params">(Long64 x1, Long64 y1, Long64 z1, Long64 x2, Long64 y2, Long64 z2, Long64 r)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">pow</span>((x1 - x2), <span class="number">2</span>) + <span class="built_in">pow</span>((y1 - y2), <span class="number">2</span>) + <span class="built_in">pow</span>((z1 - z2), <span class="number">2</span>) &lt;= <span class="number">4</span> * r * r;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x == parent[x] ? x : (parent[x] = <span class="built_in">find</span>(parent[x]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">merge</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> rootX = <span class="built_in">find</span>(x);</span><br><span class="line">        <span class="type">int</span> rootY = <span class="built_in">find</span>(y);</span><br><span class="line">        <span class="keyword">if</span> (rootX != rootY) &#123;</span><br><span class="line">            <span class="keyword">if</span> (rank[rootX] &lt; rank[rootY]) &#123;</span><br><span class="line">                parent[rootX] = rootY; </span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rank[rootX] &gt; rank[rootY]) &#123;</span><br><span class="line">                parent[rootY] = rootX;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                parent[rootX] = rootY;</span><br><span class="line">                rank[rootY]++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Cheese</span>(vector&lt;Long64&gt; X, vector&lt;Long64&gt; Y, vector&lt;Long64&gt; Z, Long64 radius, Long64 height) &#123;</span><br><span class="line">        X = X;</span><br><span class="line">        Y = Y;</span><br><span class="line">        Z = Z;</span><br><span class="line">        radius = radius;</span><br><span class="line">        height = height;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> n = X.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// use n + 1 and n + 2 to represent top and bottom</span></span><br><span class="line">        parent.<span class="built_in">resize</span>(n + <span class="number">2</span>);</span><br><span class="line">        rank.<span class="built_in">resize</span>(n + <span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n + <span class="number">2</span>; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">canReach</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = X.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Z[i] &lt;= radius) &#123;</span><br><span class="line">                <span class="built_in">merge</span>(i, n + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (Z[i] + radius &gt;= height) &#123;</span><br><span class="line">                <span class="built_in">merge</span>(i, n + <span class="number">2</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = i + <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">isConnect</span>(X[i], Y[i], Z[i], X[j], Y[j], Z[j], radius)) &#123;</span><br><span class="line">                    <span class="built_in">merge</span>(i, j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">find</span>(n + <span class="number">1</span>) == <span class="built_in">find</span>(n + <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation:</strong></p>
+<p>This is a typical <strong>Merge-find</strong> problem. We can split
+the holes into two sets: those whom connected to the bottom surface and
+those whom connected to the top surface. If a hole tangent to or
+intersects the bottom surface, then merge it into the <em>bottom
+set</em>, similarly, we can merge those whom are connected to the top
+surface to the <em>top set</em>. To determine whether there are holes
+can form a pathway, we just need to know whether the top surface and the
+bottom surface are in the same set. All above can be achieved by using
+<strong>merge-find</strong> algorithm.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/27/Merge-Find/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/27/Merge-Find/" class="post-title-link" itemprop="url">Merge-Find</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-27 17:04:54" itemprop="dateCreated datePublished" datetime="2024-06-27T17:04:54+08:00">2024-06-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-08-23 01:11:03" itemprop="dateModified" datetime="2025-08-23T01:11:03+08:00">2025-08-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/Concepts/" itemprop="url" rel="index"><span itemprop="name">Concepts</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>Merge-find</strong>(并查集), also known as
+<strong>Disjoint-set</strong>, is a data structure that efficiently
+handles the dynamic connectivity problem. It supports two primary
+operations: <strong>Union</strong> (to merge two sets) and
+<strong>find</strong> (to determine the representative or root of a
+set). This structure is especially useful in algorithms that deal with
+partitioning elements into disjoint subsets, such as <em>Kruskal’s
+algorithm</em> for finding the Minimum Spanning Tree.</p>
+<h2 id="key-concepts">Key Concepts</h2>
+<h3 id="data-structure">Data Structure</h3>
+<ul>
+<li>Parent Array: Each element has a pointer to its parent. For a
+representative element (root), the parent points to itself.</li>
+<li>Rank Array (or Size Array): Keeps track of the rank (or size) of the
+tree rooted at a particular element. It helps in optimizing the union
+operation by always attaching the smaller tree under the larger
+one.</li>
+</ul>
+<h3 id="operations">Operations</h3>
+<ol type="1">
+<li>Find:
+<ul>
+<li>Determines which subset a particular element is in.</li>
+<li>Can be used to check if two elements are in the same subset.</li>
+<li>Uses <strong>path compression</strong> to flatten the structure,
+making future operations faster.</li>
+</ul></li>
+<li>Union:
+<ul>
+<li>Merges two subsets into a single subset.</li>
+<li>Uses <strong>union by rank</strong> or <strong>union by
+size</strong> to keep the tree shallow, improving efficiency.</li>
+</ul></li>
+</ol>
+<h2 id="pseudocode-and-explanation">Pseudocode and Explanation</h2>
+<h3 id="initialization">Initialization</h3>
+<ul>
+<li>Parent Array: Each element is its own parent initially.</li>
+<li>Rank Array: Initialize rank or size of each element as <span
+class="math inline">0</span> or <span class="math inline">1</span>.</li>
+</ul>
+<h3 id="find-with-path-compression">Find with Path Compression</h3>
+<p><strong>Pseudocode:</strong> <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (parent[x] != x) &#123;</span><br><span class="line">        parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parent[x];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Explanation:</strong> - Recursively traverses the parent
+pointers until the root is found. - Path compression flattens the tree
+by making every node point directly to the root, reducing the time
+complexity for future operations.</p>
+<h3 id="union-by-rank">Union by Rank</h3>
+<p><strong>Pseudocode:</strong> <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">union</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> rootX = <span class="built_in">find</span>(x);</span><br><span class="line">    <span class="type">int</span> rootY = <span class="built_in">find</span>(y);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (rootX != rootY) &#123;</span><br><span class="line">        <span class="comment">// union by rank</span></span><br><span class="line">        <span class="keyword">if</span> (rank[rootX] &gt; rank[rootY]) &#123;</span><br><span class="line">            parent[rootY] = rootX;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rank[rootX] &lt; rank[rootY]) &#123;</span><br><span class="line">            parent[rootX] = rootY;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            parent[rootY] = rootX;</span><br><span class="line">            rank[rootX]++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<strong>Explanation:</strong> - Find the roots of the elements <span
+class="math inline"><em>x</em></span> and <span
+class="math inline"><em>y</em></span>. - Attach the smaller tree under
+the larger tree to keep the overall structure balanced. - If both trees
+are of the same rank, make one the parent of the other and increase its
+rank.</p>
+<h2 id="complete-c-implementation">Complete C++ Implementation</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UnionFind</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; rank;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">UnionFind</span>(<span class="type">int</span> n) &#123;</span><br><span class="line">        parent.<span class="built_in">resize</span>(n);</span><br><span class="line">        rank.<span class="built_in">resize</span>(n, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (parent[x] != x) &#123;</span><br><span class="line">            parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">merge</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> rootX = <span class="built_in">find</span>(x);</span><br><span class="line">        <span class="type">int</span> rootY = <span class="built_in">find</span>(y);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (rootX != rootY) &#123;</span><br><span class="line">            <span class="keyword">if</span> (rank[rootX] &gt; rank[rootY]) &#123;</span><br><span class="line">                parent[rootY] = rootX;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rank[rootX] &lt; rank[rootY]) &#123;</span><br><span class="line">                parent[rootX] = rootY;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                parent[rootY] = rootX;</span><br><span class="line">                rank[rootX]++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">connected</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">find</span>(x) == <span class="built_in">find</span>(y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/27/Knapsack-Problem/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1440,220 +1695,6 @@ this model cannot translate as human do, in fact it’s still a
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/21/Edit-Distance/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Autzoko Lang">
-      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog | Autzoko Lang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/21/Edit-Distance/" class="post-title-link" itemprop="url">Edit Distance</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-05-21 20:54:36" itemprop="dateCreated datePublished" datetime="2024-05-21T20:54:36+08:00">2024-05-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/Problems/" itemprop="url" rel="index"><span itemprop="name">Problems</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Given two string <strong>word1</strong> and <strong>word2</strong>,
-return the minimum number of operation required to converted
-<strong>word1</strong> to <strong>word2</strong>.</p>
-<p>Following three operations are permitted on a word:</p>
-<ul>
-<li>Insert a character</li>
-<li>Delete a character</li>
-<li>Replace a character</li>
-</ul>
-<p><strong>Example:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: word1 = &quot;horse&quot;, word2 = &quot;ros&quot;;</span><br><span class="line">Output: 3;</span><br></pre></td></tr></table></figure>
-<p><strong>Constraints:</strong></p>
-<ul>
-<li>0 &lt;= len(word1), len(word2) &lt;= 500</li>
-<li><strong>word1</strong> and <strong>word2</strong> consist of lower
-case English letters</li>
-</ul>
-<h2 id="solution">Solution</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">EditDistance</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minDistance</span><span class="params">(string word1, string word2)</span> </span>&#123;</span><br><span class="line">        word1 = <span class="string">&quot; &quot;</span> + word1;</span><br><span class="line">        word2 = <span class="string">&quot; &quot;</span> + word2;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> **matrix = <span class="keyword">new</span> <span class="type">int</span>*[word1.<span class="built_in">size</span>()];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; word1.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            matrix[i] = <span class="keyword">new</span> <span class="type">int</span>[word2.<span class="built_in">size</span>()];</span><br><span class="line">            <span class="built_in">fill_n</span>(matrix[i], word2.<span class="built_in">size</span>(), <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; word1.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; word2.<span class="built_in">size</span>(); j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(_min_(i, j) == <span class="number">0</span>) matrix[i][j] = _max_(i, j);</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span>(word1[i] == word2[j]) &#123;</span><br><span class="line">                        matrix[i][j] = matrix[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        matrix[i][j] = _trimin_(</span><br><span class="line">                            matrix[i - <span class="number">1</span>][j - <span class="number">1</span>],</span><br><span class="line">                            matrix[i][j - <span class="number">1</span>],</span><br><span class="line">                            matrix[i - <span class="number">1</span>][j]</span><br><span class="line">                        ) + <span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> matrix[word1.<span class="built_in">size</span>() - <span class="number">1</span>][word2.<span class="built_in">size</span>() - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> _min_(<span class="type">int</span> i, <span class="type">int</span> j) &#123;</span><br><span class="line">        <span class="keyword">return</span> i &lt; j ? i : j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> _max_(<span class="type">int</span> i, <span class="type">int</span> j) &#123;</span><br><span class="line">        <span class="keyword">return</span> i &gt; j ? i : j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> _trimin_(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> z) &#123;</span><br><span class="line">        <span class="keyword">return</span> _min_(x, y) &lt; _min_(y, z) ? _min_(x, y) : _min_(y, z);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><strong>Explanation:</strong></p>
-<p>Use <strong>matrix[i][j]</strong> to represents the edit distance
-between string <strong>word1[0…i]</strong> and
-<strong>word2[0…j].</strong> The index of string’s content begins at 1,
-matrix[0][0] indicates the case that <strong>word1</strong> and
-<strong>word2</strong> are both vacant, which means their edit distance
-is 0. So, it is obvious that matrix[0][j] is the case when
-<strong>word1</strong> is empty and the length of <strong>word2</strong>
-is <em>j</em>, and their edit distance should be just <em>j</em>.
-Similarly, matrix[0][i] is the case when the length of
-<strong>word1</strong> is <em>i</em> and <strong>word2</strong> is
-empty, their edit distance is <em>i</em>.</p>
-<p>Then we can deduce the equation for the above three operations
-accordingly:</p>
-<ul>
-<li><strong>matrix[i - 1][j] + 1</strong>: insert the last character of
-<strong>word1</strong> into the tail of <strong>word2</strong></li>
-<li><strong>matrix[i][j - 1] + 1</strong>: delete the last character of
-<strong>word2</strong></li>
-<li><strong>matrix[i - 1][j - 1] + 1</strong>: replace the last
-character of <strong>word2</strong> by the last character of
-<strong>word1</strong></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/21/Generate-Parentheses/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Autzoko Lang">
-      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog | Autzoko Lang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/21/Generate-Parentheses/" class="post-title-link" itemprop="url">Generate Parentheses</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-05-21 20:46:17" itemprop="dateCreated datePublished" datetime="2024-05-21T20:46:17+08:00">2024-05-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/Problems/" itemprop="url" rel="index"><span itemprop="name">Problems</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Given <em>n</em> pairs of parentheses, write a function to generate
-all combinations of well-formed parentheses.</p>
-<p><strong>Example:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: n = 3;</span><br><span class="line">Output: [&quot;((()))&quot;, &quot;(()())&quot;, &quot;(())()&quot;, &quot;()(())&quot;, &quot;()()()&quot;]</span><br></pre></td></tr></table></figure>
-<p><strong>Constraints:</strong></p>
-<ul>
-<li>1 &lt;= n &lt;= 8</li>
-</ul>
-<h2 id="solution">Solution</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">GenerateParentheses</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;string&gt; res;</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">generateParentheses</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n &lt;= <span class="number">0</span>) <span class="keyword">return</span> res;</span><br><span class="line">        <span class="built_in">p</span>(<span class="string">&quot;&quot;</span>, n, n);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">p</span><span class="params">(string str, <span class="type">int</span> left, <span class="type">int</span> right)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(left == <span class="number">0</span> &amp;&amp; right == <span class="number">0</span>) &#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(str);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(left == right) &#123;</span><br><span class="line">            <span class="built_in">p</span>(str + <span class="string">&quot;(&quot;</span>, left - <span class="number">1</span>, right);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(left &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="built_in">p</span>(str + <span class="string">&quot;(&quot;</span>, left - <span class="number">1</span>, right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">p</span>(str + <span class="string">&quot;)&quot;</span>, left, right - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><strong>Explanation:</strong></p>
-<p>The number of remained left parenthese must be less or equal to the
-number of remained right parenthese. If the number of remained left
-parenthese equals to the remained right one, the next can only be a left
-parenthese. If the number of remained left parenthese is less than the
-right one, the next one can be either a left parenthese or a right
-parenthese. This problem can be solved by using
-<strong>recursion</strong> algorithm.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1725,20 +1766,20 @@ parenthese. This problem can be solved by using
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

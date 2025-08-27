@@ -158,6 +158,336 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2025/08/27/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/08/27/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">推荐系统知识总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2025-08-27 10:14:30 / Modified: 13:30:59" itemprop="dateCreated datePublished" datetime="2025-08-27T10:14:30+08:00">2025-08-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">实习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">推荐系统</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="推荐系统架构">推荐系统架构</h2>
+<p>推荐和搜索的核心任务是从海量物品中找到用户感兴趣的内容。</p>
+<h3 id="系统架构">系统架构</h3>
+<p>一般推荐系统架构分为离线层(Offline)、近线层(Nearline)和在线层(Online)。</p>
+<ul>
+<li>离线层：不实用实时数据，不提供实时响应。
+<ul>
+<li>数据处理、数据存储。</li>
+<li>特征工程、离线特征计算。</li>
+<li>离线模型训练。</li>
+<li>优势与不足：数据量级最大，需要存储海量数据、大规模特征工程以及多机分布式模型训练。当前主流通过HDFS收集业务数据，通过Hive等大数据工具进行数据提取、筛选以及处理。主流框架是Spark。可以进行批量处理与计算而没有响应时间的要求。</li>
+</ul></li>
+<li>近线层：使用实时数据，不保证实时响应。
+<ul>
+<li>不严格要求实时性，但需要弥补离线层与在线层之间的不足。适合处理对时延较为敏感的任务。
+<ul>
+<li>特征的事实更新计算：离线层数据与实时数据分布不一致，通过近线层调节。</li>
+<li>获取实时训练数据：用户较短时间内产生的数据特征可以通过近线层直接输入模型。</li>
+<li>模型实时训练：通过在线学习的方法更新推送模型。</li>
+</ul></li>
+<li>主流大数据框架：Flink，Storm。</li>
+<li><figure>
+<img src="/images/RS-BigData.jpeg" title="架构技术栈"
+alt="架构技术栈" />
+<figcaption aria-hidden="true">架构技术栈</figcaption>
+</figure></li>
+</ul></li>
+<li>在线层：使用实时数据，保证实时在线服务。
+<ul>
+<li>面向用户的一层，对响应时延有要求，需要立即响应推荐结果。
+<ul>
+<li>模型在线服务：包括了快速召回和排序。</li>
+<li>在线特征快速处理拼接：根据传入的用户ID和场景，快速读取特征和处理。</li>
+<li>AB实验或分流：根据不同用户采用不一样的模型，比如冷启动用户和正常服务模型。</li>
+<li>运筹优化和业务干预：比如对特殊商家的流量扶持、对特定内容的限流。</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="算法架构">算法架构</h3>
+<p>推荐系统会细分为四个阶段：<strong>召回、粗排、精排、重排</strong>.</p>
+<ul>
+<li>召回：从推荐池中选取大量items送个后续排序模块。
+<ul>
+<li>由于面对的候选集庞大且需要在线输出，所以召回模块需要轻量快速低延迟。不需要十分准确，但不可遗漏。</li>
+<li>考虑内容：
+<ul>
+<li>用户层面：用户需求、兴趣与场景多元化。</li>
+<li>系统层面：增强鲁棒性。兜底。</li>
+<li>多样性内容分发：召回目标多元。</li>
+<li>可解释性。</li>
+</ul></li>
+</ul></li>
+<li>粗排：对召回结果进行初步筛选送给精排。兼顾准确性和低延迟。
+<ul>
+<li>考虑内容：
+<ul>
+<li>根据精排模型的重要特征来做候选集的截断。</li>
+<li>根据与user相关性进行召回结果截断。</li>
+<li>性能保证。</li>
+</ul></li>
+</ul></li>
+<li>精排：大部分算法研究的层面。对粗排的候选集进行打分和排序。</li>
+<li>重排：解决精排结果可能同质化和冗余的问题。以及根据运营策略等去影响精排结果。是对精排结果的微调。</li>
+</ul>
+<h2 id="技术栈">技术栈</h2>
+<h3 id="画像层">画像层</h3>
+<p>推荐系统的物料库，绘制用户、商品画像等。通过tag的方式进行统计。</p>
+<ul>
+<li>内容特征提取与标签分类
+<ul>
+<li>文本理解：RNN，TextCNN，FastText，Bert等。</li>
+<li>关键词标签：TF-IDF，Bert，LSTM-CRF。</li>
+<li>内容理解：TSN，RetinaFace，PSENet等。</li>
+<li>知识图谱：KGAT，RippleNet。</li>
+</ul></li>
+</ul>
+<h3 id="召回粗排">召回/粗排</h3>
+<p>经典模型召回：FM，双塔DSSM，Multi-View DNN等。
+序列模型召回：CBOW，Skip-Gram，GRU，Bert等。
+用户序列拆分：对用户的多维兴趣进行拆分，刻画更细致的方向。
+知识图谱：对推荐结果的可解释性。 图模型：通过图模型来表示系统。</p>
+<h3 id="精排">精排</h3>
+<p>研究最多的方向，主要通过各种深度学习方法进行打分排序。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2025/08/26/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/08/26/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E9%A2%98/" class="post-title-link" itemprop="url">大模型面试高频题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2025-08-26 13:11:34 / Modified: 14:51:40" itemprop="dateCreated datePublished" datetime="2025-08-26T13:11:34+08:00">2025-08-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">实习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%85%AB%E8%82%A1/" itemprop="url" rel="index"><span itemprop="name">大模型八股</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol type="1">
+<li>SFT Loss计算方法
+<ul>
+<li>交叉熵损失 CE Loss
+<ul>
+<li>假设输入prompt为<span
+class="math inline"><em>x</em></span>，目标输出序列为 <span
+class="math inline"><em>y</em> = (<em>y</em><sub>1</sub>, <em>y</em><sub>2</sub>, ..., <em>y</em><sub><em>T</em></sub>)</span>，模型预测条件概率为
+<span
+class="math inline"><em>p</em><sub><em>θ</em></sub>(<em>y</em><sub><em>t</em></sub>|<em>x</em>, <em>y</em><sub> &lt; <em>t</em></sub>)</span></li>
+<li>则SFT Loss定义为: <span
+class="math display"><em>S</em><em>F</em><em>T</em><sub><em>θ</em></sub> = −∑<em>t</em> = 1<sup><em>T</em></sup>log <em>p</em><sub><em>θ</em></sub>(<em>y</em><sub><em>t</em></sub>|<em>x</em>, <em>y</em><sub> &lt; <em>t</em></sub>)</span></li>
+</ul></li>
+<li>模型在生成每一个token时会预测一个概率分布，而希望它尽可能把正确token的概率提高。其损失就是“模型预测分布和参考答案之间的差距”。</li>
+<li>每一步预测都会对计算交叉熵取平均，最后对整个结果取平均。</li>
+<li>交叉熵：用来度量两个概率分布差异的函数，熵越小越接近真实分布。</li>
+<li>真实分布<span
+class="math inline"><em>p</em>(<em>x</em>)</span>，预测分布<span
+class="math inline"><em>q</em>(<em>x</em>)</span>，交叉熵定义为 <span
+class="math inline"><em>H</em>(<em>p</em>, <em>q</em>) = −∑<em>p</em>(<em>x</em><sub><em>i</em></sub>)log <em>q</em>(<em>x</em><sub><em>i</em></sub>)</span>.</li>
+</ul></li>
+<li>Transformer与注意力机制
+<ul>
+<li>Attention类别：Self Attention，Cross Attention，MHA，Flash
+Attention等。</li>
+<li>Transformer结构：
+<ul>
+<li>Encoder模块：由N层堆叠，每一层主要包含：
+<ul>
+<li>多头自注意力：捕捉输入序列中不同位置之间的依赖关系。
+<ul>
+<li><span
+class="math display"><em>A</em><em>t</em><em>t</em><em>e</em><em>n</em><em>t</em><em>i</em><em>o</em><em>n</em>(<em>Q</em>, <em>K</em>, <em>V</em>) = <em>s</em><em>o</em><em>f</em><em>t</em><em>m</em><em>a</em><em>x</em>(<em>Q</em><em>K</em><sup><em>T</em></sup>/<em>s</em><em>q</em><em>r</em><em>t</em><em>d</em><sub><em>k</em></sub>)<em>V</em></span></li>
+<li>其中 <span
+class="math inline"><em>Q</em>, <em>K</em>, <em>V</em></span> 均由输入
+<span class="math inline"><em>X</em></span> 投影得到：<span
+class="math inline"><em>Q</em> = <em>X</em><em>W</em><sub><em>Q</em></sub>, <em>K</em> = <em>X</em><em>W</em><sub><em>K</em></sub>, <em>V</em> = <em>X</em><em>W</em><sub><em>V</em></sub></span>.</li>
+</ul></li>
+<li>前向传播：对于每个token进行线性变换，提高表达能力.
+<ul>
+<li><span
+class="math display"><em>F</em><em>F</em><em>N</em>(<em>x</em>) = <em>R</em><em>e</em><em>L</em><em>U</em>(<em>x</em><em>W</em><sub>1</sub> + <em>b</em><sub>1</sub>)<em>W</em><sub>2</sub> + <em>b</em><sub>2</sub></span></li>
+</ul></li>
+<li>残差连接和Layer Norm：保证梯度稳定，提高训练效果。
+<ul>
+<li><span
+class="math inline"><em>X</em><sup>′</sup> = <em>L</em><em>a</em><em>y</em><em>e</em><em>r</em><em>N</em><em>o</em><em>r</em><em>m</em>(<em>X</em> + <em>M</em><em>u</em><em>l</em><em>t</em><em>i</em><em>H</em><em>e</em><em>a</em><em>d</em>(<em>X</em>, <em>X</em>, <em>X</em>)), <em>Y</em> = <em>L</em><em>a</em><em>y</em><em>e</em><em>r</em><em>N</em><em>o</em><em>r</em><em>m</em>(<em>X</em><sup>′</sup> + <em>F</em><em>F</em><em>N</em>(<em>X</em><sup>′</sup>))</span></li>
+</ul></li>
+</ul></li>
+<li>Decoder模块：同样由N层堆叠
+<ul>
+<li>Masked多头自注意力：防止token看到未来信息，保证自回归生成。
+<ul>
+<li><span
+class="math inline"><em>Q</em><em>K</em><sup><em>T</em></sup> + <em>M</em></span>，通过mask矩阵屏蔽token之后的所有位置。</li>
+</ul></li>
+<li>Encoder-Decoder多头注意力：让Decoder关注Encoder计算出的特征。
+<ul>
+<li>公式相同，但是Q由decoder产生，K和V由Encoder提供。</li>
+</ul></li>
+<li>前馈网络：增强表达。</li>
+<li>残差连接：稳定训练，提高梯度传播能力。</li>
+<li>Decoder的最终输出会通过一个线性变换和softmax层得到最后的预测分布。</li>
+</ul></li>
+</ul></li>
+<li>使用多头自注意力机制的优势：
+<ul>
+<li>MHA可以让模型从不同的表示子空间中学习不同的特征，增强模型的表达能力；提高模型的鲁棒性，减少单个注意力头可能带来的信息丢失；允许不同的注意力头关注输入序列的不同部分，使模型能够捕捉更丰富的上下文信息；增强模型的表达能力，避免单一注意力模式可能导致的局部最优解。</li>
+</ul></li>
+<li>为什么Q和K需要使用不同的权重矩阵：如果Q和K使用相同的权重矩阵，则
+<span
+class="math inline"><em>Q</em><em>K</em><sup><em>T</em></sup></span>
+变成了一个对称矩阵，这样会导致注意力分数的计算缺乏灵活性，无法区分不同的输入关系。</li>
+<li>计算注意力使用点积计算的优势：
+<ul>
+<li>计算效率更高，矩阵运算可以使用并行加速；避免了额外的可训练参数，而假发注意力需要额外的权重矩阵和非线性变换；也适用于高维向量。</li>
+</ul></li>
+<li>为什么对 <span
+class="math inline"><em>Q</em><em>K</em><sup><em>T</em></sup></span>
+进行scaled处理：
+<ul>
+<li><span class="math inline"><em>d</em><sub><em>k</em></sub></span>
+是K的维度，如不不进行缩放，当 <span
+class="math inline"><em>d</em><sub><em>k</em></sub></span> 较大时 <span
+class="math inline"><em>Q</em><em>K</em><sup><em>T</em></sup></span>
+的数值会变得过大，导致softmax的梯度消失。scaled后可以使得分布更加平稳，提高训练稳定性。</li>
+</ul></li>
+<li>为什么在进行多头注意力时需要先concat再降维：
+<ul>
+<li>如果不降维会导致每个头的计算量变得很大，因此一般将d维的输入向量映射到一个较低维的子空间，使得每个头的计算量减少；如果直接相加那么所有注意力头的输出都会累驾到同一个维度上；而多头的优势在于可以关注不同的特征，直接相加会让这些特征混合，进而无法区分不同的注意力模式，降低了表达力。</li>
+</ul></li>
+<li>Mask如何实现：对于需要padding的位置设置负无穷，需要的位置设置0.</li>
+<li>残差连接的作用：
+<ul>
+<li>缓解梯度消失：梯度可以残差路径传播，使得深层网络训练更加稳定。</li>
+<li>加速收敛：通过跳跃连接使得梯度流动更加顺畅，减少训练时间。</li>
+<li>防止信息丢失：输入信息可以沿着残差路径流向更深层网络。</li>
+<li>提高泛化能力：残差+LayerNorm可以防止过拟合。</li>
+</ul></li>
+<li>为什么用LayerNorm而不是BatchNorm：
+<ul>
+<li>BatchNorm依赖于mini-batch统计量，而NLP任务序列长度不固定，BatchNorm可能表现不稳定，而LayerNorm不受影响。BatchNorm也依赖于较大的batchsize来获得稳定的均值和方差，而Transformer的batchsize通常较小。此外，transformer中每个token的计算是独立的，LayerNorm可以为每个token进行归一化，而batchnorm需要整个batch的信息。</li>
+</ul></li>
+</ul></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2025/08/25/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%EF%BC%88%E5%85%B6%E4%BB%96%E9%83%A8%E5%88%86%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1386,160 +1716,6 @@ title="浏览器渲染机制" alt="浏览器渲染机制" /></li>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2025/01/28/%E9%9D%92%E7%8E%89%E6%A1%88%C2%B7%E5%85%83%E5%A4%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Autzoko Lang">
-      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog | Autzoko Lang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/01/28/%E9%9D%92%E7%8E%89%E6%A1%88%C2%B7%E5%85%83%E5%A4%95/" class="post-title-link" itemprop="url">青玉案·元夕</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-01-28 08:50:05" itemprop="dateCreated datePublished" datetime="2025-01-28T08:50:05+08:00">2025-01-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%A2%85%E5%BA%AD%E9%9B%9C%E6%A1%88/" itemprop="url" rel="index"><span itemprop="name">梅庭雜案</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>春寒歲裏鴻都郎，憑誰望，海客鄉。乞聞風中烟花聲。牖鼓雲浪，孤看飛航，一日夜光藏。
-山外山隔窗外窗，凍雪殘餘鬢頭霜。玉樓歌裏獨醉好。一曲彷徨，不奏迷惘，笑寫清平殤。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2025/01/27/%E5%B1%8F%E5%B1%B1%E5%A4%96%E8%A9%A9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Autzoko Lang">
-      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog | Autzoko Lang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/01/27/%E5%B1%8F%E5%B1%B1%E5%A4%96%E8%A9%A9/" class="post-title-link" itemprop="url">屏山外詩</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-01-27 12:21:06" itemprop="dateCreated datePublished" datetime="2025-01-27T12:21:06+08:00">2025-01-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%A2%85%E5%BA%AD%E9%9B%9C%E6%A1%88/" itemprop="url" rel="index"><span itemprop="name">梅庭雜案</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>天山大漠越東海，蒼黃故土，清霾掩我故城。
-不望天山萬仞，東方一點紅，半載西風吹不動，車馬喧囂，醉雲西沈。
-猶見酒綠燈紅処，大千世界任我行。 惟問世間何方進，天海相隔步難停。
-慾走萬里尋真切，怎理身後多少名。 進退不知馮唐夢，稼軒詞外難堪情。
-西門外，游人慶，渡走灞橋心難盈。 撩落枝亂十二載，是非成敗幾回明。
-蒼茫連天撲塵土，天河兩岸信難聆。 白日清夢誰人語，魚游池塘畫新屏。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1611,20 +1787,20 @@ title="浏览器渲染机制" alt="浏览器渲染机制" /></li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

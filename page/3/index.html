@@ -158,6 +158,228 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/10/08/Maximum-Average-Subarray-I/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/08/Maximum-Average-Subarray-I/" class="post-title-link" itemprop="url">Maximum Average Subarray I</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-10-08 15:40:31" itemprop="dateCreated datePublished" datetime="2024-10-08T15:40:31+08:00">2024-10-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-08-23 01:14:02" itemprop="dateModified" datetime="2025-08-23T01:14:02+08:00">2025-08-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/Problems/" itemprop="url" rel="index"><span itemprop="name">Problems</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>You are given an integer array <strong>nums</strong> consisting of $
+n$ elements, and an integer $ k$. Find a contiguous subarray whose
+length is equal to $ k$ that has the maximum average value and return
+this value. Any answer with a calculation error less than <span
+class="math inline">10<sup>−5</sup></span> will be accepted.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [1, 12, -5, -6, 50, 3], k = 4;</span><br><span class="line">Output: 12.75000;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [5], k = 1;</span><br><span class="line">Output: 5.00000;</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><span
+class="math inline"><em>n</em> = <em>l</em><em>e</em><em>n</em>(<em>n</em><em>u</em><em>m</em><em>s</em>)</span></li>
+<li><span
+class="math inline">1 ≤ <em>k</em> ≤ <em>n</em> ≤ 1−<sup>5</sup></span></li>
+<li><span
+class="math inline">−10<sup>4</sup> ≤ <em>n</em><em>u</em><em>m</em><em>s</em><sub><em>i</em></sub> ≤ 10<sup>4</sup></span></li>
+</ul>
+<h2 id="solution">Solution</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> LL = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">findMaxAverage</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        LL sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; k; i++) &#123;</span><br><span class="line">            sum += nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        LL maxSum = sum;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>, j = k; j &lt; nums.<span class="built_in">size</span>(); i++, j++) &#123;</span><br><span class="line">            sum = sum - nums[i] + nums[j];</span><br><span class="line">            maxSum = <span class="built_in">max</span>(maxSum, sum);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (<span class="type">double</span>)maxSum / (<span class="type">double</span>)k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation:</strong></p>
+<p>This problem uses the <strong>Sliding Window</strong> technique. To
+reduce the calculation when sliding, first we do not compute the average
+each time, we can only calculate the sum of the window and divide it at
+last when return. Since the length of the window is fixed, so each step
+it move we just need to subtract the left margin value and add the value
+next to the right margin then the new sum of the window is get. Slide it
+step by step and update the <em>maxSum</em> to find the maximum value of
+the array.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/10/01/Container-with-Most-Water/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/01/Container-with-Most-Water/" class="post-title-link" itemprop="url">Container with Most Water</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-10-01 13:17:04" itemprop="dateCreated datePublished" datetime="2024-10-01T13:17:04+08:00">2024-10-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-08-23 01:17:14" itemprop="dateModified" datetime="2025-08-23T01:17:14+08:00">2025-08-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/Problems/" itemprop="url" rel="index"><span itemprop="name">Problems</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>You are given an integer array <strong>height</strong> of length
+<span class="math inline"><em>n</em></span>. There are <span
+class="math inline"><em>n</em></span> vertical lines drawn such that the
+two endpoints of the <span
+class="math inline"><em>i</em><sup><em>t</em><em>h</em></sup></span>
+line are <span class="math inline">(<em>i</em>, 0)</span> and <span
+class="math inline">(<em>i</em>, <em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em><sub><em>i</em></sub>)</span>.</p>
+<p>Find two lines that together with the x-axis form a container, such
+that the container contains the most water.</p>
+<p>Return the maximum amount of the water a container can store.</p>
+<p><strong>Examples:</strong></p>
+<figure>
+<img
+src="https://s3-lc-upload.s3.amazonaws.com/uploads/2018/07/17/question_11.jpg"
+alt="Illustration" />
+<figcaption aria-hidden="true">Illustration</figcaption>
+</figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: height = [1, 8, 6, 2, 5, 4, 8, 3, 7];</span><br><span class="line">Output = 49;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: height = [1, 1];</span><br><span class="line">Output = 1;</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><span
+class="math inline"><em>n</em> = <em>l</em><em>e</em><em>n</em>(<em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em>)</span></li>
+<li><span
+class="math inline">2 ≤ <em>n</em> ≤ 10<sup>5</sup></span></li>
+<li><span
+class="math inline">0 ≤ <em>h</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em><sub><em>i</em></sub> ≤ 10<sup>4</sup></span></li>
+</ul>
+<h2 id="solution">Solution</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> LL = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxArea</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        LL left = <span class="number">0</span>, right = height.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        LL maxA = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            LL currentArea = <span class="built_in">min</span>(height[left], height[right]) * (right - left);</span><br><span class="line">            maxA = <span class="built_in">max</span>(maxA, currentArea);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (height[left] &lt; height[right]) left++;</span><br><span class="line">            <span class="keyword">else</span> right--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> maxA;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation:</strong></p>
+<p>To solve this problem the <strong>two pointers</strong> technique is
+adopted. The <em>left</em> pointer starting at the index 0 and the
+<em>right</em> pointer starts at the end of the vector. Use
+<em>maxA</em> to keep track of the maximum area found. Then calculate
+the current area of the container and update it to the <em>maxA</em>.
+And we need to move the two pointers inwards to find the global maximum
+area. The method for moving inwards the pointers is to always move the
+smaller one (low one) the seeking a greater value that may increase the
+area.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/09/25/Binary-Search/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1069,261 +1291,6 @@ alt="三晉邊關" />
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/27/Cheese-Way/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Autzoko Lang">
-      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog | Autzoko Lang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/27/Cheese-Way/" class="post-title-link" itemprop="url">Cheese Way</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-06-27 17:57:49" itemprop="dateCreated datePublished" datetime="2024-06-27T17:57:49+08:00">2024-06-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 01:10:57" itemprop="dateModified" datetime="2025-08-23T01:10:57+08:00">2025-08-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/Problems/" itemprop="url" rel="index"><span itemprop="name">Problems</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>There is a large block of cheese with a height of <span
-class="math inline"><em>h</em></span>. We can assume its length and
-width are infinitely large. Inside this cheese, there are many spherical
-holes of the same radius. We can establish a spatial coordinate system
-within this cheese, where the bottom surface of the cheese is at <span
-class="math inline"><em>z</em> = 0</span> and the top surface of the
-cheese is at <span
-class="math inline"><em>z</em> = <em>h</em></span>.</p>
-<p>Currently, there is a little mouse named <em>Jerry</em> on the bottom
-surface of the cheese. Jerry knows the coordinates of the centers of all
-the holes in the cheese. If two holes are tangent or intersect, Jerry
-can move from one hole to another. Specially, if a hole is tangent to or
-intersects the bottom surface, Jerry can enter the hole from the bottom
-surface of the cheese; if a hole is tangent to or intersects the top
-surface, Jerry can exit from the hole to the top surface of the
-cheese.</p>
-<p>Jerry, located on the bottom surface of the cheese, wants to know if
-he can utilize the existing holes to reach the top surface of the cheese
-without damaging the cheese.</p>
-<p>Each input stream contains varies of data.</p>
-<p>In the first line, it includes an integer <span
-class="math inline"><em>T</em></span> which indicates the total number
-of input data lines. Then it followed by <span
-class="math inline"><em>T</em></span> lines of data, each line is
-formatted as <span
-class="math inline"><em>n</em>, <em>h</em>, <em>r</em></span>, separated
-by <code>space</code>, representing number of holes, height of cheese,
-and the radius of holes. The following <span
-class="math inline"><em>n</em></span> lines contains three integers
-<span class="math inline"><em>x</em>, <em>y</em>, <em>z</em></span>,
-separated by <code>space</code>, representing the coordinate of each
-hole.</p>
-<h2 id="solution">Solution</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Cheese</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; rank;</span><br><span class="line">    vector&lt;Long64&gt; X;</span><br><span class="line">    vector&lt;Long64&gt; Y;</span><br><span class="line">    vector&lt;Long64&gt; Z;</span><br><span class="line">    Long64 radius;</span><br><span class="line">    Long64 height;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isConnect</span><span class="params">(Long64 x1, Long64 y1, Long64 z1, Long64 x2, Long64 y2, Long64 z2, Long64 r)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">pow</span>((x1 - x2), <span class="number">2</span>) + <span class="built_in">pow</span>((y1 - y2), <span class="number">2</span>) + <span class="built_in">pow</span>((z1 - z2), <span class="number">2</span>) &lt;= <span class="number">4</span> * r * r;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x == parent[x] ? x : (parent[x] = <span class="built_in">find</span>(parent[x]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">merge</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> rootX = <span class="built_in">find</span>(x);</span><br><span class="line">        <span class="type">int</span> rootY = <span class="built_in">find</span>(y);</span><br><span class="line">        <span class="keyword">if</span> (rootX != rootY) &#123;</span><br><span class="line">            <span class="keyword">if</span> (rank[rootX] &lt; rank[rootY]) &#123;</span><br><span class="line">                parent[rootX] = rootY; </span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rank[rootX] &gt; rank[rootY]) &#123;</span><br><span class="line">                parent[rootY] = rootX;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                parent[rootX] = rootY;</span><br><span class="line">                rank[rootY]++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Cheese</span>(vector&lt;Long64&gt; X, vector&lt;Long64&gt; Y, vector&lt;Long64&gt; Z, Long64 radius, Long64 height) &#123;</span><br><span class="line">        X = X;</span><br><span class="line">        Y = Y;</span><br><span class="line">        Z = Z;</span><br><span class="line">        radius = radius;</span><br><span class="line">        height = height;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> n = X.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// use n + 1 and n + 2 to represent top and bottom</span></span><br><span class="line">        parent.<span class="built_in">resize</span>(n + <span class="number">2</span>);</span><br><span class="line">        rank.<span class="built_in">resize</span>(n + <span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n + <span class="number">2</span>; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">canReach</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = X.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Z[i] &lt;= radius) &#123;</span><br><span class="line">                <span class="built_in">merge</span>(i, n + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (Z[i] + radius &gt;= height) &#123;</span><br><span class="line">                <span class="built_in">merge</span>(i, n + <span class="number">2</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = i + <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">isConnect</span>(X[i], Y[i], Z[i], X[j], Y[j], Z[j], radius)) &#123;</span><br><span class="line">                    <span class="built_in">merge</span>(i, j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">find</span>(n + <span class="number">1</span>) == <span class="built_in">find</span>(n + <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><strong>Explanation:</strong></p>
-<p>This is a typical <strong>Merge-find</strong> problem. We can split
-the holes into two sets: those whom connected to the bottom surface and
-those whom connected to the top surface. If a hole tangent to or
-intersects the bottom surface, then merge it into the <em>bottom
-set</em>, similarly, we can merge those whom are connected to the top
-surface to the <em>top set</em>. To determine whether there are holes
-can form a pathway, we just need to know whether the top surface and the
-bottom surface are in the same set. All above can be achieved by using
-<strong>merge-find</strong> algorithm.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/27/Merge-Find/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Autzoko Lang">
-      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog | Autzoko Lang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/27/Merge-Find/" class="post-title-link" itemprop="url">Merge-Find</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-06-27 17:04:54" itemprop="dateCreated datePublished" datetime="2024-06-27T17:04:54+08:00">2024-06-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 01:11:03" itemprop="dateModified" datetime="2025-08-23T01:11:03+08:00">2025-08-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/Concepts/" itemprop="url" rel="index"><span itemprop="name">Concepts</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>Merge-find</strong>(并查集), also known as
-<strong>Disjoint-set</strong>, is a data structure that efficiently
-handles the dynamic connectivity problem. It supports two primary
-operations: <strong>Union</strong> (to merge two sets) and
-<strong>find</strong> (to determine the representative or root of a
-set). This structure is especially useful in algorithms that deal with
-partitioning elements into disjoint subsets, such as <em>Kruskal’s
-algorithm</em> for finding the Minimum Spanning Tree.</p>
-<h2 id="key-concepts">Key Concepts</h2>
-<h3 id="data-structure">Data Structure</h3>
-<ul>
-<li>Parent Array: Each element has a pointer to its parent. For a
-representative element (root), the parent points to itself.</li>
-<li>Rank Array (or Size Array): Keeps track of the rank (or size) of the
-tree rooted at a particular element. It helps in optimizing the union
-operation by always attaching the smaller tree under the larger
-one.</li>
-</ul>
-<h3 id="operations">Operations</h3>
-<ol type="1">
-<li>Find:
-<ul>
-<li>Determines which subset a particular element is in.</li>
-<li>Can be used to check if two elements are in the same subset.</li>
-<li>Uses <strong>path compression</strong> to flatten the structure,
-making future operations faster.</li>
-</ul></li>
-<li>Union:
-<ul>
-<li>Merges two subsets into a single subset.</li>
-<li>Uses <strong>union by rank</strong> or <strong>union by
-size</strong> to keep the tree shallow, improving efficiency.</li>
-</ul></li>
-</ol>
-<h2 id="pseudocode-and-explanation">Pseudocode and Explanation</h2>
-<h3 id="initialization">Initialization</h3>
-<ul>
-<li>Parent Array: Each element is its own parent initially.</li>
-<li>Rank Array: Initialize rank or size of each element as <span
-class="math inline">0</span> or <span class="math inline">1</span>.</li>
-</ul>
-<h3 id="find-with-path-compression">Find with Path Compression</h3>
-<p><strong>Pseudocode:</strong> <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (parent[x] != x) &#123;</span><br><span class="line">        parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parent[x];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>Explanation:</strong> - Recursively traverses the parent
-pointers until the root is found. - Path compression flattens the tree
-by making every node point directly to the root, reducing the time
-complexity for future operations.</p>
-<h3 id="union-by-rank">Union by Rank</h3>
-<p><strong>Pseudocode:</strong> <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">union</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> rootX = <span class="built_in">find</span>(x);</span><br><span class="line">    <span class="type">int</span> rootY = <span class="built_in">find</span>(y);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (rootX != rootY) &#123;</span><br><span class="line">        <span class="comment">// union by rank</span></span><br><span class="line">        <span class="keyword">if</span> (rank[rootX] &gt; rank[rootY]) &#123;</span><br><span class="line">            parent[rootY] = rootX;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rank[rootX] &lt; rank[rootY]) &#123;</span><br><span class="line">            parent[rootX] = rootY;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            parent[rootY] = rootX;</span><br><span class="line">            rank[rootX]++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<strong>Explanation:</strong> - Find the roots of the elements <span
-class="math inline"><em>x</em></span> and <span
-class="math inline"><em>y</em></span>. - Attach the smaller tree under
-the larger tree to keep the overall structure balanced. - If both trees
-are of the same rank, make one the parent of the other and increase its
-rank.</p>
-<h2 id="complete-c-implementation">Complete C++ Implementation</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UnionFind</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; rank;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">UnionFind</span>(<span class="type">int</span> n) &#123;</span><br><span class="line">        parent.<span class="built_in">resize</span>(n);</span><br><span class="line">        rank.<span class="built_in">resize</span>(n, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (parent[x] != x) &#123;</span><br><span class="line">            parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">merge</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> rootX = <span class="built_in">find</span>(x);</span><br><span class="line">        <span class="type">int</span> rootY = <span class="built_in">find</span>(y);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (rootX != rootY) &#123;</span><br><span class="line">            <span class="keyword">if</span> (rank[rootX] &gt; rank[rootY]) &#123;</span><br><span class="line">                parent[rootY] = rootX;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rank[rootX] &lt; rank[rootY]) &#123;</span><br><span class="line">                parent[rootX] = rootY;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                parent[rootY] = rootX;</span><br><span class="line">                rank[rootX]++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">connected</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">find</span>(x) == <span class="built_in">find</span>(y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1395,20 +1362,20 @@ rank.</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

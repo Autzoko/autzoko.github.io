@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"autzoko.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="推荐系统架构 推荐和搜索的核心任务是从海量物品中找到用户感兴趣的内容。 系统架构 一般推荐系统架构分为离线层(Offline)、近线层(Nearline)和在线层(Online)。  离线层：不实用实时数据，不提供实时响应。  数据处理、数据存储。 特征工程、离线特征计算。 离线模型训练。 优势与不足：数据量级最大，需要存储海量数据、大规模特征工程以及多机分布式模型训练。当前主流通过HDFS收集业">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推荐系统知识总结">
+<meta property="og:url" content="https://autzoko.github.io/2025/08/27/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Blog | Autzoko Lang">
+<meta property="og:description" content="推荐系统架构 推荐和搜索的核心任务是从海量物品中找到用户感兴趣的内容。 系统架构 一般推荐系统架构分为离线层(Offline)、近线层(Nearline)和在线层(Online)。  离线层：不实用实时数据，不提供实时响应。  数据处理、数据存储。 特征工程、离线特征计算。 离线模型训练。 优势与不足：数据量级最大，需要存储海量数据、大规模特征工程以及多机分布式模型训练。当前主流通过HDFS收集业">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://autzoko.github.io/images/RS-BigData.jpeg">
+<meta property="article:published_time" content="2025-08-27T02:14:30.000Z">
+<meta property="article:modified_time" content="2025-08-27T05:30:59.799Z">
+<meta property="article:author" content="Autzoko Lang">
+<meta property="article:tag" content="八股">
+<meta property="article:tag" content="推荐系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://autzoko.github.io/images/RS-BigData.jpeg">
+
+<link rel="canonical" href="https://autzoko.github.io/2025/08/27/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>推荐系统知识总结 | Blog | Autzoko Lang</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Blog | Autzoko Lang</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">THIS IS MY KINGDOM COME</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2025/08/27/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          推荐系统知识总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2025-08-27 10:14:30 / Modified: 13:30:59" itemprop="dateCreated datePublished" datetime="2025-08-27T10:14:30+08:00">2025-08-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">实习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E4%B9%A0/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">推荐系统</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="推荐系统架构">推荐系统架构</h2>
+<p>推荐和搜索的核心任务是从海量物品中找到用户感兴趣的内容。</p>
+<h3 id="系统架构">系统架构</h3>
+<p>一般推荐系统架构分为离线层(Offline)、近线层(Nearline)和在线层(Online)。</p>
+<ul>
+<li>离线层：不实用实时数据，不提供实时响应。
+<ul>
+<li>数据处理、数据存储。</li>
+<li>特征工程、离线特征计算。</li>
+<li>离线模型训练。</li>
+<li>优势与不足：数据量级最大，需要存储海量数据、大规模特征工程以及多机分布式模型训练。当前主流通过HDFS收集业务数据，通过Hive等大数据工具进行数据提取、筛选以及处理。主流框架是Spark。可以进行批量处理与计算而没有响应时间的要求。</li>
+</ul></li>
+<li>近线层：使用实时数据，不保证实时响应。
+<ul>
+<li>不严格要求实时性，但需要弥补离线层与在线层之间的不足。适合处理对时延较为敏感的任务。
+<ul>
+<li>特征的事实更新计算：离线层数据与实时数据分布不一致，通过近线层调节。</li>
+<li>获取实时训练数据：用户较短时间内产生的数据特征可以通过近线层直接输入模型。</li>
+<li>模型实时训练：通过在线学习的方法更新推送模型。</li>
+</ul></li>
+<li>主流大数据框架：Flink，Storm。</li>
+<li><figure>
+<img src="/images/RS-BigData.jpeg" title="架构技术栈"
+alt="架构技术栈" />
+<figcaption aria-hidden="true">架构技术栈</figcaption>
+</figure></li>
+</ul></li>
+<li>在线层：使用实时数据，保证实时在线服务。
+<ul>
+<li>面向用户的一层，对响应时延有要求，需要立即响应推荐结果。
+<ul>
+<li>模型在线服务：包括了快速召回和排序。</li>
+<li>在线特征快速处理拼接：根据传入的用户ID和场景，快速读取特征和处理。</li>
+<li>AB实验或分流：根据不同用户采用不一样的模型，比如冷启动用户和正常服务模型。</li>
+<li>运筹优化和业务干预：比如对特殊商家的流量扶持、对特定内容的限流。</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="算法架构">算法架构</h3>
+<p>推荐系统会细分为四个阶段：<strong>召回、粗排、精排、重排</strong>.</p>
+<ul>
+<li>召回：从推荐池中选取大量items送个后续排序模块。
+<ul>
+<li>由于面对的候选集庞大且需要在线输出，所以召回模块需要轻量快速低延迟。不需要十分准确，但不可遗漏。</li>
+<li>考虑内容：
+<ul>
+<li>用户层面：用户需求、兴趣与场景多元化。</li>
+<li>系统层面：增强鲁棒性。兜底。</li>
+<li>多样性内容分发：召回目标多元。</li>
+<li>可解释性。</li>
+</ul></li>
+</ul></li>
+<li>粗排：对召回结果进行初步筛选送给精排。兼顾准确性和低延迟。
+<ul>
+<li>考虑内容：
+<ul>
+<li>根据精排模型的重要特征来做候选集的截断。</li>
+<li>根据与user相关性进行召回结果截断。</li>
+<li>性能保证。</li>
+</ul></li>
+</ul></li>
+<li>精排：大部分算法研究的层面。对粗排的候选集进行打分和排序。</li>
+<li>重排：解决精排结果可能同质化和冗余的问题。以及根据运营策略等去影响精排结果。是对精排结果的微调。</li>
+</ul>
+<h2 id="技术栈">技术栈</h2>
+<h3 id="画像层">画像层</h3>
+<p>推荐系统的物料库，绘制用户、商品画像等。通过tag的方式进行统计。</p>
+<ul>
+<li>内容特征提取与标签分类
+<ul>
+<li>文本理解：RNN，TextCNN，FastText，Bert等。</li>
+<li>关键词标签：TF-IDF，Bert，LSTM-CRF。</li>
+<li>内容理解：TSN，RetinaFace，PSENet等。</li>
+<li>知识图谱：KGAT，RippleNet。</li>
+</ul></li>
+</ul>
+<h3 id="召回粗排">召回/粗排</h3>
+<p>经典模型召回：FM，双塔DSSM，Multi-View DNN等。
+序列模型召回：CBOW，Skip-Gram，GRU，Bert等。
+用户序列拆分：对用户的多维兴趣进行拆分，刻画更细致的方向。
+知识图谱：对推荐结果的可解释性。 图模型：通过图模型来表示系统。</p>
+<h3 id="精排">精排</h3>
+<p>研究最多的方向，主要通过各种深度学习方法进行打分排序。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%AB%E8%82%A1/" rel="tag"># 八股</a>
+              <a href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag"># 推荐系统</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/08/26/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E9%A2%98/" rel="prev" title="大模型面试高频题">
+      <i class="fa fa-chevron-left"></i> 大模型面试高频题
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">推荐系统架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%9E%B6%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">算法架构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E6%A0%88"><span class="nav-number">2.</span> <span class="nav-text">技术栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%BB%E5%83%8F%E5%B1%82"><span class="nav-number">2.1.</span> <span class="nav-text">画像层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AC%E5%9B%9E%E7%B2%97%E6%8E%92"><span class="nav-number">2.2.</span> <span class="nav-text">召回&#x2F;粗排</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B2%BE%E6%8E%92"><span class="nav-number">2.3.</span> <span class="nav-text">精排</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Autzoko Lang"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Autzoko Lang</p>
+  <div class="site-description" itemprop="description">Crescat Scientia Vita Excolatur</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Autzoko" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Autzoko" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/langtian0725@gmail.com" title="E-Mail → langtian0725@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/autzoko" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;autzoko" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://linkedin.com/in/langtian-lang" title="LinkedIn → https:&#x2F;&#x2F;linkedin.com&#x2F;in&#x2F;langtian-lang" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Autzoko Lang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
