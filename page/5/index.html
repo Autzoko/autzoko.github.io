@@ -158,6 +158,184 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/21/Paper-Reading-Attention-is-All-You-Need/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/05/21/Paper-Reading-Attention-is-All-You-Need/" class="post-title-link" itemprop="url">Paper Reading: Attention is All You Need</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-05-21 21:15:28" itemprop="dateCreated datePublished" datetime="2024-05-21T21:15:28-04:00">2024-05-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-08-22 13:11:07" itemprop="dateModified" datetime="2025-08-22T13:11:07-04:00">2025-08-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper-Reading/" itemprop="url" rel="index"><span itemprop="name">Paper Reading</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>Attention is All You Need</strong> is a paper published in
+2017 by Google Brain team. In this paper, the prominent
+<strong>self-attention mechanism</strong> and <strong>multi-headed
+self-attention mechanism</strong> are proposed to enhance the general
+capacity of neural networks. Meanwhile, a basic neural network
+architecture <strong>Transformer</strong> is proposed to adopt such
+mechanism and its been tested on translation task.</p>
+<h2 id="what-is-attention">What is Attention?</h2>
+<p>The <strong>attention</strong> mentioned in neural network is similar
+with the one we mentioned about human intelligence: an ability to
+capture information which seems to be more important (subjectively). The
+“attention mechanism” in human congnition is prominently manifested
+across various sensory perceptions. For instance, when using our eyes,
+certain features such as bright colors, rapid movements, or familiar
+faces tend to capture our gaze. Similarly, during reading, specific
+names, events, or elegant phrases can leave a lasting impression. This
+attention mechanism also extends to other senses like smell, touch, and
+hearing. Furthermore, the stream of consciousness during thought
+processes is often influenced by particularly striking information, all
+of which illustrate the attention mechanism in human cognition.</p>
+<p>In the context of a nerual network, what does the attention mechanism
+refer to? For example, when we want a neural network to process an
+image, how does it determine which elements of the image are more
+important. Consider objects like people, pets, or cars in an image–how
+does the network decide which one is more noteworthy in the image’s
+“context”? The attention mechanism addresses this problem. When
+processing an image, the neural network assigns higher weights, or
+“attention scores”, to what it deems more important information. During
+subsequent forwarding process, the high-weight information is
+emphasized, enabling the network to capture more detailed and deeper
+features. This, in turn, aids in handling the semantic importance of the
+image. Besides image processing, the mechanism is applicable to text,
+audio, graph, and other data types. Since data in neural networks exists
+as discrete tensors, the fundamental principles of calculating attention
+scores remain consistent across different data types.</p>
+<h2 id="self-attention-mechanism">Self-Attention Mechanism</h2>
+<p>The so-called self-attention mechanism refers to a process where the
+attention scores are computed by comparing the elements within the
+sequence itself. In other words, the reference for calculating attention
+scores is the sequence as a whole. For a tensor sequence input into a
+neural network, the self-attention mechanism requires computing the
+attention scores between each element and every other element in the
+sequence. The basic process can be represented in pseudocode as
+follows:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (element_x : input_sequence) &#123;</span><br><span class="line">	for (element_y : input_sequence) &#123;</span><br><span class="line">		attention_score[x][y] = compute_score(element_x, element_y);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>However, for deep learning tasks, using to nested loops to compute
+values is highly time-consuming, especially when the input sequence
+length can be in the tens of thousands. Therefore, researchers use
+vectorized operations to calculate all pairwise attention scores
+efficiently. By using vectorized multiplication, we can obtain all
+attention scores with a single dot product operation between the input
+tensor sequence and its transposed version.</p>
+<p><span class="math display">$$
+X= \left[ \begin{matrix} x_1, ..., x_n \end{matrix} \right]
+$$</span></p>
+<p><span class="math display">$$
+X^T= \left[ \begin{matrix} x_1 \\ \vdots \\ x_n \\ \end{matrix} \right]
+$$</span></p>
+<p><span class="math display">$$
+AttentionScore = X \cdot X^T = \left[ \begin{matrix} x_1 \cdot x_1 &amp;
+... &amp; x_1 \cdot x_n\\ \vdots &amp; &amp; \vdots \\ x_n \cdot x_1
+&amp; ... &amp; x_n \cdot x_n\\ \end{matrix} \right]
+$$</span></p>
+<p>Through this matrix multiplication operation, combined with parallel
+computing technology and the parallel processing capabilities of GPU
+devices, the efficiency of this computation can be greatly enhanced. To
+ensure that the attention scores are not fixed and be gradually
+optimized during the training process, we use parameter matrices to
+adjust the calculation of attention scores. This enable the model to
+truely capture the information that deserves attention. Thus, the
+equation for computing attention score can be expressed as follows:
+<span class="math display">$$
+Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V
+$$</span> Here, $ Q, K, V $ refer to each element in the input sequence
+being multiplied by three shared weighted matrices $ W_q, W_k $ and $
+W_v $. The data multiplied by $ W_q $ represents the element that will
+compute attention scores with other elements in the sequence. The data
+multiplied by $ W_k $ represents the data being compared. After
+comparing each element with every other element, the resulting sequence
+is the attention score sequence for that element. This sequence is
+processed through the softmax function and then multiplied by $ W_v $ to
+perform a weighted sum. The entire process essentially calculates the
+correlations between all elements and the performs a weighted sum, with
+the result being the output of the attention mechanism. Through this
+process, the information that is considered more important is multiplied
+by greater weights, as a result their “information” can be magnified in
+the subsequent processes.</p>
+<h2 id="transformer-model">Transformer Model</h2>
+<p>The Transformer model adopts an <strong>encoder-decoder</strong>
+architecture which is a popular architecture in current deep learning
+field. Two independent models are separatedly used as an encoder and a
+decoder. For most cases, they are used to process different types of
+data. For example, in <em>image captioning,</em> encoder is used for
+process image signal and decoder is for generating captions. In this
+paper, the Transformer is tested on English-German translation task, so,
+unprecisely, you can image the encoder is trying to “understand” a
+sentence in English and then generate some kind of <em>metaphysical</em>
+or <em>abstract</em> information, these information contains the
+concepts, subjects and objectives that are “mentioned” in the original
+language. Then, these information is passed to decoder, and the task of
+decode is to decrypt these information into German.</p>
+<p>Importantly, the comparison I mentioned above is extremely unprecise,
+this model cannot translate as human do, in fact it’s still a
+<strong>prediction</strong> or <strong>simulation</strong>, but not
+<strong>understanding</strong>.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/21/Edit-Distance/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -182,14 +360,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-05-21 20:54:36" itemprop="dateCreated datePublished" datetime="2024-05-21T20:54:36+08:00">2024-05-21</time>
+              <time title="Created: 2024-05-21 20:54:36" itemprop="dateCreated datePublished" datetime="2024-05-21T20:54:36-04:00">2024-05-21</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-22 12:02:27" itemprop="dateModified" datetime="2025-08-22T12:02:27-04:00">2025-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -301,14 +479,14 @@ character of <strong>word2</strong> by the last character of
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-05-21 20:46:17" itemprop="dateCreated datePublished" datetime="2024-05-21T20:46:17+08:00">2024-05-21</time>
+              <time title="Created: 2024-05-21 20:46:17" itemprop="dateCreated datePublished" datetime="2024-05-21T20:46:17-04:00">2024-05-21</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-22 12:02:27" itemprop="dateModified" datetime="2025-08-22T12:02:27-04:00">2025-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -396,14 +574,14 @@ parenthese. This problem can be solved by using
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-05-20 22:52:22" itemprop="dateCreated datePublished" datetime="2024-05-20T22:52:22+08:00">2024-05-20</time>
+              <time title="Created: 2024-05-20 22:52:22" itemprop="dateCreated datePublished" datetime="2024-05-20T22:52:22-04:00">2024-05-20</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-22 12:02:27" itemprop="dateModified" datetime="2025-08-22T12:02:27-04:00">2025-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -495,14 +673,14 @@ follow:</p>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-05-20 21:35:18" itemprop="dateCreated datePublished" datetime="2024-05-20T21:35:18+08:00">2024-05-20</time>
+              <time title="Created: 2024-05-20 21:35:18" itemprop="dateCreated datePublished" datetime="2024-05-20T21:35:18-04:00">2024-05-20</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-22 12:02:27" itemprop="dateModified" datetime="2025-08-22T12:02:27-04:00">2025-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -634,7 +812,7 @@ new!</strong></p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -647,7 +825,7 @@ new!</strong></p>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

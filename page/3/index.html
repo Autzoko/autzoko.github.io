@@ -158,6 +158,123 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/10/17/Find-the-Difference-of-Two-Arrays/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/17/Find-the-Difference-of-Two-Arrays/" class="post-title-link" itemprop="url">Find the Difference of Two Arrays</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-10-17 13:05:19" itemprop="dateCreated datePublished" datetime="2024-10-17T13:05:19-04:00">2024-10-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-08-22 13:13:02" itemprop="dateModified" datetime="2025-08-22T13:13:02-04:00">2025-08-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index"><span itemprop="name">Algorithms</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/Problems/" itemprop="url" rel="index"><span itemprop="name">Problems</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Given two <strong>0-indexed</strong> integer arrays <span
+class="math inline"><em>n</em><em>u</em><em>m</em><em>s</em>1</span> and
+<span
+class="math inline"><em>n</em><em>u</em><em>m</em><em>s</em>2</span>,
+return a list <strong>answer</strong> if size 2 where:</p>
+<ul>
+<li><code>answer[0]</code> is a list of all distinct integers in <span
+class="math inline"><em>n</em><em>u</em><em>m</em><em>s</em>1</span>
+which are not present in <span
+class="math inline"><em>n</em><em>u</em><em>m</em><em>s</em>2</span>.</li>
+<li><code>answer[1]</code> is a list of all distinct integers in <span
+class="math inline"><em>n</em><em>u</em><em>m</em><em>s</em>2</span>
+which are not present in <span
+class="math inline"><em>n</em><em>u</em><em>m</em><em>s</em>1</span>.</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums1 = [1, 2, 3], nums2 = [2, 4, 6];</span><br><span class="line">Output = [[1, 3], [4, 6]];</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums1 = [1, 2, 3, 3], nums2 = [1, 1, 2, 2];</span><br><span class="line">Output: [[3], []];</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><span
+class="math inline">1 ≤ <em>l</em><em>e</em><em>n</em>(<em>n</em><em>u</em><em>m</em><em>s</em>1), <em>l</em><em>e</em><em>n</em>(<em>n</em><em>u</em><em>m</em><em>s</em>2) ≤ 1000</span></li>
+<li><span
+class="math inline">−1000 ≤ <em>n</em><em>u</em><em>m</em><em>s</em>1<sub><em>i</em></sub>, <em>n</em><em>u</em><em>m</em><em>s</em>2<sub><em>i</em></sub> ≤ 1000</span></li>
+</ul>
+<h2 id="solution">Solution</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">findDifference</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums1, vector&lt;<span class="type">int</span>&gt;&amp; nums2) &#123;</span><br><span class="line">        <span class="function">unordered_set&lt;<span class="type">int</span>&gt; <span class="title">set1</span><span class="params">(nums1.begin(), nums1.begin())</span></span>;</span><br><span class="line">        <span class="function">unordered_set&lt;<span class="type">int</span>&gt; <span class="title">set2</span><span class="params">(nums2.begin(), nums2.begin())</span></span>;</span><br><span class="line"></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; distinct_nums1, distinct_nums2;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : set1) &#123;</span><br><span class="line">            <span class="keyword">if</span> (set2.<span class="built_in">count</span>(num) == <span class="number">0</span>) distinct_nums1.<span class="built_in">push_back</span>(num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : set2) &#123;</span><br><span class="line">            <span class="keyword">if</span> (set1.<span class="built_in">count</span>(num) == <span class="number">0</span>) distinct_nums2.<span class="built_in">push_back</span>(num);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> &#123;distinct_nums1, distinct_nums2&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation:</strong></p>
+<p>Convert the two array into <em>set</em>, same elements will be merged
+within a set, and since the <code>unordered_set</code> in C++ is
+implmented with <strong>hash table with separate chaining
+method</strong>, using a specific algorithm to hash element into
+difference <em>bucket</em> which points to a chain that contains valid
+elements. Thus, in ideal case, the <code>find</code> function can get
+the target value with the time complexity of <span
+class="math inline"><em>O</em>(1)</span>, and the worst case the time
+complexity reduces to <span
+class="math inline"><em>O</em>(<em>n</em>)</span>. So, in the solution,
+the <code>unordered_set</code> is utilized to merge same elements and
+for faster method to judge whether a value the set is contained.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/10/08/Maximum-Average-Subarray-I/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -182,14 +299,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-10-08 15:40:31" itemprop="dateCreated datePublished" datetime="2024-10-08T15:40:31+08:00">2024-10-08</time>
+              <time title="Created: 2024-10-08 15:40:31" itemprop="dateCreated datePublished" datetime="2024-10-08T15:40:31-04:00">2024-10-08</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 01:14:02" itemprop="dateModified" datetime="2025-08-23T01:14:02+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-22 13:14:02" itemprop="dateModified" datetime="2025-08-22T13:14:02-04:00">2025-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -287,14 +404,14 @@ the array.</p>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-10-01 13:17:04" itemprop="dateCreated datePublished" datetime="2024-10-01T13:17:04+08:00">2024-10-01</time>
+              <time title="Created: 2024-10-01 13:17:04" itemprop="dateCreated datePublished" datetime="2024-10-01T13:17:04-04:00">2024-10-01</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 01:17:14" itemprop="dateModified" datetime="2025-08-23T01:17:14+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-22 13:17:14" itemprop="dateModified" datetime="2025-08-22T13:17:14-04:00">2025-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -404,14 +521,14 @@ area.</p>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-09-25 16:13:50" itemprop="dateCreated datePublished" datetime="2024-09-25T16:13:50+08:00">2024-09-25</time>
+              <time title="Created: 2024-09-25 16:13:50" itemprop="dateCreated datePublished" datetime="2024-09-25T16:13:50-04:00">2024-09-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 01:10:55" itemprop="dateModified" datetime="2025-08-23T01:10:55+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-22 13:10:55" itemprop="dateModified" datetime="2025-08-22T13:10:55-04:00">2025-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -536,14 +653,14 @@ the boundary value is included by the interval.</p>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-09-18 17:51:36" itemprop="dateCreated datePublished" datetime="2024-09-18T17:51:36+08:00">2024-09-18</time>
+              <time title="Created: 2024-09-18 17:51:36" itemprop="dateCreated datePublished" datetime="2024-09-18T17:51:36-04:00">2024-09-18</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 01:14:20" itemprop="dateModified" datetime="2025-08-23T01:14:20+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-22 13:14:20" itemprop="dateModified" datetime="2025-08-22T13:14:20-04:00">2025-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -637,14 +754,14 @@ of the vector like bulbles (imagine the bulble sort algorithm).</p>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-09-10 13:13:11" itemprop="dateCreated datePublished" datetime="2024-09-10T13:13:11+08:00">2024-09-10</time>
+              <time title="Created: 2024-09-10 13:13:11" itemprop="dateCreated datePublished" datetime="2024-09-10T13:13:11-04:00">2024-09-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 01:11:15" itemprop="dateModified" datetime="2025-08-23T01:11:15+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-22 13:11:15" itemprop="dateModified" datetime="2025-08-22T13:11:15-04:00">2025-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -751,14 +868,14 @@ pointer <strong>ans</strong> to write on the original string.</p>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-09-10 11:43:09" itemprop="dateCreated datePublished" datetime="2024-09-10T11:43:09+08:00">2024-09-10</time>
+              <time title="Created: 2024-09-10 11:43:09" itemprop="dateCreated datePublished" datetime="2024-09-10T11:43:09-04:00">2024-09-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 01:11:00" itemprop="dateModified" datetime="2025-08-23T01:11:00+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-22 13:11:00" itemprop="dateModified" datetime="2025-08-22T13:11:00-04:00">2025-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -872,14 +989,14 @@ complexity is <span class="math inline"><em>O</em>(1)</span>.</p>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-09-05 18:51:44" itemprop="dateCreated datePublished" datetime="2024-09-05T18:51:44+08:00">2024-09-05</time>
+              <time title="Created: 2024-09-05 18:51:44" itemprop="dateCreated datePublished" datetime="2024-09-05T18:51:44-04:00">2024-09-05</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 01:15:48" itemprop="dateModified" datetime="2025-08-23T01:15:48+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-22 13:15:48" itemprop="dateModified" datetime="2025-08-22T13:15:48-04:00">2025-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -987,14 +1104,14 @@ have been planted, if yes return <strong>true</strong>, otherwise return
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-09-03 17:35:53" itemprop="dateCreated datePublished" datetime="2024-09-03T17:35:53+08:00">2024-09-03</time>
+              <time title="Created: 2024-09-03 17:35:53" itemprop="dateCreated datePublished" datetime="2024-09-03T17:35:53-04:00">2024-09-03</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 01:11:00" itemprop="dateModified" datetime="2025-08-23T01:11:00+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-22 13:11:00" itemprop="dateModified" datetime="2025-08-22T13:11:00-04:00">2025-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1115,14 +1232,14 @@ class="math inline"><em>s</em><em>t</em><em>r</em><sub>1</sub> + <em>s</em><
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-07-01 11:51:44" itemprop="dateCreated datePublished" datetime="2024-07-01T11:51:44+08:00">2024-07-01</time>
+              <time title="Created: 2024-07-01 11:51:44" itemprop="dateCreated datePublished" datetime="2024-07-01T11:51:44-04:00">2024-07-01</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-22 12:02:27" itemprop="dateModified" datetime="2025-08-22T12:02:27-04:00">2025-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1182,100 +1299,6 @@ Equation</em></strong> is deduced:</p>
 <p><span class="math display">$$
 G(n)=\sum_{i=0}^n G(i)\times G(n-1-i)
 $$</span></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/06/28/%E6%97%85%E8%A8%98-%E9%9B%B2%E4%B8%AD%E6%95%85%E9%83%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Autzoko Lang">
-      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog | Autzoko Lang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/28/%E6%97%85%E8%A8%98-%E9%9B%B2%E4%B8%AD%E6%95%85%E9%83%A1/" class="post-title-link" itemprop="url">旅記|雲中故郡</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-06-28 14:53:55" itemprop="dateCreated datePublished" datetime="2024-06-28T14:53:55+08:00">2024-06-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Photography/" itemprop="url" rel="index"><span itemprop="name">Photography</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Photography/Travels/" itemprop="url" rel="index"><span itemprop="name">Travels</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure>
-<img
-src="https://telegraph-image-939.pages.dev/file/7ae6f89265fd2ae7b00ad.jpg"
-alt="北京北站-出發" />
-<figcaption aria-hidden="true">北京北站-出發</figcaption>
-</figure>
-<p>從京城的西直門出發，沿著曾經詹天佑修建的京張鐵路，經過張家口，便徹底離開了偌大的華北平原，進入了山與高原交錯的地界了。</p>
-<h2 id="大同府">大同府</h2>
-<p>大同府坐落在三晉大地的大同盆地之中，雁門関北，自古屬雲州轄，是為山外所植。大同府自古是溝通中原與北方游牧諸族的要會，北魏於此建都平城，於此開啓鮮卑漢化的歷史進程。宋代這裏也屬北宋未曾接管的燕雲十六州。與此毗鄰的代、朔、應、忻等地向來是邊境前綫所在。</p>
-<p>大同在現今山西省的北端，往北走去便是内蒙古草原地帶，往南有太岳、呂梁、太行三山橫亙，擋住了前往中原的通路，只有幾條山中狹徑供軍民使用。</p>
-<figure>
-<img
-src="https://telegraph-image-939.pages.dev/file/f7871e67e1633ebc6524a.png"
-alt="三晉邊關" />
-<figcaption aria-hidden="true">三晉邊關</figcaption>
-</figure>
-<p>在群山懷抱之中，大同得天獨厚的地理條件是的南下的游牧民族政權都會優先選擇這裏作爲一個重要的城市，無論是鮮卑之平成，還是契丹之西京，這裏是游牧民族南下的第一步，是漢地十八省的北部前哨。所以大同府的歷史也是一個充滿軍事鐵血與戰爭血淚的歷史。</p>
 
       
     </div>
@@ -1362,7 +1385,7 @@ alt="三晉邊關" />
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1375,7 +1398,7 @@ alt="三晉邊關" />
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

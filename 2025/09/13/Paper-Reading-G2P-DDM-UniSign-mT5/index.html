@@ -20,19 +20,21 @@
     var CONFIG = {"hostname":"autzoko.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Welcome to my personal blog. I open this blog when I am about to graduate from my university, at the time I extremely want to use something to document my life and things I’ve learned. And now I’m on">
+  <meta name="description" content="T5 and mT5 What is mT5?: mT5 is multilingual variant of T5 that was pre-trained on a dataset with 101 languages. What is T5?: T5 model proposed a unified “text-to-text” format for all text-based NLP t">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Introduction">
-<meta property="og:url" content="https://autzoko.github.io/2024/05/20/Introduction/index.html">
+<meta property="og:title" content="Paper Reading: G2P-DDM, UniSign, mT5">
+<meta property="og:url" content="https://autzoko.github.io/2025/09/13/Paper-Reading-G2P-DDM-UniSign-mT5/index.html">
 <meta property="og:site_name" content="Blog | Autzoko Lang">
-<meta property="og:description" content="Welcome to my personal blog. I open this blog when I am about to graduate from my university, at the time I extremely want to use something to document my life and things I’ve learned. And now I’m on">
+<meta property="og:description" content="T5 and mT5 What is mT5?: mT5 is multilingual variant of T5 that was pre-trained on a dataset with 101 languages. What is T5?: T5 model proposed a unified “text-to-text” format for all text-based NLP t">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-05-21T01:35:18.000Z">
-<meta property="article:modified_time" content="2025-08-22T16:02:27.514Z">
+<meta property="article:published_time" content="2025-09-13T22:28:27.000Z">
+<meta property="article:modified_time" content="2025-10-01T02:01:08.543Z">
 <meta property="article:author" content="Autzoko Lang">
+<meta property="article:tag" content="papers">
+<meta property="article:tag" content="mt5 for sign language">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://autzoko.github.io/2024/05/20/Introduction/">
+<link rel="canonical" href="https://autzoko.github.io/2025/09/13/Paper-Reading-G2P-DDM-UniSign-mT5/">
 
 
 <script id="page-configurations">
@@ -45,7 +47,7 @@
   };
 </script>
 
-  <title>Introduction | Blog | Autzoko Lang</title>
+  <title>Paper Reading: G2P-DDM, UniSign, mT5 | Blog | Autzoko Lang</title>
   
 
 
@@ -161,7 +163,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2024/05/20/Introduction/">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2025/09/13/Paper-Reading-G2P-DDM-UniSign-mT5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -174,7 +176,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Introduction
+          Paper Reading: G2P-DDM, UniSign, mT5
         </h1>
 
         <div class="post-meta">
@@ -184,14 +186,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-05-20 21:35:18" itemprop="dateCreated datePublished" datetime="2024-05-20T21:35:18-04:00">2024-05-20</time>
+              <time title="Created: 2025-09-13 18:28:27" itemprop="dateCreated datePublished" datetime="2025-09-13T18:28:27-04:00">2025-09-13</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-22 12:02:27" itemprop="dateModified" datetime="2025-08-22T12:02:27-04:00">2025-08-22</time>
+                <time title="Modified: 2025-09-30 22:01:08" itemprop="dateModified" datetime="2025-09-30T22:01:08-04:00">2025-09-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -199,7 +201,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Others/" itemprop="url" rel="index"><span itemprop="name">Others</span></a>
+                  <a href="/categories/Paper-Reading/" itemprop="url" rel="index"><span itemprop="name">Paper Reading</span></a>
                 </span>
             </span>
 
@@ -214,29 +216,146 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to my personal blog. I open this blog when I am about to
-graduate from my university, at the time I extremely want to use
-something to document my life and things I’ve learned. And now I’m on my
-way to the United States to start a brand new experience of studying. I
-want to keep some memories through this blog, and meanwhile take some
-notes about the things that might be useful to my future
-development.</p>
-<h2 id="about-this-blog">About This Blog</h2>
-<p>Due to my major is computer science/engineering, so most of study
-notes are related to fields like computer science, computer engineering,
-software developing, etc., I have to admit that I’m not excel at such
-subjects, but I am still keen on them and wish to make something big
-from my own hands. Hope this blog can witness my improvements :)</p>
-<p>This blog does not only focus on such academic matters. For other
-parts, I will upload some of my daily life records, like photos, music,
-and maybe some unexpected inspiration and ideas. And I will write each
-blog article in English as possible as I can, to improve my English
-writing skills, and maybe it’s benefit to my future experience in the
-US🙂</p>
-<p><strong>Hope you enjoy my blog, and discover something
-new!</strong></p>
-<p><strong><em>Crescat Scientia Vita Excolatur</em></strong></p>
-<p><strong><em>益智厚生</em></strong></p>
+        <h2 id="t5-and-mt5">T5 and mT5</h2>
+<p><strong>What is <em>mT5</em>?</strong>: mT5 is multilingual variant
+of <strong>T5</strong> that was pre-trained on a dataset with 101
+languages.</p>
+<p><strong>What is <em>T5</em>?</strong>: T5 model proposed a unified
+“text-to-text” format for all text-based NLP tasks. For example, for
+categorizing tasks, QA tasks, and translation tasks used different
+models architectures and output formats. The T5 unifies them into “Input
+Text -&gt; Output Text” format that only pure text is involved.</p>
+<ul>
+<li>T5 uses a basic encoder-decoder <strong>Transformer</strong>
+architecture and is pre-trained on a masked language modeling
+“span-corruption” objective.</li>
+</ul>
+<p><em>Span Corruption: randomly erase some of the segments of input
+text and masked with special marks. The model should learn to recover
+the original input text.</em></p>
+<ul>
+<li>mT5 solve bias and overfit/underfit problems on different language
+by boosting lower resources languages.</li>
+</ul>
+<h2 id="g2p-ddm">G2P-DDM</h2>
+<p>G2P-DDM: Generating Sign Pose Sequence from Gloss Sequence with
+Discrete Diffusion Model</p>
+<p><strong>Sign Language Production(SLP)</strong>: automatically
+translate spoken languages into sign sequences.</p>
+<p>G2P-DDM mainly focus on the transformation of <em>sign gloss
+sequences into their corresponding sign pose sequences (G2P).</em></p>
+<p><strong>Novel Methods</strong>: convert the continuous pose space
+generation problem into a discrete sequence generation problem.</p>
+<p><strong>Three steps approach:</strong></p>
+<ul>
+<li>Pose-VQVAE: quantalized a 3D skeleton sequence into <em>token</em>.
+Seperate the skeleton into body, left hand, and right hand with
+independent codebook.</li>
+<li>G2P-DDM + CodeUnet: conduct mask-and-replace discrete diffusion on
+discrete latent, reconstruct with U-net + Transformer based on temporal
+and spatial features.</li>
+<li>Sequential-KNN: non-autoregressive needs a target length, using the
+semantic similarity of <em>token</em> to do kNN-based density peaks
+clustering algorithm, to get corresponding frame length of each gloss,
+predict the total length when inferencing.</li>
+</ul>
+<h3 id="pose-vq-vae">Pose VQ-VAE</h3>
+<p>Discretize Pose Latent Space</p>
+<h4 id="encoder-and-separating-skeleton">Encoder and Separating
+Skeleton</h4>
+<p>Input <span class="math inline"><em>N</em></span> frames, <span
+class="math inline"><em>J</em></span> nodes, and <span
+class="math inline"><em>K</em></span> dimension feature sequence.
+<em>Separating</em> the skeleton into three subsequences: pose, left
+hand, and right hand. Each of them will pass its own linear layers,
+concatenation layer and spatial-temporal Transformer to learn the
+long-term dependence and obtain <strong>feature codes</strong>.</p>
+<h4 id="multi-codebook-quantalization">Multi-codebook
+Quantalization</h4>
+<p>Quantalize the feature codes of each frame by nearest neighbour
+method into three independent codebooks (pose, left hand, and right
+hand). Size of each code is <span class="math inline"><em>V</em></span>,
+obtaining a discrete token embedding (quantalized features).</p>
+<h4 id="decode-and-spl-structure-prediction-layer">Decode and SPL
+(Structure Prediction Layer)</h4>
+<p>Decoder also adopts the spatial-temporal Transformer architecture,
+the output features are also separated according to the three
+subsequences, then reconstruct the key node sequence via SPL. SPL will
+model the dependency of human body key nodes.</p>
+<h4 id="end-to-end-training">End-to-End Training</h4>
+<p>The loss of Pose-VQVAE contains the reconstruction of three patches
+and the standard codebook with stop gradient.</p>
+<h3 id="discrere-diffusion">Discrere Diffusion</h3>
+<p>Modeling in discrete latent space.</p>
+<h4 id="forward-fusion-markov-chain">Forward Fusion Markov Chain</h4>
+<p>Fuse the discrete codebook indexes into pure noise.</p>
+<h4 id="length-varied-mask-and-replace-expansion">Length-varied
+mask-and-Replace Expansion</h4>
+<p>Standard dicrete diffusion often is length-fixed, to address this
+G2P-DDM intruduces: - Length Predictor: predict the length of each gloss
+and aggregate to get total length. - Introduce [MASK]/[PAD] marks into
+discrete diffusion. Alternate the diffusion process into recovering from
+[MASK]/[PAD] marks.</p>
+<h4 id="codeunet">CodeUnet</h4>
+<p>CodeUnet is mixed with Transformer the the downsample/upsamle of
+Unet.</p>
+<ul>
+<li>Middle Modules: a Transformer Encoder and Decoder, Encdoer (6
+layers) read the conditional features get from the gloss, decoder(2
+layers) conduct self-attention and cross-attention from sequence
+features to gloss, and use AdaLN to mix the time step.</li>
+<li>Contract/Expand Route (U-shaped): 2 Transformer Encoder for each
+layer.</li>
+</ul>
+<h3 id="pipeline-summary">Pipeline Summary</h3>
+<ul>
+<li>Input/Output
+<ul>
+<li>Input: gloss sequence (discrete token sequence)</li>
+<li>Output: skeleton sequence</li>
+</ul></li>
+<li>Pose Discretazation
+<ul>
+<li>Separate Skeleton: separate the skeleton of each fram into pose/left
+hand/right hand.</li>
+<li>Three patches -&gt; linear layer -&gt; spatial-temporal Transformer
+-&gt; frame latent vector</li>
+<li>Three patches lookup each codebook nearest neighbour -&gt; get
+token</li>
+<li>token -&gt; codebook vector -&gt; spatial-temporal Transformer + SPL
+-&gt; skeleton reconstrcution</li>
+</ul></li>
+<li>Generative Model
+<ul>
+<li>Length Prediction
+<ul>
+<li>use Sequential-KNN + Categorizer to predict the frame number of each
+gloss.</li>
+<li>Get target token sequence total length N.</li>
+</ul></li>
+<li>Initialize Diffusion
+<ul>
+<li>Construct a [MASK]/[PAD] sequence of length N.</li>
+</ul></li>
+<li>Discrete Diffusion
+<ul>
+<li>Forward: randomly substitute with MASK/PAD when training.</li>
+<li>Backward: erase noise using CodeUnet.</li>
+<li>Condition: gloss token (Transformer Encoder) -&gt; cross attention
+injected with CodeUnet.</li>
+<li>Time: diffusion step t is injected via AdaLN</li>
+</ul></li>
+</ul></li>
+<li>Skeleton Reconstruction
+<ul>
+<li>Input the generated token sequence into Pose-VQVAE decoder.</li>
+<li>Get sequential 3D skeleton sequence.</li>
+</ul></li>
+</ul>
+<p>Summary:</p>
+<p>gloss -&gt; length prediction -&gt; discrete diffusion: obtain
+codebook token sequence -&gt; Pose-VQVAE decode -&gt; skeleton
+sequence.</p>
 
     </div>
 
@@ -245,17 +364,21 @@ new!</strong></p>
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/papers/" rel="tag"># papers</a>
+              <a href="/tags/mt5-for-sign-language/" rel="tag"># mt5 for sign language</a>
+          </div>
 
         
 
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2024/05/20/Minimum-Path-Sum/" rel="next" title="Minimum Path Sum">
-      Minimum Path Sum <i class="fa fa-chevron-right"></i>
+    <a href="/2025/08/27/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" rel="prev" title="推荐系统知识总结">
+      <i class="fa fa-chevron-left"></i> 推荐系统知识总结
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -314,7 +437,11 @@ new!</strong></p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#about-this-blog"><span class="nav-number">1.</span> <span class="nav-text">About This Blog</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#t5-and-mt5"><span class="nav-number">1.</span> <span class="nav-text">T5 and mT5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#g2p-ddm"><span class="nav-number">2.</span> <span class="nav-text">G2P-DDM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pose-vq-vae"><span class="nav-number">2.1.</span> <span class="nav-text">Pose VQ-VAE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#encoder-and-separating-skeleton"><span class="nav-number">2.1.1.</span> <span class="nav-text">Encoder and Separating
+Skeleton</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#multi-codebook-quantalization"><span class="nav-number">2.1.2.</span> <span class="nav-text">Multi-codebook
+Quantalization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#decode-and-spl-structure-prediction-layer"><span class="nav-number">2.1.3.</span> <span class="nav-text">Decode and SPL
+(Structure Prediction Layer)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#end-to-end-training"><span class="nav-number">2.1.4.</span> <span class="nav-text">End-to-End Training</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#discrere-diffusion"><span class="nav-number">2.2.</span> <span class="nav-text">Discrere Diffusion</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#forward-fusion-markov-chain"><span class="nav-number">2.2.1.</span> <span class="nav-text">Forward Fusion Markov Chain</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#length-varied-mask-and-replace-expansion"><span class="nav-number">2.2.2.</span> <span class="nav-text">Length-varied
+mask-and-Replace Expansion</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#codeunet"><span class="nav-number">2.2.3.</span> <span class="nav-text">CodeUnet</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pipeline-summary"><span class="nav-number">2.3.</span> <span class="nav-text">Pipeline Summary</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

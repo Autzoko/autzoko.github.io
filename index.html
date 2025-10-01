@@ -158,6 +158,219 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2025/09/13/Paper-Reading-G2P-DDM-UniSign-mT5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Autzoko Lang">
+      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog | Autzoko Lang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/09/13/Paper-Reading-G2P-DDM-UniSign-mT5/" class="post-title-link" itemprop="url">Paper Reading: G2P-DDM, UniSign, mT5</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-09-13 18:28:27" itemprop="dateCreated datePublished" datetime="2025-09-13T18:28:27-04:00">2025-09-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-09-30 22:01:08" itemprop="dateModified" datetime="2025-09-30T22:01:08-04:00">2025-09-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper-Reading/" itemprop="url" rel="index"><span itemprop="name">Paper Reading</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="t5-and-mt5">T5 and mT5</h2>
+<p><strong>What is <em>mT5</em>?</strong>: mT5 is multilingual variant
+of <strong>T5</strong> that was pre-trained on a dataset with 101
+languages.</p>
+<p><strong>What is <em>T5</em>?</strong>: T5 model proposed a unified
+“text-to-text” format for all text-based NLP tasks. For example, for
+categorizing tasks, QA tasks, and translation tasks used different
+models architectures and output formats. The T5 unifies them into “Input
+Text -&gt; Output Text” format that only pure text is involved.</p>
+<ul>
+<li>T5 uses a basic encoder-decoder <strong>Transformer</strong>
+architecture and is pre-trained on a masked language modeling
+“span-corruption” objective.</li>
+</ul>
+<p><em>Span Corruption: randomly erase some of the segments of input
+text and masked with special marks. The model should learn to recover
+the original input text.</em></p>
+<ul>
+<li>mT5 solve bias and overfit/underfit problems on different language
+by boosting lower resources languages.</li>
+</ul>
+<h2 id="g2p-ddm">G2P-DDM</h2>
+<p>G2P-DDM: Generating Sign Pose Sequence from Gloss Sequence with
+Discrete Diffusion Model</p>
+<p><strong>Sign Language Production(SLP)</strong>: automatically
+translate spoken languages into sign sequences.</p>
+<p>G2P-DDM mainly focus on the transformation of <em>sign gloss
+sequences into their corresponding sign pose sequences (G2P).</em></p>
+<p><strong>Novel Methods</strong>: convert the continuous pose space
+generation problem into a discrete sequence generation problem.</p>
+<p><strong>Three steps approach:</strong></p>
+<ul>
+<li>Pose-VQVAE: quantalized a 3D skeleton sequence into <em>token</em>.
+Seperate the skeleton into body, left hand, and right hand with
+independent codebook.</li>
+<li>G2P-DDM + CodeUnet: conduct mask-and-replace discrete diffusion on
+discrete latent, reconstruct with U-net + Transformer based on temporal
+and spatial features.</li>
+<li>Sequential-KNN: non-autoregressive needs a target length, using the
+semantic similarity of <em>token</em> to do kNN-based density peaks
+clustering algorithm, to get corresponding frame length of each gloss,
+predict the total length when inferencing.</li>
+</ul>
+<h3 id="pose-vq-vae">Pose VQ-VAE</h3>
+<p>Discretize Pose Latent Space</p>
+<h4 id="encoder-and-separating-skeleton">Encoder and Separating
+Skeleton</h4>
+<p>Input <span class="math inline"><em>N</em></span> frames, <span
+class="math inline"><em>J</em></span> nodes, and <span
+class="math inline"><em>K</em></span> dimension feature sequence.
+<em>Separating</em> the skeleton into three subsequences: pose, left
+hand, and right hand. Each of them will pass its own linear layers,
+concatenation layer and spatial-temporal Transformer to learn the
+long-term dependence and obtain <strong>feature codes</strong>.</p>
+<h4 id="multi-codebook-quantalization">Multi-codebook
+Quantalization</h4>
+<p>Quantalize the feature codes of each frame by nearest neighbour
+method into three independent codebooks (pose, left hand, and right
+hand). Size of each code is <span class="math inline"><em>V</em></span>,
+obtaining a discrete token embedding (quantalized features).</p>
+<h4 id="decode-and-spl-structure-prediction-layer">Decode and SPL
+(Structure Prediction Layer)</h4>
+<p>Decoder also adopts the spatial-temporal Transformer architecture,
+the output features are also separated according to the three
+subsequences, then reconstruct the key node sequence via SPL. SPL will
+model the dependency of human body key nodes.</p>
+<h4 id="end-to-end-training">End-to-End Training</h4>
+<p>The loss of Pose-VQVAE contains the reconstruction of three patches
+and the standard codebook with stop gradient.</p>
+<h3 id="discrere-diffusion">Discrere Diffusion</h3>
+<p>Modeling in discrete latent space.</p>
+<h4 id="forward-fusion-markov-chain">Forward Fusion Markov Chain</h4>
+<p>Fuse the discrete codebook indexes into pure noise.</p>
+<h4 id="length-varied-mask-and-replace-expansion">Length-varied
+mask-and-Replace Expansion</h4>
+<p>Standard dicrete diffusion often is length-fixed, to address this
+G2P-DDM intruduces: - Length Predictor: predict the length of each gloss
+and aggregate to get total length. - Introduce [MASK]/[PAD] marks into
+discrete diffusion. Alternate the diffusion process into recovering from
+[MASK]/[PAD] marks.</p>
+<h4 id="codeunet">CodeUnet</h4>
+<p>CodeUnet is mixed with Transformer the the downsample/upsamle of
+Unet.</p>
+<ul>
+<li>Middle Modules: a Transformer Encoder and Decoder, Encdoer (6
+layers) read the conditional features get from the gloss, decoder(2
+layers) conduct self-attention and cross-attention from sequence
+features to gloss, and use AdaLN to mix the time step.</li>
+<li>Contract/Expand Route (U-shaped): 2 Transformer Encoder for each
+layer.</li>
+</ul>
+<h3 id="pipeline-summary">Pipeline Summary</h3>
+<ul>
+<li>Input/Output
+<ul>
+<li>Input: gloss sequence (discrete token sequence)</li>
+<li>Output: skeleton sequence</li>
+</ul></li>
+<li>Pose Discretazation
+<ul>
+<li>Separate Skeleton: separate the skeleton of each fram into pose/left
+hand/right hand.</li>
+<li>Three patches -&gt; linear layer -&gt; spatial-temporal Transformer
+-&gt; frame latent vector</li>
+<li>Three patches lookup each codebook nearest neighbour -&gt; get
+token</li>
+<li>token -&gt; codebook vector -&gt; spatial-temporal Transformer + SPL
+-&gt; skeleton reconstrcution</li>
+</ul></li>
+<li>Generative Model
+<ul>
+<li>Length Prediction
+<ul>
+<li>use Sequential-KNN + Categorizer to predict the frame number of each
+gloss.</li>
+<li>Get target token sequence total length N.</li>
+</ul></li>
+<li>Initialize Diffusion
+<ul>
+<li>Construct a [MASK]/[PAD] sequence of length N.</li>
+</ul></li>
+<li>Discrete Diffusion
+<ul>
+<li>Forward: randomly substitute with MASK/PAD when training.</li>
+<li>Backward: erase noise using CodeUnet.</li>
+<li>Condition: gloss token (Transformer Encoder) -&gt; cross attention
+injected with CodeUnet.</li>
+<li>Time: diffusion step t is injected via AdaLN</li>
+</ul></li>
+</ul></li>
+<li>Skeleton Reconstruction
+<ul>
+<li>Input the generated token sequence into Pose-VQVAE decoder.</li>
+<li>Get sequential 3D skeleton sequence.</li>
+</ul></li>
+</ul>
+<p>Summary:</p>
+<p>gloss -&gt; length prediction -&gt; discrete diffusion: obtain
+codebook token sequence -&gt; Pose-VQVAE decode -&gt; skeleton
+sequence.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2025/08/27/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -183,7 +396,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-08-27 10:14:30 / Modified: 13:30:59" itemprop="dateCreated datePublished" datetime="2025-08-27T10:14:30+08:00">2025-08-27</time>
+              <time title="Created: 2025-08-27 10:14:30 / Modified: 01:30:59" itemprop="dateCreated datePublished" datetime="2025-08-27T10:14:30-04:00">2025-08-27</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -337,7 +550,7 @@ alt="架构技术栈" />
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-08-26 13:11:34 / Modified: 14:51:40" itemprop="dateCreated datePublished" datetime="2025-08-26T13:11:34+08:00">2025-08-26</time>
+              <time title="Created: 2025-08-26 13:11:34 / Modified: 02:51:40" itemprop="dateCreated datePublished" datetime="2025-08-26T13:11:34-04:00">2025-08-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -513,7 +726,7 @@ class="math inline"><em>Q</em><em>K</em><sup><em>T</em></sup></span>
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-08-25 13:22:49 / Modified: 13:51:22" itemprop="dateCreated datePublished" datetime="2025-08-25T13:22:49+08:00">2025-08-25</time>
+              <time title="Created: 2025-08-25 13:22:49 / Modified: 01:51:22" itemprop="dateCreated datePublished" datetime="2025-08-25T13:22:49-04:00">2025-08-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -669,7 +882,7 @@ alt="HTTP Versions" />
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-08-25 12:53:52 / Modified: 13:58:48" itemprop="dateCreated datePublished" datetime="2025-08-25T12:53:52+08:00">2025-08-25</time>
+              <time title="Created: 2025-08-25 12:53:52 / Modified: 01:58:48" itemprop="dateCreated datePublished" datetime="2025-08-25T12:53:52-04:00">2025-08-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -768,7 +981,7 @@ alt="HTTP Versions" />
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-08-25 11:38:03 / Modified: 12:53:14" itemprop="dateCreated datePublished" datetime="2025-08-25T11:38:03+08:00">2025-08-25</time>
+              <time title="Created: 2025-08-25 11:38:03 / Modified: 00:53:14" itemprop="dateCreated datePublished" datetime="2025-08-25T11:38:03-04:00">2025-08-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -863,14 +1076,14 @@ alt="HTTP Versions" />
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2025-08-24 13:05:37" itemprop="dateCreated datePublished" datetime="2025-08-24T13:05:37+08:00">2025-08-24</time>
+              <time title="Created: 2025-08-24 13:05:37" itemprop="dateCreated datePublished" datetime="2025-08-24T13:05:37-04:00">2025-08-24</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-25 14:05:31" itemprop="dateModified" datetime="2025-08-25T14:05:31+08:00">2025-08-25</time>
+                <time title="Modified: 2025-08-25 02:05:31" itemprop="dateModified" datetime="2025-08-25T02:05:31-04:00">2025-08-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1367,7 +1580,7 @@ Zone），在声明之前访问会报错。</li>
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2025-08-23 11:25:32 / Modified: 16:08:38" itemprop="dateCreated datePublished" datetime="2025-08-23T11:25:32+08:00">2025-08-23</time>
+              <time title="Created: 2025-08-23 11:25:32 / Modified: 04:08:38" itemprop="dateCreated datePublished" datetime="2025-08-23T11:25:32-04:00">2025-08-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1516,14 +1729,14 @@ title="浏览器渲染机制" alt="浏览器渲染机制" /></li>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2025-05-14 15:57:50" itemprop="dateCreated datePublished" datetime="2025-05-14T15:57:50+08:00">2025-05-14</time>
+              <time title="Created: 2025-05-14 15:57:50" itemprop="dateCreated datePublished" datetime="2025-05-14T15:57:50-04:00">2025-05-14</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-22 12:02:27" itemprop="dateModified" datetime="2025-08-22T12:02:27-04:00">2025-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1591,14 +1804,14 @@ title="浏览器渲染机制" alt="浏览器渲染机制" /></li>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2025-04-30 23:24:11" itemprop="dateCreated datePublished" datetime="2025-04-30T23:24:11+08:00">2025-04-30</time>
+              <time title="Created: 2025-04-30 23:24:11" itemprop="dateCreated datePublished" datetime="2025-04-30T23:24:11-04:00">2025-04-30</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:02:27" itemprop="dateModified" datetime="2025-08-23T00:02:27+08:00">2025-08-23</time>
+                <time title="Modified: 2025-08-22 12:02:27" itemprop="dateModified" datetime="2025-08-22T12:02:27-04:00">2025-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1624,83 +1837,6 @@ title="浏览器渲染机制" alt="浏览器渲染机制" /></li>
           <p>寒刀劈水掣天洪，殘花依舊綉春風。 乖看河東新鞍馬，幾時颯沓長安宮。</p>
 <p><em>附黃巢《不第后賦菊》</em> 待到秋來八九月，我花開后百花殺。
 冲天香陣透長安，滿城盡帶黃金甲。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://autzoko.github.io/2025/03/08/%E8%AF%BB%E3%80%8A%E5%8D%97%E6%98%8E%E5%8F%B2%E3%80%8B%E6%9C%89%E6%84%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Autzoko Lang">
-      <meta itemprop="description" content="Crescat Scientia Vita Excolatur">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog | Autzoko Lang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/08/%E8%AF%BB%E3%80%8A%E5%8D%97%E6%98%8E%E5%8F%B2%E3%80%8B%E6%9C%89%E6%84%9F/" class="post-title-link" itemprop="url">读《南明史》有感</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-03-08 23:26:09" itemprop="dateCreated datePublished" datetime="2025-03-08T23:26:09+08:00">2025-03-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-23 00:19:55" itemprop="dateModified" datetime="2025-08-23T00:19:55+08:00">2025-08-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%A2%85%E5%BA%AD%E9%9B%9C%E6%A1%88/" itemprop="url" rel="index"><span itemprop="name">梅庭雜案</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>煤山樹下縊漢帝，山海門開迎遼皇。 新都依舊高宗夢，四鎮偏安棄江東。
-北伐秋夢望中原，騰蛟斷鱗南天開。 北馬渡江諸王薨，三峽雁泣遍夔東。
-閩海不睬粵王詔，滇池遙哭金陵師。 天子堂下驚風雨，忠黨拜權膝下臣。
-九州披髮擧義幟，三朝壯士恨蒙塵。 廿載春秋會之事，天下豈止一武穆。</p>
 
       
     </div>
@@ -1787,7 +1923,7 @@ title="浏览器渲染机制" alt="浏览器渲染机制" /></li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1800,7 +1936,7 @@ title="浏览器渲染机制" alt="浏览器渲染机制" /></li>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
