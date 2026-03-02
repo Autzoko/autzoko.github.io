@@ -1,0 +1,40 @@
+---
+// Drop this component once at the bottom of a page to activate
+// .reveal elements via IntersectionObserver.
+---
+
+<script>
+  function initReveal() {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReducedMotion) {
+      // Immediately reveal all
+      document.querySelectorAll(".reveal").forEach((el) => {
+        el.classList.add("revealed");
+      });
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    document.querySelectorAll(".reveal").forEach((el) => {
+      observer.observe(el);
+    });
+  }
+
+  // Run on load and after view transitions
+  initReveal();
+  document.addEventListener("astro:after-swap", initReveal);
+</script>

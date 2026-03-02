@@ -1,0 +1,346 @@
+---
+import { SITE } from "@/utils/site";
+import ThemeToggle from "./ThemeToggle.astro";
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="/" class="site-title">{SITE.title}</a>
+
+    <!-- Desktop nav -->
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <ul class="nav-list">
+        {
+          SITE.navLinks.map(({ label, href }) => (
+            <li>
+              <a
+                href={href}
+                class:list={[
+                  "nav-link",
+                  { active: currentPath === href || (href !== "/" && currentPath.startsWith(href)) },
+                ]}
+              >
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <ThemeToggle />
+      <button
+        class="hamburger touch-target"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-drawer"
+      >
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+<nav
+  class="mobile-drawer"
+  id="mobile-drawer"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Mobile navigation"
+  hidden
+>
+  <div class="drawer-header">
+    <span class="drawer-title">Menu</span>
+    <button class="drawer-close touch-target" type="button" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <ul class="drawer-links">
+    {
+      SITE.navLinks.map(({ label, href }) => (
+        <li>
+          <a
+            href={href}
+            class:list={[
+              "drawer-link", "touch-target",
+              { active: currentPath === href || (href !== "/" && currentPath.startsWith(href)) },
+            ]}
+          >
+            {label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <div class="drawer-footer">
+    <div class="drawer-socials">
+      {SITE.socials.github && <a href={SITE.socials.github} target="_blank" rel="noopener">GitHub</a>}
+      {SITE.socials.email && <a href={SITE.socials.email}>Email</a>}
+      <a href="/rss.xml">RSS</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  function initHeader() {
+    const hamburger = document.querySelector(".hamburger") as HTMLButtonElement;
+    const drawer = document.getElementById("mobile-drawer") as HTMLElement;
+    const backdrop = document.getElementById("drawer-backdrop") as HTMLElement;
+    const closeBtn = document.querySelector(".drawer-close") as HTMLButtonElement;
+    const header = document.getElementById("site-header") as HTMLElement;
+    if (!hamburger || !drawer || !backdrop || !header) return;
+
+    function openDrawer() {
+      drawer.hidden = false;
+      backdrop.hidden = false;
+      hamburger.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+      requestAnimationFrame(() => closeBtn?.focus());
+    }
+    function closeDrawer() {
+      drawer.hidden = true;
+      backdrop.hidden = true;
+      hamburger.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+      hamburger.focus();
+    }
+
+    hamburger.addEventListener("click", openDrawer);
+    closeBtn?.addEventListener("click", closeDrawer);
+    backdrop.addEventListener("click", closeDrawer);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !drawer.hidden) closeDrawer();
+    });
+    drawer.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeDrawer);
+    });
+
+    // Scroll shadow
+    let ticking = false;
+    function handleScroll() {
+      if (window.scrollY > 8) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+      ticking = false;
+    }
+    window.addEventListener("scroll", () => {
+      if (!ticking) { requestAnimationFrame(handleScroll); ticking = true; }
+    }, { passive: true });
+    handleScroll();
+  }
+
+  initHeader();
+  document.addEventListener("astro:after-swap", initHeader);
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: var(--header-h);
+    background: var(--c-bg);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--duration-fast) var(--ease-in-out),
+      box-shadow var(--duration-fast) var(--ease-in-out),
+      background-color var(--duration-normal) var(--ease-in-out);
+  }
+  .site-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--c-bg);
+    opacity: 0.85;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: -1;
+  }
+  .site-header.scrolled {
+    border-bottom-color: var(--c-border);
+    box-shadow: var(--shadow-sm);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    gap: var(--space-md);
+  }
+  .site-title {
+    font-weight: 700;
+    font-size: var(--fs-lg);
+    color: var(--c-text);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: color var(--duration-fast) var(--ease-in-out);
+    flex-shrink: 0;
+  }
+  .site-title:hover { color: var(--c-accent); text-decoration: none; }
+
+  .desktop-nav { display: flex; align-items: center; }
+  .nav-list {
+    display: flex;
+    gap: var(--space-xs);
+    list-style: none;
+  }
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--fs-sm);
+    font-weight: 450;
+    color: var(--c-text-muted);
+    text-decoration: none;
+    padding: 0.35em 0.75em;
+    border-radius: var(--radius-md);
+    transition: color var(--duration-fast) var(--ease-in-out),
+      background var(--duration-fast) var(--ease-in-out);
+  }
+  .nav-link:hover {
+    color: var(--c-text);
+    background: var(--c-accent-subtle);
+    text-decoration: none;
+  }
+  .nav-link.active {
+    color: var(--c-accent);
+    font-weight: 600;
+    background: var(--c-accent-subtle);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-full);
+    background: var(--c-surface);
+    cursor: pointer;
+    transition: border-color var(--duration-fast) var(--ease-in-out);
+  }
+  .hamburger:hover { border-color: var(--c-text-muted); }
+  .hamburger-line {
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--c-text-muted);
+    border-radius: 1px;
+  }
+
+  @media (max-width: 768px) {
+    .desktop-nav { display: none; }
+    .hamburger { display: flex; }
+  }
+
+  /* Backdrop */
+  .drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--c-overlay);
+    animation: fadeIn var(--duration-fast) var(--ease-out) both;
+  }
+  .drawer-backdrop[hidden] { display: none; }
+
+  /* Drawer */
+  .mobile-drawer {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    z-index: 201;
+    width: var(--sidebar-w);
+    max-width: 85vw;
+    background: var(--c-surface);
+    box-shadow: var(--shadow-xl);
+    display: flex;
+    flex-direction: column;
+    animation: slideInRight var(--duration-normal) var(--ease-out) both;
+    overflow-y: auto;
+  }
+  .mobile-drawer[hidden] { display: none; }
+
+  .drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--c-border);
+  }
+  .drawer-title {
+    font-weight: 600;
+    font-size: var(--fs-sm);
+    color: var(--c-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    border: none;
+    background: none;
+    color: var(--c-text-muted);
+    cursor: pointer;
+    border-radius: var(--radius-full);
+    transition: color var(--duration-fast), background var(--duration-fast);
+  }
+  .drawer-close:hover {
+    color: var(--c-text);
+    background: var(--c-accent-subtle);
+  }
+
+  .drawer-links {
+    list-style: none;
+    padding: var(--space-sm) var(--space-md);
+    flex: 1;
+  }
+  .drawer-link {
+    display: flex;
+    align-items: center;
+    padding: var(--space-md);
+    font-size: var(--fs-base);
+    font-weight: 450;
+    color: var(--c-text);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: background var(--duration-fast) var(--ease-in-out);
+  }
+  .drawer-link:hover { background: var(--c-accent-subtle); text-decoration: none; }
+  .drawer-link.active {
+    color: var(--c-accent);
+    font-weight: 600;
+    background: var(--c-accent-subtle);
+  }
+
+  .drawer-footer {
+    padding: var(--space-lg);
+    border-top: 1px solid var(--c-border);
+  }
+  .drawer-socials {
+    display: flex;
+    gap: var(--space-lg);
+    font-size: var(--fs-sm);
+  }
+  .drawer-socials a { color: var(--c-text-muted); text-decoration: none; }
+  .drawer-socials a:hover { color: var(--c-accent); }
+</style>

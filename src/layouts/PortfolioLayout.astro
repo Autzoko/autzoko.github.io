@@ -1,0 +1,156 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import TagList from "@/components/TagList.astro";
+import Lightbox from "@/components/Lightbox.astro";
+import { formatDate } from "@/utils/date";
+import { photoSrc } from "@/utils/images";
+
+interface Photo {
+  src: string;
+  alt?: string;
+  caption?: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  date: Date;
+  tags?: string[];
+  cover: string;
+  photos: Photo[];
+}
+
+const { title, description, date, tags = [], cover, photos } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} class="portfolio-page-main">
+  <article class="portfolio-series">
+    <header class="series-header reveal">
+      <h1>{title}</h1>
+      <div class="series-meta">
+        <time datetime={date.toISOString()}>{formatDate(date)}</time>
+        <span class="portfolio-count">{photos.length} photos</span>
+      </div>
+      <TagList tags={tags} />
+      {description && <p class="series-desc">{description}</p>}
+    </header>
+
+    <div class="prose series-prose reveal">
+      <slot />
+    </div>
+
+    <!-- Masonry-like photo grid -->
+    <div class="portfolio-grid stagger">
+      {
+        photos.map((photo, i) => (
+          <figure class="portfolio-item reveal" data-index={i}>
+            <button
+              class="portfolio-trigger"
+              type="button"
+              aria-label={`View ${photo.alt || `photo ${i + 1}`}`}
+            >
+              <img
+                src={photoSrc(photo.src)}
+                alt={photo.alt || ""}
+                loading={i < 4 ? "eager" : "lazy"}
+                decoding={i < 4 ? "sync" : "async"}
+              />
+            </button>
+            {photo.caption && <figcaption>{photo.caption}</figcaption>}
+          </figure>
+        ))
+      }
+    </div>
+  </article>
+
+  <Lightbox
+    photos={photos.map((p) => ({
+      src: photoSrc(p.src),
+      alt: p.alt || "",
+      caption: p.caption,
+    }))}
+  />
+</BaseLayout>
+
+<style>
+  .portfolio-series {
+    max-width: var(--max-w-wide);
+    margin: var(--space-2xl) auto var(--space-3xl);
+  }
+  .series-header {
+    max-width: var(--max-w-prose);
+    margin: 0 auto var(--space-2xl);
+  }
+  .series-header h1 {
+    font-size: var(--fs-4xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-sm);
+  }
+  .series-meta {
+    display: flex;
+    gap: var(--space-md);
+    font-size: var(--fs-sm);
+    color: var(--c-text-muted);
+    margin-bottom: var(--space-md);
+  }
+  .series-desc {
+    color: var(--c-text-muted);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+  .series-prose {
+    max-width: var(--max-w-prose);
+    margin: 0 auto var(--space-2xl);
+  }
+
+  /* Masonry-like grid using CSS columns */
+  .portfolio-grid {
+    columns: 3;
+    column-gap: var(--space-sm);
+  }
+  .portfolio-item {
+    margin: 0;
+    break-inside: avoid;
+    margin-bottom: var(--space-sm);
+  }
+  .portfolio-trigger {
+    display: block;
+    width: 100%;
+    border: none;
+    padding: 0;
+    background: none;
+    cursor: zoom-in;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .portfolio-trigger img {
+    width: 100%;
+    display: block;
+    border-radius: var(--radius-md);
+    transition: transform var(--duration-normal) var(--ease-out),
+      opacity var(--duration-fast) var(--ease-in-out);
+  }
+  .portfolio-trigger:hover img {
+    transform: scale(1.02);
+    opacity: 0.92;
+  }
+  .portfolio-trigger:active img {
+    transform: scale(1.0);
+  }
+  figcaption {
+    font-size: var(--fs-xs);
+    color: var(--c-text-muted);
+    margin-top: var(--space-xs);
+    padding: 0 var(--space-xs);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 1024px) {
+    .portfolio-grid { columns: 2; }
+  }
+  @media (max-width: 640px) {
+    .portfolio-grid { columns: 1; }
+    .series-header h1 { font-size: var(--fs-2xl); }
+  }
+</style>

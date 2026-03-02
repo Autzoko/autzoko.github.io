@@ -1,0 +1,289 @@
+---
+interface Photo {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+interface Props {
+  photos: Photo[];
+}
+const { photos } = Astro.props;
+---
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <div class="lb-toolbar">
+    <span class="lb-counter" id="lb-counter"></span>
+    <button class="lb-btn lb-close touch-target" type="button" aria-label="Close">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <button class="lb-btn lb-nav lb-prev touch-target" type="button" aria-label="Previous photo">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+  </button>
+
+  <div class="lb-stage" id="lb-stage">
+    <img class="lb-img" id="lb-img" src="" alt="" draggable="false" />
+  </div>
+
+  <button class="lb-btn lb-nav lb-next touch-target" type="button" aria-label="Next photo">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"/>
+    </svg>
+  </button>
+
+  <p class="lb-caption" id="lb-caption"></p>
+</div>
+
+<script define:vars={{ photos }}>
+  function initLightbox() {
+    const lb = document.getElementById("lightbox");
+    const img = document.getElementById("lb-img");
+    const caption = document.getElementById("lb-caption");
+    const counter = document.getElementById("lb-counter");
+    const stage = document.getElementById("lb-stage");
+    if (!lb || !img || !caption || !counter || !stage) return;
+
+    let current = 0;
+    let scale = 1;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchDeltaX = 0;
+    let isSwiping = false;
+
+    function show(index) {
+      current = index;
+      const p = photos[index];
+      scale = 1;
+      img.style.transform = "";
+      img.src = p.src;
+      img.alt = p.alt;
+      caption.textContent = p.caption || "";
+      counter.textContent = `${index + 1} / ${photos.length}`;
+      lb.hidden = false;
+      document.body.style.overflow = "hidden";
+    }
+
+    function hide() {
+      lb.hidden = true;
+      document.body.style.overflow = "";
+      scale = 1;
+      img.style.transform = "";
+    }
+
+    function next() { show((current + 1) % photos.length); }
+    function prev() { show((current - 1 + photos.length) % photos.length); }
+
+    document.querySelectorAll(".portfolio-trigger").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const index = Number(btn.closest("[data-index]")?.dataset?.index ?? 0);
+        show(index);
+      });
+    });
+
+    lb.querySelector(".lb-close")?.addEventListener("click", hide);
+    lb.querySelector(".lb-prev")?.addEventListener("click", prev);
+    lb.querySelector(".lb-next")?.addEventListener("click", next);
+    stage.addEventListener("click", (e) => { if (e.target === stage) hide(); });
+
+    document.addEventListener("keydown", (e) => {
+      if (lb.hidden) return;
+      if (e.key === "Escape") hide();
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    });
+
+    // Touch: swipe to navigate
+    stage.addEventListener("touchstart", (e) => {
+      if (scale > 1) return;
+      const t = e.touches[0];
+      touchStartX = t.clientX;
+      touchStartY = t.clientY;
+      touchDeltaX = 0;
+      isSwiping = false;
+    }, { passive: true });
+
+    stage.addEventListener("touchmove", (e) => {
+      if (scale > 1) return;
+      const t = e.touches[0];
+      const dx = t.clientX - touchStartX;
+      const dy = t.clientY - touchStartY;
+      if (!isSwiping && Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)) {
+        isSwiping = true;
+      }
+      if (isSwiping) {
+        e.preventDefault();
+        touchDeltaX = dx;
+        img.style.transform = `translateX(${dx}px)`;
+        img.style.transition = "none";
+      }
+    }, { passive: false });
+
+    stage.addEventListener("touchend", () => {
+      if (scale > 1 || !isSwiping) return;
+      img.style.transition = "transform 250ms cubic-bezier(0.16,1,0.3,1)";
+      img.style.transform = "";
+      if (touchDeltaX > 60) prev();
+      else if (touchDeltaX < -60) next();
+      isSwiping = false;
+      touchDeltaX = 0;
+    }, { passive: true });
+
+    // Pinch to zoom
+    let pinchDist = 0;
+    let pinchScale = 1;
+
+    stage.addEventListener("touchstart", (e) => {
+      if (e.touches.length === 2) {
+        pinchDist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        pinchScale = scale;
+      }
+    }, { passive: true });
+
+    stage.addEventListener("touchmove", (e) => {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        const d = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        scale = Math.min(Math.max(pinchScale * (d / pinchDist), 1), 4);
+        img.style.transform = `scale(${scale})`;
+        img.style.transition = "none";
+      }
+    }, { passive: false });
+
+    stage.addEventListener("touchend", () => {
+      if (scale <= 1.05) {
+        scale = 1;
+        img.style.transition = "transform 250ms cubic-bezier(0.16,1,0.3,1)";
+        img.style.transform = "";
+      }
+    }, { passive: true });
+
+    // Double-tap zoom/reset
+    let lastTap = 0;
+    stage.addEventListener("touchend", (e) => {
+      if (e.changedTouches.length !== 1) return;
+      const now = Date.now();
+      if (now - lastTap < 300) {
+        if (scale > 1) {
+          scale = 1;
+          img.style.transition = "transform 250ms cubic-bezier(0.16,1,0.3,1)";
+          img.style.transform = "";
+        } else {
+          scale = 2;
+          img.style.transition = "transform 250ms cubic-bezier(0.16,1,0.3,1)";
+          img.style.transform = "scale(2)";
+        }
+      }
+      lastTap = now;
+    }, { passive: true });
+  }
+
+  initLightbox();
+  document.addEventListener("astro:after-swap", initLightbox);
+</script>
+
+<style>
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.94);
+    animation: fadeIn var(--duration-fast) var(--ease-out) both;
+  }
+  .lightbox[hidden] { display: none; }
+
+  .lb-toolbar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-lg);
+    z-index: 2;
+  }
+  .lb-counter {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--fs-sm);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .lb-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    border-radius: var(--radius-full);
+    width: 44px; height: 44px;
+    transition: background var(--duration-fast) var(--ease-in-out),
+      color var(--duration-fast) var(--ease-in-out),
+      transform var(--duration-fast) var(--ease-out);
+    z-index: 2;
+  }
+  .lb-btn:hover { background: rgba(255, 255, 255, 0.15); color: #fff; }
+  .lb-btn:active { transform: scale(0.93); }
+
+  .lb-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .lb-nav:active { transform: translateY(-50%) scale(0.93); }
+  .lb-prev { left: var(--space-md); }
+  .lb-next { right: var(--space-md); }
+
+  .lb-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; height: 100%;
+    padding: 60px var(--space-xl) 80px;
+    touch-action: pan-y;
+    cursor: default;
+  }
+
+  .lb-img {
+    max-width: 100%; max-height: 100%;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    user-select: none;
+    -webkit-user-select: none;
+    transition: transform var(--duration-normal) var(--ease-out);
+    will-change: transform;
+  }
+
+  .lb-caption {
+    position: absolute;
+    bottom: var(--space-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.65);
+    font-size: var(--fs-sm);
+    text-align: center;
+    max-width: 80%;
+    z-index: 2;
+  }
+
+  @media (max-width: 640px) {
+    .lb-nav { display: none; }
+    .lb-stage { padding: 56px var(--space-sm) 60px; }
+  }
+  @media (pointer: coarse) {
+    .lb-stage { touch-action: none; }
+  }
+</style>

@@ -1,0 +1,49 @@
+---
+interface Props {
+  /** px size — controls width/height; CSS handles responsiveness */
+  size?: number;
+  class?: string;
+}
+const { size = 96, class: className } = Astro.props;
+---
+
+<div class:list={["avatar-wrap", className]}>
+  <img
+    src="/images/avatar.png"
+    alt="Langtian Lang"
+    width={size}
+    height={size}
+    loading="eager"
+    decoding="async"
+    class="avatar-img"
+  />
+</div>
+
+<style>
+  .avatar-wrap {
+    flex-shrink: 0;
+  }
+  .avatar-img {
+    width: 96px;
+    height: 96px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    border: 3px solid var(--c-border);
+    box-shadow: var(--shadow-md);
+    transition: border-color var(--duration-fast) var(--ease-in-out),
+      box-shadow var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
+  }
+  .avatar-img:hover {
+    border-color: var(--c-accent);
+    box-shadow: var(--shadow-lg);
+    transform: scale(1.03);
+  }
+
+  @media (max-width: 640px) {
+    .avatar-img {
+      width: 72px;
+      height: 72px;
+    }
+  }
+</style>

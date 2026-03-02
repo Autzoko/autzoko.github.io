@@ -1,0 +1,155 @@
+---
+// Soft ambient blob glow that follows the mouse on pointer devices.
+// - Pure CSS gradients + translate3d (GPU-composited, no repaints)
+// - No canvas / WebGL / heavy libraries
+// - Disabled on touch devices, prefers-reduced-motion, and via user toggle
+// - Content layer stays on top with full contrast
+---
+
+<div class="bg-motion" id="bg-motion" aria-hidden="true">
+  <div class="bg-blob bg-blob-1"></div>
+  <div class="bg-blob bg-blob-2"></div>
+</div>
+<button
+  class="bg-toggle touch-target"
+  id="bg-toggle"
+  type="button"
+  aria-label="Toggle background effect"
+  title="Toggle background effect"
+  hidden
+>
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+  </svg>
+</button>
+
+<script>
+  function initBgMotion() {
+    const container = document.getElementById("bg-motion");
+    const toggle = document.getElementById("bg-toggle");
+    if (!container || !toggle) return;
+
+    // Bail on touch-primary devices
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (isTouch || prefersReduced) {
+      container.style.display = "none";
+      return;
+    }
+
+    // Show toggle on pointer devices
+    toggle.hidden = false;
+
+    // Restore user preference
+    let enabled = localStorage.getItem("bg-motion") !== "off";
+    container.style.opacity = enabled ? "1" : "0";
+    container.style.pointerEvents = "none";
+
+    toggle.addEventListener("click", () => {
+      enabled = !enabled;
+      container.style.opacity = enabled ? "1" : "0";
+      localStorage.setItem("bg-motion", enabled ? "on" : "off");
+    });
+
+    // Mouse tracking — throttled via rAF
+    let raf = 0;
+    const blob1 = container.querySelector(".bg-blob-1") as HTMLElement;
+    const blob2 = container.querySelector(".bg-blob-2") as HTMLElement;
+    if (!blob1 || !blob2) return;
+
+    document.addEventListener("mousemove", (e) => {
+      if (!enabled) return;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const x = e.clientX;
+        const y = e.clientY;
+        // Use translate3d for GPU compositing — no layout/paint cost
+        blob1.style.transform = `translate3d(${x - 300}px, ${y - 300}px, 0)`;
+        blob2.style.transform = `translate3d(${x - 200}px, ${y - 200}px, 0)`;
+      });
+    }, { passive: true });
+  }
+
+  initBgMotion();
+  document.addEventListener("astro:after-swap", initBgMotion);
+</script>
+
+<style>
+  .bg-motion {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity var(--duration-slow) var(--ease-in-out);
+  }
+
+  .bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.15;
+    will-change: transform;
+    /* Smooth follow — the blob lags behind the mouse for a soft feel */
+    transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .bg-blob-1 {
+    width: 600px;
+    height: 600px;
+    background: var(--c-accent);
+    top: 0;
+    left: 0;
+  }
+  .bg-blob-2 {
+    width: 400px;
+    height: 400px;
+    background: #a855f7; /* subtle purple complement */
+    top: 0;
+    left: 0;
+    opacity: 0.10;
+  }
+
+  /* Dark mode: slightly brighter blobs */
+  :global([data-theme="dark"]) .bg-blob-1 { opacity: 0.08; }
+  :global([data-theme="dark"]) .bg-blob-2 { opacity: 0.06; }
+
+  /* Toggle button — bottom-right corner */
+  .bg-toggle {
+    position: fixed;
+    bottom: var(--space-lg);
+    right: var(--space-lg);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-full);
+    background: var(--c-surface);
+    color: var(--c-text-faint);
+    cursor: pointer;
+    transition: color var(--duration-fast), border-color var(--duration-fast),
+      opacity var(--duration-fast);
+    opacity: 0.5;
+  }
+  .bg-toggle:hover {
+    opacity: 1;
+    color: var(--c-text-muted);
+    border-color: var(--c-text-muted);
+  }
+  .bg-toggle[hidden] { display: none; }
+
+  @media (pointer: coarse) {
+    .bg-motion { display: none; }
+    .bg-toggle { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg-motion { display: none; }
+    .bg-toggle { display: none; }
+  }
+</style>

@@ -1,0 +1,103 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { formatDate } from "@/utils/date";
+
+const posts = (await getCollection("work"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Work" description="Projects, papers, and professional notes.">
+  <section class="listing">
+    <h1 class="reveal">Work</h1>
+    <p class="subtitle reveal">Projects, papers, and professional notes.</p>
+
+    {
+      posts.length === 0 ? (
+        <p class="empty">No posts yet. Check back soon!</p>
+      ) : (
+        <ul class="post-list stagger">
+          {posts.map((post, i) => (
+            <li class="reveal">
+              {i > 0 && <hr class="list-divider" />}
+              <a href={`/work/${post.id}/`} class="post-card card-hover">
+                <h2>{post.data.title}</h2>
+                {post.data.description && (
+                  <p class="post-desc">{post.data.description}</p>
+                )}
+                <div class="post-meta">
+                  <time datetime={post.data.date.toISOString()}>
+                    {formatDate(post.data.date)}
+                  </time>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .listing {
+    max-width: var(--max-w-prose);
+    margin: var(--space-2xl) auto var(--space-3xl);
+  }
+  .listing h1 {
+    font-size: var(--fs-4xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-sm);
+  }
+  .subtitle {
+    color: var(--c-text-muted);
+    margin-bottom: var(--space-2xl);
+  }
+  .empty { color: var(--c-text-muted); }
+
+  .post-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .post-card {
+    display: block;
+    text-decoration: none;
+    color: var(--c-text);
+    padding: var(--space-lg);
+  }
+  .post-card:hover { text-decoration: none; }
+  .post-card h2 {
+    font-size: var(--fs-xl);
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+  }
+  .post-desc {
+    color: var(--c-text-muted);
+    font-size: var(--fs-sm);
+    margin-bottom: var(--space-sm);
+    line-height: 1.6;
+  }
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    font-size: var(--fs-sm);
+    color: var(--c-text-muted);
+  }
+
+  .list-divider {
+    border: none;
+    border-top: 1px solid var(--c-border-subtle);
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .listing { margin-top: var(--space-lg); }
+    .listing h1 { font-size: var(--fs-2xl); }
+    .post-card { padding: var(--space-md); }
+  }
+</style>

@@ -1,0 +1,275 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Avatar from "@/components/Avatar.astro";
+import HomeSidebar from "@/components/HomeSidebar.astro";
+import { SITE } from "@/utils/site";
+import { getCollection } from "astro:content";
+
+const recentWork = (await getCollection("work"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const recentLife = (await getCollection("life"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const recentPortfolio = (await getCollection("portfolio"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+}
+---
+
+<BaseLayout>
+  <section class="hero reveal">
+    <div class="hero-intro">
+      <Avatar size={96} />
+      <div>
+        <h1>Hello, I'm <span class="accent">{SITE.author}</span></h1>
+        <p class="tagline">
+          Writer, maker, photographer. This is my corner of the internet.
+        </p>
+      </div>
+    </div>
+    <nav class="hero-links">
+      <a href="/about/" class="hero-link">About me</a>
+      <a href="/work/" class="hero-link">Work</a>
+      <a href="/life/" class="hero-link">Life</a>
+      <a href="/portfolio/" class="hero-link">Portfolio</a>
+    </nav>
+  </section>
+
+  <div class="home-grid">
+    <div class="home-main">
+      {
+        recentWork.length > 0 && (
+          <section class="section reveal">
+            <div class="section-head">
+              <h2 class="section-title"><a href="/work/">Work</a></h2>
+              <a href="/work/" class="section-more">View all &rarr;</a>
+            </div>
+            <ul class="post-list stagger">
+              {recentWork.map((post) => (
+                <li class="reveal">
+                  <a href={`/work/${post.id}/`} class="post-row card-hover">
+                    <span class="post-row-title">{post.data.title}</span>
+                    <time datetime={post.data.date.toISOString()}>
+                      {formatDate(post.data.date)}
+                    </time>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      {
+        recentLife.length > 0 && (
+          <section class="section reveal">
+            <div class="section-head">
+              <h2 class="section-title"><a href="/life/">Life</a></h2>
+              <a href="/life/" class="section-more">View all &rarr;</a>
+            </div>
+            <ul class="post-list stagger">
+              {recentLife.map((post) => (
+                <li class="reveal">
+                  <a href={`/life/${post.id}/`} class="post-row card-hover">
+                    <span class="post-row-title">{post.data.title}</span>
+                    <time datetime={post.data.date.toISOString()}>
+                      {formatDate(post.data.date)}
+                    </time>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      {
+        recentPortfolio.length > 0 && (
+          <section class="section reveal">
+            <div class="section-head">
+              <h2 class="section-title"><a href="/portfolio/">Portfolio</a></h2>
+              <a href="/portfolio/" class="section-more">View all &rarr;</a>
+            </div>
+            <div class="portfolio-previews stagger">
+              {recentPortfolio.map((series) => (
+                <a href={`/portfolio/${series.id}/`} class="portfolio-preview-card reveal">
+                  <div class="portfolio-preview-img-wrap">
+                    <img
+                      src={`/images/portfolio/${series.data.cover}`}
+                      alt={series.data.title}
+                      loading="lazy"
+                    />
+                  </div>
+                  <span class="portfolio-preview-title">{series.data.title}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
+    </div>
+
+    <HomeSidebar />
+  </div>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: var(--space-4xl) 0 var(--space-2xl);
+    max-width: var(--max-w-prose);
+  }
+  .hero-intro {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+  .hero h1 {
+    font-size: var(--fs-5xl);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-xs);
+  }
+  .accent { color: var(--c-accent); }
+  .tagline {
+    font-size: var(--fs-xl);
+    color: var(--c-text-muted);
+    line-height: 1.6;
+  }
+  .hero-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+  .hero-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45em 1em;
+    font-weight: 500;
+    font-size: var(--fs-sm);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-full);
+    color: var(--c-text);
+    transition: background var(--duration-fast) var(--ease-in-out),
+      border-color var(--duration-fast) var(--ease-in-out),
+      color var(--duration-fast) var(--ease-in-out);
+  }
+  .hero-link:hover {
+    background: var(--c-accent-subtle);
+    border-color: var(--c-accent);
+    color: var(--c-accent);
+    text-decoration: none;
+  }
+
+  .home-grid {
+    display: grid;
+    grid-template-columns: 1fr var(--sidebar-w);
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+  .home-main {
+    min-width: 0;
+  }
+
+  .section {
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--c-border);
+    max-width: var(--max-w-prose);
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--space-md);
+  }
+  .section-title {
+    font-size: var(--fs-lg);
+    font-weight: 600;
+  }
+  .section-title a { color: var(--c-text); text-decoration: none; }
+  .section-title a:hover { color: var(--c-accent); }
+  .section-more {
+    font-size: var(--fs-sm);
+    color: var(--c-text-muted);
+  }
+  .section-more:hover { color: var(--c-accent); }
+
+  .post-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+  .post-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    text-decoration: none;
+    color: var(--c-text);
+  }
+  .post-row:hover { text-decoration: none; }
+  .post-row-title { font-weight: 450; }
+  .post-row time {
+    font-size: var(--fs-sm);
+    color: var(--c-text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .portfolio-previews {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-md);
+  }
+  .portfolio-preview-card {
+    text-decoration: none;
+    color: var(--c-text);
+  }
+  .portfolio-preview-card:hover { text-decoration: none; }
+  .portfolio-preview-img-wrap {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .portfolio-preview-card img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+  .portfolio-preview-card:hover img {
+    transform: scale(1.03);
+  }
+  .portfolio-preview-title {
+    display: block;
+    font-size: var(--fs-sm);
+    font-weight: 450;
+    margin-top: var(--space-sm);
+  }
+
+  @media (max-width: 768px) {
+    .home-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: var(--space-2xl) 0 var(--space-lg); }
+    .hero-intro { flex-direction: column; text-align: center; }
+    .hero h1 { font-size: var(--fs-3xl); }
+    .tagline { font-size: var(--fs-base); }
+    .hero-links { justify-content: center; }
+    .post-row { padding: var(--space-sm) 0; }
+  }
+</style>

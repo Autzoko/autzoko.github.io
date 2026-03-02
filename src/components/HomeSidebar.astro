@@ -1,0 +1,165 @@
+---
+import { SIDEBAR } from "@/utils/sidebar";
+
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<aside class:list={["sidebar", className]} aria-label="Sidebar">
+  <div class="sidebar-section reveal">
+    <h3 class="sidebar-heading">Now</h3>
+    <p class="sidebar-now">{SIDEBAR.now}</p>
+  </div>
+
+  <div class="sidebar-section reveal">
+    <h3 class="sidebar-heading">Curated</h3>
+    <ul class="sidebar-curated">
+      {SIDEBAR.curated.map((link) => (
+        <li>
+          <a href={link.href} class="curated-link">
+            <span class="curated-label">{link.label}</span>
+            {link.description && (
+              <span class="curated-desc">{link.description}</span>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="sidebar-section reveal">
+    <blockquote class="sidebar-quote">
+      <p>{SIDEBAR.quote.text}</p>
+      <footer>
+        <cite>
+          {SIDEBAR.quote.author}
+          {SIDEBAR.quote.source && <>, <em>{SIDEBAR.quote.source}</em></>}
+        </cite>
+      </footer>
+    </blockquote>
+  </div>
+
+  <div class="sidebar-location reveal">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+    <span>{SIDEBAR.location.city} &middot; {SIDEBAR.location.country}</span>
+  </div>
+</aside>
+
+<style>
+  .sidebar {
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-xl));
+    max-height: calc(100dvh - var(--header-h) - var(--space-2xl));
+    overflow-y: auto;
+  }
+
+  .sidebar-section {
+    padding: var(--space-lg) 0;
+    border-bottom: 1px solid var(--c-border-subtle);
+  }
+  .sidebar-section:first-child {
+    padding-top: 0;
+  }
+
+  .sidebar-heading {
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--c-text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  /* Now */
+  .sidebar-now {
+    font-size: var(--fs-sm);
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+
+  /* Curated */
+  .sidebar-curated {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+  .curated-link {
+    display: block;
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--c-text);
+    transition: background var(--duration-fast) var(--ease-in-out),
+      transform var(--duration-fast) var(--ease-out);
+  }
+  .curated-link:hover {
+    background: var(--c-accent-subtle);
+    transform: translateX(2px);
+    text-decoration: none;
+  }
+  .curated-label {
+    display: block;
+    font-size: var(--fs-sm);
+    font-weight: 500;
+  }
+  .curated-desc {
+    display: block;
+    font-size: var(--fs-xs);
+    color: var(--c-text-muted);
+    margin-top: 2px;
+    line-height: 1.5;
+  }
+
+  /* Quote */
+  .sidebar-quote {
+    font-family: var(--font-serif);
+    font-size: var(--fs-sm);
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--c-text-muted);
+    padding: 0;
+    border: none;
+    margin: 0;
+  }
+  .sidebar-quote p {
+    margin-bottom: var(--space-sm);
+  }
+  .sidebar-quote footer {
+    font-size: var(--fs-xs);
+    font-style: normal;
+    color: var(--c-text-faint);
+  }
+  .sidebar-quote cite {
+    font-style: normal;
+  }
+
+  /* Location */
+  .sidebar-location {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--fs-xs);
+    color: var(--c-text-faint);
+    padding-top: var(--space-lg);
+  }
+  .sidebar-location svg {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+      position: static;
+      max-height: none;
+      overflow-y: visible;
+      border-top: 1px solid var(--c-border);
+      margin-top: var(--space-xl);
+      padding-top: var(--space-xl);
+    }
+  }
+</style>

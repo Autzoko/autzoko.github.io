@@ -1,0 +1,26 @@
+---
+import PortfolioLayout from "@/layouts/PortfolioLayout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("portfolio");
+  return entries.map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<PortfolioLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  date={entry.data.date}
+  tags={entry.data.tags}
+  cover={entry.data.cover}
+  photos={entry.data.photos}
+>
+  <Content />
+</PortfolioLayout>

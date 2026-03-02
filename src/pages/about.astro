@@ -1,0 +1,97 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Avatar from "@/components/Avatar.astro";
+import { SITE } from "@/utils/site";
+---
+
+<BaseLayout title="About" description={`About ${SITE.author}`}>
+  <article class="about">
+    <h1 class="reveal">About</h1>
+
+    <div class="about-intro reveal">
+      <Avatar size={96} />
+    </div>
+
+    <section class="bio reveal">
+      <p>
+        Welcome! I'm <strong>{SITE.author}</strong> — a writer, maker, and
+        photographer. This site collects my professional work, personal writing,
+        and visual portfolio.
+      </p>
+      <p>
+        I work on [your field]. My interests include [topics]. When I'm
+        not working, I enjoy [hobbies].
+      </p>
+    </section>
+
+    <section class="cv reveal">
+      <h2>CV Highlights</h2>
+
+      <h3>Education</h3>
+      <ul>
+        <li><strong>Ph.D. in [Field]</strong>, University of Example, 2020–present</li>
+        <li><strong>B.S. in [Field]</strong>, Another University, 2016–2020</li>
+      </ul>
+
+      <h3>Selected Publications</h3>
+      <ul>
+        <li>Author et al. "Paper Title." <em>Journal Name</em>, 2024.</li>
+      </ul>
+
+      <h3>Experience</h3>
+      <ul>
+        <li><strong>Research Assistant</strong>, Lab Name, 2020–present</li>
+      </ul>
+
+      <h3>Skills</h3>
+      <p>Python, TypeScript, LaTeX, [add your own]</p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .about {
+    max-width: var(--max-w-prose);
+    margin: var(--space-2xl) auto var(--space-3xl);
+  }
+  .about h1 {
+    font-size: var(--fs-4xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-xl);
+  }
+  .about h2 {
+    font-size: var(--fs-2xl);
+    font-weight: 600;
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--c-border);
+  }
+  .about h3 {
+    font-size: var(--fs-lg);
+    font-weight: 600;
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+  }
+  .about p {
+    margin-bottom: var(--space-md);
+    line-height: 1.8;
+  }
+  .about ul {
+    padding-left: var(--space-xl);
+    margin-bottom: var(--space-md);
+  }
+  .about li {
+    margin-bottom: var(--space-xs);
+    line-height: 1.7;
+  }
+  .about-intro {
+    margin-bottom: var(--space-xl);
+  }
+
+  @media (max-width: 640px) {
+    .about { margin-top: var(--space-lg); }
+    .about h1 { font-size: var(--fs-2xl); }
+  }
+</style>

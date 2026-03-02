@@ -1,0 +1,46 @@
+---
+import SocialLinks from "./SocialLinks.astro";
+import { SITE } from "@/utils/site";
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <SocialLinks class="footer-socials" />
+    <div class="footer-bottom">
+      <p class="copyright">
+        &copy; {new Date().getFullYear()} {SITE.author}
+      </p>
+      <a href="/rss.xml" class="footer-rss">RSS</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: auto;
+    border-top: 1px solid var(--c-border);
+    padding: var(--space-xl) 0;
+    transition: border-color var(--duration-normal) var(--ease-in-out);
+  }
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    font-size: var(--fs-sm);
+    color: var(--c-text-faint);
+  }
+  .footer-rss {
+    color: var(--c-text-faint);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-in-out);
+  }
+  .footer-rss:hover {
+    color: var(--c-text);
+  }
+</style>

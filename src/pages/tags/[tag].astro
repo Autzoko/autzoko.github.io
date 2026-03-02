@@ -1,0 +1,121 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { formatDate } from "@/utils/date";
+
+export async function getStaticPaths() {
+  const allPosts = [
+    ...(await getCollection("work")).map((p) => ({ ...p, section: "work" as const })),
+    ...(await getCollection("life")).map((p) => ({ ...p, section: "life" as const })),
+    ...(await getCollection("portfolio")).map((p) => ({ ...p, section: "portfolio" as const })),
+  ].filter((p) => !p.data.draft);
+
+  const tagSet = new Set<string>();
+  for (const post of allPosts) {
+    for (const tag of post.data.tags) tagSet.add(tag);
+  }
+
+  return [...tagSet].map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: allPosts
+        .filter((p) => p.data.tags.includes(tag))
+        .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
+    },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout title={`Tag: ${tag}`} description={`Posts tagged "${tag}".`}>
+  <section class="tag-page">
+    <h1 class="reveal">
+      Posts tagged <span class="accent">"{tag}"</span>
+    </h1>
+    <p class="count reveal">{posts.length} post{posts.length === 1 ? "" : "s"}</p>
+
+    <ul class="post-list stagger">
+      {
+        posts.map((post: any) => (
+          <li class="reveal">
+            <a href={`/${post.section}/${post.id}/`} class="post-row card-hover">
+              <span class="section-badge">{post.section}</span>
+              <span class="post-row-title">{post.data.title}</span>
+              <time datetime={post.data.date.toISOString()}>
+                {formatDate(post.data.date)}
+              </time>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="back reveal">
+      <a href="/tags/">&larr; All tags</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .tag-page {
+    max-width: var(--max-w-prose);
+    margin: var(--space-2xl) auto var(--space-3xl);
+  }
+  .tag-page h1 {
+    font-size: var(--fs-2xl);
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+  }
+  .accent { color: var(--c-accent); }
+  .count {
+    color: var(--c-text-muted);
+    font-size: var(--fs-sm);
+    margin-bottom: var(--space-xl);
+  }
+
+  .post-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+  .post-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    text-decoration: none;
+    color: var(--c-text);
+  }
+  .post-row:hover { text-decoration: none; }
+  .section-badge {
+    font-size: var(--fs-xs);
+    padding: 0.15em 0.5em;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-sm);
+    color: var(--c-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+  .post-row-title { font-weight: 450; }
+  .post-row time {
+    font-size: var(--fs-sm);
+    color: var(--c-text-muted);
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  .back { margin-top: var(--space-2xl); }
+
+  @media (max-width: 640px) {
+    .tag-page { margin-top: var(--space-lg); }
+    .post-row {
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding: var(--space-sm) 0;
+    }
+    .post-row time { margin-left: 0; }
+  }
+</style>

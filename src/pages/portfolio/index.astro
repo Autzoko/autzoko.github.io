@@ -1,0 +1,118 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { formatDate } from "@/utils/date";
+import { photoSrc } from "@/utils/images";
+
+const series = (await getCollection("portfolio"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Portfolio" description="Curated photography and visual work.">
+  <section class="portfolio-index">
+    <h1 class="reveal">Portfolio</h1>
+    <p class="subtitle reveal">Curated photography and visual work.</p>
+
+    {
+      series.length === 0 ? (
+        <p class="empty">No series yet.</p>
+      ) : (
+        <div class="series-grid stagger">
+          {series.map((s) => (
+            <a href={`/portfolio/${s.id}/`} class="series-card reveal">
+              <div class="series-img-wrap">
+                <img
+                  src={photoSrc(s.data.cover)}
+                  alt={s.data.title}
+                  loading="lazy"
+                />
+              </div>
+              <div class="series-info">
+                <h2>{s.data.title}</h2>
+                <time datetime={s.data.date.toISOString()}>
+                  {formatDate(s.data.date)}
+                </time>
+                {s.data.description && <p>{s.data.description}</p>}
+              </div>
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .portfolio-index {
+    max-width: var(--max-w-content);
+    margin: var(--space-2xl) auto var(--space-3xl);
+  }
+  .portfolio-index h1 {
+    font-size: var(--fs-4xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-sm);
+  }
+  .subtitle {
+    color: var(--c-text-muted);
+    margin-bottom: var(--space-2xl);
+  }
+  .empty { color: var(--c-text-muted); }
+
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-xl);
+  }
+  .series-card {
+    text-decoration: none;
+    color: var(--c-text);
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+  .series-card:hover {
+    text-decoration: none;
+  }
+  .series-img-wrap {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: box-shadow var(--duration-normal) var(--ease-out);
+  }
+  .series-card:hover .series-img-wrap {
+    box-shadow: var(--shadow-lg);
+  }
+  .series-card img {
+    width: 100%;
+    aspect-ratio: 3/2;
+    object-fit: cover;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+  .series-card:hover img {
+    transform: scale(1.03);
+  }
+  .series-info {
+    padding: var(--space-md) var(--space-xs) 0;
+  }
+  .series-info h2 {
+    font-size: var(--fs-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+  }
+  .series-info time {
+    font-size: var(--fs-sm);
+    color: var(--c-text-muted);
+  }
+  .series-info p {
+    font-size: var(--fs-sm);
+    color: var(--c-text-muted);
+    margin-top: var(--space-xs);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 640px) {
+    .portfolio-index { margin-top: var(--space-lg); }
+    .portfolio-index h1 { font-size: var(--fs-2xl); }
+    .series-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
+  }
+</style>

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install @astrojs/mdx @astrojs/sitemap @astrojs/rss astro-seo rehype-katex remark-math katex sharp)",
+      "Bash(node -e \":*)",
+      "Bash(npm run build)",
+      "Bash(ls /Users/langtian/Desktop/Blog/public/images/avatar.*)"
+    ]
+  }
+}

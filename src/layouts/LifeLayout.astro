@@ -1,0 +1,78 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import TagList from "@/components/TagList.astro";
+import { formatDate } from "@/utils/date";
+
+interface Props {
+  title: string;
+  description?: string;
+  date: Date;
+  tags?: string[];
+  lang?: string;
+  style?: string;
+}
+
+const { title, description, date, tags = [], lang, style } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} lang={lang}>
+  <article class:list={["life-post", style && `life-style-${style}`]}>
+    <header class="post-header reveal">
+      <h1>{title}</h1>
+      <div class="post-meta">
+        <time datetime={date.toISOString()}>{formatDate(date)}</time>
+      </div>
+      <TagList tags={tags} />
+    </header>
+    <div class:list={["prose", "life-prose", "reveal"]}>
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .life-post {
+    max-width: 60ch;
+    margin: var(--space-2xl) auto var(--space-3xl);
+  }
+  .post-header {
+    margin-bottom: var(--space-2xl);
+    text-align: center;
+  }
+  .post-header h1 {
+    font-family: var(--font-serif);
+    font-size: var(--fs-4xl);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-md);
+  }
+  .post-meta {
+    font-size: var(--fs-sm);
+    color: var(--c-text-muted);
+    margin-bottom: var(--space-md);
+  }
+  .life-prose {
+    font-family: var(--font-serif);
+    font-size: var(--fs-lg);
+    line-height: 2;
+  }
+
+  /* Poem */
+  .life-style-poem .post-header { margin-bottom: var(--space-3xl); }
+  .life-style-poem .life-prose {
+    text-align: center;
+    line-height: 2.2;
+  }
+  .life-style-poem .life-prose :global(p) { margin-bottom: var(--space-lg); }
+
+  /* Essay */
+  .life-style-essay { max-width: 55ch; }
+  .life-style-essay .life-prose { text-align: justify; }
+
+  @media (max-width: 640px) {
+    .life-post { margin-top: var(--space-lg); }
+    .post-header h1 { font-size: var(--fs-2xl); }
+    .life-prose { font-size: var(--fs-base); }
+  }
+</style>

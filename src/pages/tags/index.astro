@@ -1,0 +1,90 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = [
+  ...(await getCollection("work")),
+  ...(await getCollection("life")),
+  ...(await getCollection("portfolio")),
+].filter((p) => !p.data.draft);
+
+const tagMap = new Map<string, number>();
+for (const post of allPosts) {
+  for (const tag of post.data.tags) {
+    tagMap.set(tag, (tagMap.get(tag) ?? 0) + 1);
+  }
+}
+const tags = [...tagMap.entries()].sort((a, b) => b[1] - a[1]);
+---
+
+<BaseLayout title="Tags" description="Browse posts by tag.">
+  <section class="tags-page">
+    <h1 class="reveal">Tags</h1>
+    {
+      tags.length === 0 ? (
+        <p class="empty">No tags yet.</p>
+      ) : (
+        <ul class="tag-cloud stagger">
+          {tags.map(([tag, count]) => (
+            <li class="reveal">
+              <a href={`/tags/${tag}/`} class="tag-item">
+                {tag}
+                <span class="tag-count">{count}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .tags-page {
+    max-width: var(--max-w-prose);
+    margin: var(--space-2xl) auto var(--space-3xl);
+  }
+  .tags-page h1 {
+    font-size: var(--fs-4xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-xl);
+  }
+  .empty { color: var(--c-text-muted); }
+
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    list-style: none;
+  }
+  .tag-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.4em 0.9em;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-full);
+    font-size: var(--fs-sm);
+    color: var(--c-text);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-in-out),
+      border-color var(--duration-fast) var(--ease-in-out),
+      background var(--duration-fast) var(--ease-in-out);
+  }
+  .tag-item:hover {
+    color: var(--c-accent);
+    border-color: var(--c-accent);
+    background: var(--c-accent-subtle);
+    text-decoration: none;
+  }
+  .tag-count {
+    font-size: var(--fs-xs);
+    color: var(--c-text-faint);
+  }
+
+  @media (max-width: 640px) {
+    .tags-page { margin-top: var(--space-lg); }
+    .tags-page h1 { font-size: var(--fs-2xl); }
+  }
+</style>
