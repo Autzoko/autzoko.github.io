@@ -1,21 +1,16 @@
 ---
-title: "Urban Geometry"
-description: "Lines, shadows, and structures in the city."
+title: "公路"
+description: "紀新疆之行。"
 date: 2025-01-20
-tags: ["architecture", "urban", "black-and-white"]
-cover: "sample-1.jpg"
+tags: ["landscape", "nature"]
+cover: "https://pub-90428e0cbf5443b487ab60da54293eb0.r2.dev/portfolio/xinjiang_niuma.jpg"
 photos:
-  - src: "sample-1.jpg"
-    alt: "Building facade with repeating windows"
-    caption: "Repetition — downtown, January 2025"
-  - src: "sample-2.jpg"
-    alt: "Shadow of a bridge on water"
-    caption: "Under the bridge"
-  - src: "sample-3.jpg"
-    alt: "Staircase from above"
-    caption: "Spiral — parking garage, 3rd floor"
+  - src: "https://pub-90428e0cbf5443b487ab60da54293eb0.r2.dev/portfolio/xinjiang_niuma.jpg"
+    alt: "攝於十八羅漢峰前"
+    caption: "牛馬，自然奴役著，卻使牠們自由。"
+  - src: "https://pub-90428e0cbf5443b487ab60da54293eb0.r2.dev/portfolio/xinjiang_baishahu.jpg"
+    alt: "攝於白沙湖"
+    caption: "白沙水墨，盡自然之理。"
 ---
 
-A short series exploring geometric patterns found in everyday urban environments. Shot over a weekend in January with a 35mm lens.
-
-这组照片探索了城市日常环境中的几何图案。一月的某个周末，用35mm镜头拍摄。
+紀錄新疆南疆公路旅行的片段。公路是我們常人最接近自由的地方，車輪與腳步，更迭不輟。

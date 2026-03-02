@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Avatar from "@/components/Avatar.astro";
 import HomeSidebar from "@/components/HomeSidebar.astro";
 import { SITE } from "@/utils/site";
+import { photoSrc } from "@/utils/images";
 import { getCollection } from "astro:content";
 
 const recentWork = (await getCollection("work"))
@@ -104,7 +105,7 @@ function formatDate(d: Date) {
                 <a href={`/portfolio/${series.id}/`} class="portfolio-preview-card reveal">
                   <div class="portfolio-preview-img-wrap">
                     <img
-                      src={`/images/portfolio/${series.data.cover}`}
+                      src={photoSrc(series.data.cover)}
                       alt={series.data.title}
                       loading="lazy"
                     />

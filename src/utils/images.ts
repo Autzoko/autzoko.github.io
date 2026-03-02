@@ -1,8 +1,11 @@
 /**
  * Image path helper.
- * All portfolio images live under /images/portfolio/ for now.
- * Swap this single function when migrating to an external CDN.
+ * Pass a filename for local images in /images/portfolio/,
+ * or a full URL (e.g. Cloudflare R2) which is returned as-is.
  */
-export function photoSrc(filename: string): string {
-  return `/images/portfolio/${filename}`;
+export function photoSrc(src: string): string {
+  if (src.startsWith("http://") || src.startsWith("https://")) {
+    return src;
+  }
+  return `/images/portfolio/${src}`;
 }
