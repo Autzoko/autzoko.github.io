@@ -34,14 +34,14 @@ export const SIDEBAR: SidebarConfig = {
       description: "First post on the new site",
     },
     {
-      label: "Sample Series",
+      label: "Road",
       href: "/portfolio/sample-series/",
-      description: "Photography collection",
+      description: "Journey to the West",
     },
   ],
   quote: {
-    text: "The details are not the details. They make the design.",
-    author: "Charles Eames",
+    text: "To observe is to begin understanding.",
+    author: "N/A",
   },
   location: {
     city: "New York City",

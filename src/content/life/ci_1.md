@@ -2,7 +2,7 @@
 title: "西江月·停哈德遜河"
 description: "夜晚徬徨，提筆難書。"
 date: 2026-03-02
-tags: ["poem", "詞"]
+tags: ["poem", "lyrics"]
 lang: zh-Hans
 style: poem
 ---

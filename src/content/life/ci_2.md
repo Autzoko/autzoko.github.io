@@ -2,7 +2,7 @@
 title: "青玉案·春"
 description: "新春久難忘，報心登天上。"
 date: 2026-03-02
-tags: ["poem", "詞"]
+tags: ["poem", "lyrics"]
 lang: zh-Hans
 style: poem
 ---
